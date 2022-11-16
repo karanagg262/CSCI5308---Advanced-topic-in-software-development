@@ -1,4 +1,4 @@
-image: maven:3-jdk-8
+image: maven:3.8.3-openjdk-17
 
 stages:
     - build
@@ -13,5 +13,6 @@ cache:
 
 maven-build-stage:
     stage: build
-    script: cd app/
-    script: mvn clean install
+    script: 
+      - echo $JAVA_HOME
+      - mvn clean install
