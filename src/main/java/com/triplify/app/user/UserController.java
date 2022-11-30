@@ -1,5 +1,6 @@
 package com.triplify.app.user;
 
+import com.triplify.app.user.model.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
