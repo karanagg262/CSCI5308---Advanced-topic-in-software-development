@@ -1,22 +1,44 @@
-package com.triplify.app.user;
+package com.triplify.app.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.Period;
 
+import static javax.persistence.GenerationType.AUTO;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    private Long id;
+    @Column(unique = true)
+    @NotEmpty(message = "Username cannot be empty")
     private String username;
+    @Column(unique = true)
+    @NotEmpty(message = "email cannot be empty")
+    private String email;
+    @NotEmpty(message = "First name cannot be empty")
     private String first_name;
     private String last_name;
+    @NotEmpty(message = "I think therefore, I am.")
     private LocalDate dob;
+    @NotEmpty(message = "Remember what you were assigned at birth.")
     private String gender;
     private int age;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -78,42 +100,6 @@ public class User {
 
     private String address;
 
-    public User(){}
-
-    public User(
-            String username,
-            String first_name,
-            String last_name,
-            LocalDate dob,
-            String gender,
-            String address) {
-        this.username = username;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.dob = dob;
-        this.gender = gender;
-        this.age = calculateAge(dob);
-        this.address = address;
-    }
-
-    public User(
-            int id,
-            String username,
-            String first_name,
-            String last_name,
-            LocalDate dob,
-            String gender,
-            String address)
-    {
-        this.id = id;
-        this.username = username;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.dob = dob;
-        this.gender = gender;
-        this.age = calculateAge(dob);
-        this.address = address;
-    }
 
     @Override
     public String toString() {
