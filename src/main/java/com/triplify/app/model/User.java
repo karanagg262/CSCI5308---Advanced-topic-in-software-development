@@ -1,4 +1,4 @@
-package com.triplify.app.user.model;
+package com.triplify.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
