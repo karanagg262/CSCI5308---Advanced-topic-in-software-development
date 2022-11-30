@@ -28,7 +28,9 @@ public class User {
     @NotEmpty(message = "First name cannot be empty")
     private String first_name;
     private String last_name;
+    @NotEmpty(message = "I think therefore, I am.")
     private LocalDate dob;
+    @NotEmpty(message = "Remember what you were assigned at birth.")
     private String gender;
     private int age;
 
