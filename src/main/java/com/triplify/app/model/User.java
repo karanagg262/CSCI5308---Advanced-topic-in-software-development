@@ -19,6 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = AUTO)
     private Long id;
+    
     @Column(unique = true)
     @NotEmpty(message = "Username cannot be empty")
     private String username;
