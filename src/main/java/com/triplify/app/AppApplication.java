@@ -8,7 +8,11 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class AppApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AppApplication.class, args);
+        try {
+            SpringApplication.run(AppApplication.class, args);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
     }
 }
-
