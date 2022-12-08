@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-public class AppApplication {
+public class Triplify {
 
     public static void main(String[] args) {
         try {
-            SpringApplication.run(AppApplication.class, args);
+            SpringApplication.run(Triplify.class, args);
         }
         catch (Exception e){
             System.out.println(e);
