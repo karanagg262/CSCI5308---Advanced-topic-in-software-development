@@ -110,7 +110,7 @@ public class User {
                 ", last_name='" + last_name + '\'' +
                 ", dob=" + dob +
                 ", gender='" + gender + '\'' +
-                ", age=" + age +
+                ", age=" + calculateAge(dob) +
                 ", address='" + address + '\'' +
                 '}';
     }
