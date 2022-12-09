@@ -34,8 +34,9 @@ public class UserController {
                         "UPDATE "+ user_table + " SET " + user_table_is_logged_in + " = true " +
                                 "WHERE " + user_table_email_address + " = '" +user.getEmailAddress() + "' ";
 
-                try(final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
-                    final Statement statement = connection.createStatement()){
+                try{
+                    Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+                    Statement statement = connection.createStatement();
 
                     final int rowUpdated =
                             statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
@@ -73,6 +74,10 @@ public class UserController {
 
                 UserTable userTable = new UserTable(id,firstname,lastname,emailAddress,password,isLoggedIn);
                 listOfUserTables.add(userTable);
+            }
+
+            if(connection!=null){
+                connection.close();
             }
 
         } catch (SQLException e) {
