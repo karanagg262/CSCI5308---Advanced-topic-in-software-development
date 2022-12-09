@@ -230,5 +230,6 @@ gradle-app.setting
 *.hprof
 app.iml
 frontend/package-lock.json
-
+frontend/node
+frontend/node_modules
 # End of https://www.toptal.com/developers/gitignore/api/netbeans,intellij,visualstudiocode,java,react,maven,gradle
