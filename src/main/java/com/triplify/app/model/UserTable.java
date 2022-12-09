@@ -1,9 +1,6 @@
 package com.triplify.app.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,6 +21,10 @@ public class UserTable {
     private boolean isLoggedIn;
     @NotNull
     private String password;
+
+    @Lob
+    @Column(name="prof_pic")
+    private byte[] profPic;
 
     public UserTable(){
 
@@ -81,6 +82,15 @@ public class UserTable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public byte[] getProfPicPath() {
+        return profPic;
+    }
+
+    public void setProfPicPath(byte[] profPic) {
+        System.out.println(profPic);
+        this.profPic = profPic;
+        System.out.println(this.profPic);
     }
 
     @Override
