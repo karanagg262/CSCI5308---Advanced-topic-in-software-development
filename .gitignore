@@ -229,5 +229,6 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 app.iml
+frontend/package-lock.json
 
 # End of https://www.toptal.com/developers/gitignore/api/netbeans,intellij,visualstudiocode,java,react,maven,gradle
