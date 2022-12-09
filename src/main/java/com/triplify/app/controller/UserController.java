@@ -4,7 +4,9 @@ import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.model.UserTable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -71,7 +73,8 @@ public class UserController {
                 String password = resultSet.getString("password");
                 boolean isLoggedIn = resultSet.getBoolean("is_logged_in");
 
-                UserTable userTable = new UserTable(id,firstname,lastname,emailAddress,password,isLoggedIn);
+//                UserTable userTable = new UserTable(id,firstname,lastname,emailAddress,password,isLoggedIn);
+                UserTable userTable = new UserTable();
                 listOfUserTables.add(userTable);
             }
 
@@ -81,11 +84,14 @@ public class UserController {
         return listOfUserTables;
     }
 
-    @PostMapping("/users/register")
-    public String register(@RequestParam("firstname") String firstname,
-                            @RequestParam("lastname") String lastname,
-                            @RequestParam("emailAddress") String emailAddress,
-                            @RequestParam("password") String password) throws DatabaseExceptionHandler{
+    @PostMapping(value = "/users/register", consumes = {"multipart/form-data"})
+    public String register( @RequestParam("username") String username,
+                            @RequestParam("first_name") String firstname,
+                            @RequestParam("last_name") String lastname,
+                            @RequestParam("email") String emailAddress,
+                            @RequestParam("password") String password,
+                            @RequestParam("dob") String dob,
+                            @RequestParam("avatar") MultipartFile imageFile) throws DatabaseExceptionHandler{
 
         UserTable userTable = new UserTable();
         userTable.setFirstname(firstname);
@@ -93,6 +99,14 @@ public class UserController {
         userTable.setEmailAddress(emailAddress);
         userTable.setPassword(password);
         userTable.setLoggedIn(false);
+        userTable.setUsername(username);
+        userTable.setDob(dob);
+        try{
+            byte[] img = imageFile.getBytes();
+            userTable.setProfPicPath(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         List<UserTable> listOfUsers = getAllUsers();
         for(UserTable user : listOfUsers){

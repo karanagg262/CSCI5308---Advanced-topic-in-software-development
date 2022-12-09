@@ -25,17 +25,20 @@ public class UserTable {
     @Lob
     @Column(name="prof_pic")
     private byte[] profPic;
+    private String username;
+    private String dob;
 
     public UserTable(){
 
     }
 
-    public UserTable(Long id, String firstname, String lastname, String emailAddress, String password, boolean isLoggedIn) {
+    public UserTable(Long id, String firstname, String lastname, String emailAddress, String password, byte[] profPic, boolean isLoggedIn) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.emailAddress = emailAddress;
         this.password = password;
+        this.profPic = profPic;
         this.isLoggedIn = isLoggedIn;
     }
 
@@ -119,5 +122,13 @@ public class UserTable {
                 ", emailAddress='" + emailAddress + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }
