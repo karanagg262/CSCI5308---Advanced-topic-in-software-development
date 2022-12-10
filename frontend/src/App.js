@@ -1,12 +1,23 @@
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import Button from '@material-ui/core/Button';
 import { useState } from 'react';
-import './App.css';
+import SignUpDialog from './components/Modals/SignUpDialog';
 
 function App() {
 
   const [alreadyRegistered, updateAuthType] = useState(true);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const theme = createTheme({});
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <div className='page-header'>
         Triplify
       </div>
@@ -18,8 +29,9 @@ function App() {
             null
             :
             <>
-              <input className="first-name" placeholder='First Name' />
-              <input className="last-name"  placeholder='Last Name' />
+              <div className='App'>
+              
+              </div>
             </>
           }
           <br />
@@ -34,17 +46,14 @@ function App() {
                 }
               }}
             >Login</div>
-            <div className={alreadyRegistered ? 'register-btn' : 'register-btn-selected'}
-              onClick={() => {
-                if (alreadyRegistered) {
-                  updateAuthType(false);
-                }
-              }}
-            >Register</div>
+            <Button variant="contained" color="primary" onClick={handleOpen}>
+                Signup
+              </Button>
+              <SignUpDialog open={open} handleClose={handleClose} />
           </div>
         </div>
       </div>
-    </>
+      </ThemeProvider>
   );
 }
 
