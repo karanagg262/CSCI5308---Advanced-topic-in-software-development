@@ -1,6 +1,3 @@
-import { createTheme } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import Button from '@material-ui/core/Button';
 import { useState } from 'react';
 import './App.css';
 import { URL } from './Constants';
@@ -13,15 +10,7 @@ function App() {
   const [lastname, updateLastName] = useState("");
   const [email, updateEmail] = useState("");
   const [password, updatePassword] = useState("");
-  const [open, setOpen] = useState(false);
   let navigate = useNavigate();
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const theme = createTheme({});
 
 
   const onLogin = () => {
