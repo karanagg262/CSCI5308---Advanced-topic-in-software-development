@@ -1,9 +1,12 @@
 package com.triplify.app.model;
 
 import javax.persistence.*;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Objects;
 
 @Entity
@@ -24,18 +27,46 @@ public class UserTable {
 
     @Lob
     @Column(name="prof_pic")
-    private byte[] profPic;
+    private Blob profPic;
+
+    private byte[] profPicBytes;
+    private String username;
+    private String dob;
+
+    public Blob getProfPicBlob() {
+        try {
+            Blob blob = new SerialBlob(this.profPicBytes);
+            return blob;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setProfPic(byte[] profPic) {
+        this.profPicBytes = profPic;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
 
     public UserTable(){
 
     }
 
-    public UserTable(Long id, String firstname, String lastname, String emailAddress, String password, boolean isLoggedIn) {
+    public UserTable(Long id, String username, String firstname, String lastname, String emailAddress, String password, boolean isLoggedIn, Blob profPic) {
         this.id = id;
+        this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
         this.emailAddress = emailAddress;
         this.password = password;
+        this.profPic = profPic;
         this.isLoggedIn = isLoggedIn;
     }
 
@@ -83,15 +114,6 @@ public class UserTable {
     public void setPassword(String password) {
         this.password = password;
     }
-    public byte[] getProfPicPath() {
-        return profPic;
-    }
-
-    public void setProfPicPath(byte[] profPic) {
-        System.out.println(profPic);
-        this.profPic = profPic;
-        System.out.println(this.profPic);
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -119,5 +141,15 @@ public class UserTable {
                 ", emailAddress='" + emailAddress + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }

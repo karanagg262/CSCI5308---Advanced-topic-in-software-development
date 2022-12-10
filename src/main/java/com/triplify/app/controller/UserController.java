@@ -4,11 +4,11 @@ import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.model.UserTable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +34,9 @@ public class UserController {
                         "UPDATE "+ user_table + " SET " + user_table_is_logged_in + " = true " +
                                 "WHERE " + user_table_email_address + " = '" +user.getEmailAddress() + "' ";
 
-                try(final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
-                    final Statement statement = connection.createStatement()){
+                try{
+                    Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+                    Statement statement = connection.createStatement();
 
                     final int rowUpdated =
                             statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
@@ -65,14 +66,20 @@ public class UserController {
 
             while (resultSet.next()){
                 Long id = resultSet.getLong("id");
+                String username = resultSet.getString("username");
                 String firstname = resultSet.getString("firstname");
                 String lastname = resultSet.getString("lastname");
                 String emailAddress = resultSet.getString("email_address");
                 String password = resultSet.getString("password");
                 boolean isLoggedIn = resultSet.getBoolean("is_logged_in");
+                Blob image = resultSet.getBlob("image");
 
-                UserTable userTable = new UserTable(id,firstname,lastname,emailAddress,password,isLoggedIn);
+                UserTable userTable = new UserTable(id,username,firstname,lastname,emailAddress,password,isLoggedIn, image);
                 listOfUserTables.add(userTable);
+            }
+
+            if(connection!=null){
+                connection.close();
             }
 
         } catch (SQLException e) {
@@ -81,11 +88,14 @@ public class UserController {
         return listOfUserTables;
     }
 
-    @PostMapping("/users/register")
-    public String register(@RequestParam("firstname") String firstname,
-                            @RequestParam("lastname") String lastname,
-                            @RequestParam("emailAddress") String emailAddress,
-                            @RequestParam("password") String password) throws DatabaseExceptionHandler{
+    @PostMapping(value = "/users/register", consumes = {"multipart/form-data"})
+    public String register( @RequestParam("username") String username,
+                            @RequestParam("first_name") String firstname,
+                            @RequestParam("last_name") String lastname,
+                            @RequestParam("email") String emailAddress,
+                            @RequestParam("password") String password,
+                            @RequestParam("dob") String dob,
+                            @RequestParam("avatar") MultipartFile imageFile) throws DatabaseExceptionHandler{
 
         UserTable userTable = new UserTable();
         userTable.setFirstname(firstname);
@@ -93,11 +103,24 @@ public class UserController {
         userTable.setEmailAddress(emailAddress);
         userTable.setPassword(password);
         userTable.setLoggedIn(false);
+        userTable.setUsername(username);
+        userTable.setDob(dob);
+        try{
+            byte[] img = imageFile.getBytes();
+            try {
+                Blob imgblob = new SerialBlob(img);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            userTable.setProfPic(img);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         List<UserTable> listOfUsers = getAllUsers();
         for(UserTable user : listOfUsers){
-            if(user.equals(userTable)){
-                System.out.println("User is already exists!!");
+            if(user.getUsername().equals(userTable.getUsername())){
+                System.out.println("User already exists!!");
                 return "USER_ALREADY_EXISTS";
             }
         }
@@ -105,9 +128,8 @@ public class UserController {
         try(final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
             final Statement statement = connection.createStatement()){
 
-            final String insertQuery = userRegistrationQueryBuild.insertQuery(userTable);
             final int rowInserted =
-                    statement.executeUpdate(insertQuery, Statement.RETURN_GENERATED_KEYS);
+                    userRegistrationQueryBuild.insertQuery(userTable, connection);
 
             if(rowInserted > 0){
                 System.out.println("Yes row is inserted !!");

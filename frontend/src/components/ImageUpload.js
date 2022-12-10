@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import { Box } from "@mui/material";
 
-const ImageUpload = () => {
+const ImageUpload = ({childToParent}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
+      childToParent(selectedImage);
     }
-  }, [selectedImage]);
+  }, [childToParent, selectedImage]);
 
   return (
     <>
