@@ -7,6 +7,9 @@ public class UserDatabaseConstant {
     public static final String user_table_id =
             "id";
 
+    public static final String user_table_username =
+            "username";
+
     public static final String user_table_first_name =
             "firstname";
 
@@ -21,5 +24,8 @@ public class UserDatabaseConstant {
 
     public static final String user_table_is_logged_in =
             "is_logged_in";
+
+    public static final String user_image =
+            "image";
 }
 
