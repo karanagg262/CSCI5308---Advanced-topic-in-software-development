@@ -1,23 +1,52 @@
-import { createTheme } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import Button from '@material-ui/core/Button';
 import { useState } from 'react';
-import SignUpDialog from './components/Modals/SignUpDialog';
+import './App.css';
+import { URL } from './Constants';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
 
   const [alreadyRegistered, updateAuthType] = useState(true);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const theme = createTheme({});
+  const [firstname, updateFirstName] = useState("");
+  const [lastname, updateLastName] = useState("");
+  const [email, updateEmail] = useState("");
+  const [password, updatePassword] = useState("");
+  let navigate = useNavigate();
+
+
+  const onLogin = () => {
+    console.log("Login");
+    console.log(email);
+    console.log(password);
+
+    fetch(URL + 'users/login?emailAddress=' + email + '&password=' + password, {
+      method: 'POST',
+
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+  }
+
+  const onRegister = () => {
+    console.log("Register");
+    console.log(firstname);
+    console.log(lastname);
+    console.log(email);
+    console.log(password);
+
+    navigate('/home');
+    fetch(URL + 'users/register?firstname=' + firstname + '&lastname=' + lastname + '&emailAddress=' + email + '&password=' + password, {
+      method: 'POST',
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+  }
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <div className='page-header'>
         Triplify
       </div>
@@ -29,31 +58,37 @@ function App() {
             null
             :
             <>
-              <div className='App'>
-              
-              </div>
+              <input className="first-name" placeholder='First Name' value={firstname} onChange={e => updateFirstName(e.target.value)} />
+              <input className="last-name" placeholder='Last Name' value={lastname} onChange={e => updateLastName(e.target.value)} />
             </>
           }
           <br />
-          <input className="email" placeholder='Email' />
+          <input className="email" placeholder='Email' value={email} onChange={e => updateEmail(e.target.value)} />
           <br />
-          <input className="password" placeholder='Password' />
+          <input className="password" placeholder='Password' value={password} onChange={e => updatePassword(e.target.value)} />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '15px', marginBottom: '30px', marginInline: '30px', alignItems: 'center' }}>
             <div className={alreadyRegistered ? 'login-btn-selected' : 'login-btn'}
               onClick={() => {
                 if (!alreadyRegistered) {
                   updateAuthType(true);
+                } else {
+                  onLogin();
                 }
               }}
             >Login</div>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-                Signup
-              </Button>
-              <SignUpDialog open={open} handleClose={handleClose} />
+            <div className={alreadyRegistered ? 'register-btn' : 'register-btn-selected'}
+              onClick={() => {
+                if (alreadyRegistered) {
+                  updateAuthType(false);
+                } else {
+                  onRegister();
+                }
+              }}
+            >Register</div>
           </div>
         </div>
       </div>
-      </ThemeProvider>
+    </>
   );
 }
 
