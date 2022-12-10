@@ -17,12 +17,12 @@ import java.util.List;
 public class AddExpensesController {
     private List<Expenses> addUserExpense = new ArrayList<>();
     @PostMapping("/addexpenses")
-    public void postexpense(@RequestBody AddExpenses expenses) throws DatabaseExceptionHandler, SQLException {
+    public void postExpense(@RequestBody AddExpenses expenses) throws DatabaseExceptionHandler, SQLException {
 
-        splitexpenses(expenses);
+        splitExpenses(expenses);
     }
 
-    public void splitexpenses(AddExpenses expenses) throws DatabaseExceptionHandler, SQLException {
+    public void splitExpenses(AddExpenses expenses) throws DatabaseExceptionHandler, SQLException {
         ArrayList<Long> useridlist = expenses.getUseridlist();
         int size = useridlist.size();
         float split = expenses.getAmount()/size;
@@ -48,7 +48,6 @@ public class AddExpensesController {
 
         Connection connection =
                 DatabaseConnection.getInstance().getDatabaseConnection();
-        Statement statement = connection.createStatement();
 
         try {
         Expenses expense = new Expenses();
@@ -69,6 +68,25 @@ public class AddExpensesController {
             System.out.println("Yes row is inserted !!");
         }
         if(connection!=null){
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @PostMapping("/settleexpenses")
+    public void settleExpense(@RequestBody Expenses expenses) throws DatabaseExceptionHandler, SQLException {
+        Connection connection =
+                DatabaseConnection.getInstance().getDatabaseConnection();
+        try {
+            expenses.setAmount(expenses.getAmount()*-1);
+            final int rowInserted =
+                    AddExpensesQueryBuilder.insertExpenseQuery(expenses, connection);
+
+            if(rowInserted > 0){
+                System.out.println("Yes row is inserted !!");
+            }
+            if(connection!=null){
                 connection.close();
             }
         } catch (SQLException e) {
