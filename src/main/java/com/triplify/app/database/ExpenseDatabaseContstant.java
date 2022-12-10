@@ -20,6 +20,8 @@ public class ExpenseDatabaseContstant {
             "currency";
     public static final String expenses_table_id_group_details =
             "id_group_details";
-    public static final String expenses_table_user_id =
-            "user_id";
+    public static final String expenses_table_from_user_id =
+            "from_user_id";
+    public static final String expenses_table_to_user_id =
+            "to_user_id";
 }

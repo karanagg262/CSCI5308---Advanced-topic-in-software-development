@@ -3,7 +3,6 @@ package com.triplify.app.controller;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.model.GroupDetails;
-import com.triplify.app.model.UserTable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.transform.Result;
