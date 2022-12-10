@@ -58,7 +58,8 @@ public class AddExpensesController {
         expense.setAmount(splittedAmount);
         expense.setCurrency(expenses.getCurrency());
         expense.setGroupid(expenses.getGroupid());
-        expense.setUserid(useridlist);
+        expense.setFromuserid(expenses.getPaidbyuserid());
+        expense.setTouserid(useridlist);
         addUserExpense.add(expense);
 
         final int rowInserted =
@@ -73,6 +74,5 @@ public class AddExpensesController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        // Write DB code to add them
     }
 }

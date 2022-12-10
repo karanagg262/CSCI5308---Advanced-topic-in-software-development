@@ -30,8 +30,11 @@ public class Expenses {
     @Column(name = "currency")
     private String currency;
 
-    @Column(name = "userid")
-    private Long userid;
+    @Column(name = "fromuserid")
+    private Long fromuserid;
+
+    @Column(name = "touserid")
+    private Long touserid;
 
     @Column(name = "groupid")
     private Long groupid;
@@ -84,11 +87,19 @@ public class Expenses {
         this.currency = currency;
     }
 
-    public Long getUserid() {
-        return userid;
+    public Long getFromuserid() {
+        return fromuserid;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setFromuserid(Long fromuserid) {
+        this.fromuserid = fromuserid;
+    }
+
+    public Long getTouserid() {
+        return touserid;
+    }
+
+    public void setTouserid(Long touserid) {
+        this.touserid = touserid;
     }
 }
