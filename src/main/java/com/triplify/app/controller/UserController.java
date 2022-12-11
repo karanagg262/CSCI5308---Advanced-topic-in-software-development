@@ -6,13 +6,12 @@ import com.triplify.app.model.UserTable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import static com.triplify.app.database.UserDatabaseConstant.*;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -22,34 +21,24 @@ public class UserController {
             = new UserRegistrationQueryBuilder();
 
     @PostMapping("users/login")
-    public String loginUser(@RequestParam("emailAddress") String emailAddress,
+    public Map<String, Object> loginUser(@RequestParam("emailAddress") String username,
                             @RequestParam("password") String password) throws DatabaseExceptionHandler {
         List<UserTable> listOfUsers = getAllUsers();
-
+        Map<String, Object> response = new HashMap<>();
         for(UserTable user : listOfUsers){
-            if(user.getEmailAddress().equalsIgnoreCase(emailAddress) &&
+            if(user.getEmailAddress().equalsIgnoreCase(username) &&
                 user.getPassword().equalsIgnoreCase(password)){
                 user.setLoggedIn(true);
-                String query =
-                        "UPDATE "+ user_table + " SET " + user_table_is_logged_in + " = true " +
-                                "WHERE " + user_table_email_address + " = '" +user.getEmailAddress() + "' ";
-
-                try{
-                    Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
-                    Statement statement = connection.createStatement();
-
-                    final int rowUpdated =
-                            statement.executeUpdate(query,Statement.RETURN_GENERATED_KEYS);
-
-                    if(rowUpdated > 0){
-                        return "LOGGED_IN_SUCCESSFULLY_DONE";
-                    }
-                }catch (Exception e){
-                    System.out.println(e.getMessage());
-                }
+                response.put("SUCCESS", true);
+                response.put("USERNAME", username);
+                response.put("MESSAGE", "Login successful");
+            }
+            else{
+                response.put("SUCCESS", false);
+                response.put("MESSAGE", "Incorrect username or password");
             }
         }
-        return "SOMETHING_WENT_WRONG";
+        return response;
     }
 
     @GetMapping("/users")
@@ -78,9 +67,7 @@ public class UserController {
                 listOfUserTables.add(userTable);
             }
 
-            if(connection!=null){
-                connection.close();
-            }
+            connection.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -105,16 +92,12 @@ public class UserController {
         userTable.setLoggedIn(false);
         userTable.setUsername(username);
         userTable.setDob(dob);
-        try{
-            byte[] img = imageFile.getBytes();
-            try {
-                Blob imgblob = new SerialBlob(img);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+        byte[] img = new byte[0];
+        try {
+            img = imageFile.getBytes();
             userTable.setProfPic(img);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         List<UserTable> listOfUsers = getAllUsers();
