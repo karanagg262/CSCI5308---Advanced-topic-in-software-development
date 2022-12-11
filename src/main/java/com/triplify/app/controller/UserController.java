@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/users/register", consumes = {"multipart/form-data"})
-    public String register( @RequestParam("username") String username,
+    public Map<String, Object> register( @RequestParam("username") String username,
                             @RequestParam("first_name") String firstname,
                             @RequestParam("last_name") String lastname,
                             @RequestParam("email") String emailAddress,
@@ -101,10 +101,13 @@ public class UserController {
         }
 
         List<UserTable> listOfUsers = getAllUsers();
+        Map<String, Object> response = new HashMap<>();
         for(UserTable user : listOfUsers){
             if(user.getUsername().equals(userTable.getUsername())){
-                System.out.println("User already exists!!");
-                return "USER_ALREADY_EXISTS";
+                response.put("MESSAGE", "User already exists!");
+                response.put("REDIRECT", true);
+                response.put("USERNAME", username);
+                response.put("SUCCESS", false);
             }
         }
 
@@ -115,13 +118,16 @@ public class UserController {
                     userRegistrationQueryBuild.insertQuery(userTable, connection);
 
             if(rowInserted > 0){
-                System.out.println("Yes row is inserted !!");
+                System.out.println("User record inserted into DB");
             }
-            return "SUCCESSFULLY_REGISTERED";
+            response.put("SUCCESS", true);
+            response.put("MESSAGE", "registration successful");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return "REGISTRATION_FAILED";
+            response.put("SUCCESS", false);
+            response.put("MESSAGE", "Registration failed");
         }
+        return response;
     }
 }
