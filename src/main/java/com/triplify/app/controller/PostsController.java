@@ -1,31 +1,79 @@
 package com.triplify.app.controller;
 
+import com.triplify.app.database.DatabaseConnection;
+import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.model.Post;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.triplify.app.database.PostDatabaseConstant.*;
+
 @RestController
-@RequestMapping("/allposts")
+@RequestMapping("api/v1/allposts")
 public class PostsController {
 
+    PostQueryBuilder postQueryBuilder = new PostQueryBuilder();
     @GetMapping("/posts")
-    public List<Post> getPosts(){
-        List<Post> posts= new ArrayList<>();
+    public List<Post> getPosts() throws DatabaseExceptionHandler, SQLException {
+        Connection connection =
+                DatabaseConnection.getInstance().getDatabaseConnection();
+        List<Post> posts = new ArrayList<>();
+        try {
+        ResultSet postsResultSet =
+                connection.createStatement().executeQuery("select * from post");
+
+        while (postsResultSet.next()){
+            Long id = postsResultSet.getLong(""+post_table_id);
+            String destination = postsResultSet.getString(""+post_table_destination);
+            Blob image = postsResultSet.getBlob(""+post_table_image);
+            String details = postsResultSet.getString(""+post_table_details);
+            Date posted_date = postsResultSet.getDate(""+post_table_posted_date);
+            Long userid = postsResultSet.getLong(""+post_table_userid);
+            System.out.println("karan"+image);
+            Post post = new Post(id, destination, image, details, posted_date, userid, image.getBytes(1, (int) image.length()));
+            posts.add(post);
+        }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         return posts;
     }
 
-    @GetMapping("/posts/{id}")
-    public Post getPostById(){
-        return new Post();
+    @PostMapping("/savepost")
+    public void savePost( @RequestParam("destination") String destination,
+                          @RequestParam("details") String details,
+                          @RequestParam("postedDate") Date postedDate,
+                          @RequestParam("userid") Long userid,
+                          @RequestParam("image") MultipartFile imageFile) throws DatabaseExceptionHandler, IOException {
+
+        Post post = new Post();
+        post.setDestination(destination);
+        post.setDetails(details);
+        post.setPostedDate(postedDate);
+        post.setUserid(userid);
+        post.setPostImageBytes(imageFile.getBytes());
+
+        try(final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+            final Statement statement = connection.createStatement()){
+
+            final int rowInserted =
+                    postQueryBuilder.insertPostQuery(post, connection);
+
+            if(rowInserted > 0){
+                System.out.println("Yes row is inserted !!");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
-
-   @PostMapping()
-    public void savePost(){
-
-   }
 }
