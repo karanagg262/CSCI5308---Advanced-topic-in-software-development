@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
@@ -31,7 +32,6 @@ public class UserTable {
     private Blob profPic;
 
     private byte[] profPicBytes;
-    private String username;
     private String dob;
 
     public Blob getProfPicBlob() {
@@ -76,14 +76,6 @@ public class UserTable {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public String toString() {
         return "UserTable{" +
@@ -94,7 +86,7 @@ public class UserTable {
                 ", isLoggedIn=" + isLoggedIn +
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
-                ", profPic=" + Arrays.toString(profPic) +
+                ", profPic=" + Arrays.toString(new Blob[]{profPic}) +
                 '}';
     }
 
@@ -156,19 +148,6 @@ public class UserTable {
     public void setLoggedIn(boolean loggedIn) {
         this.isLoggedIn = loggedIn;
     }
-
-    @Override
-    public String toString() {
-        return "UserTable{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-
 
     public void setUsername(String username) {
         this.username = username;

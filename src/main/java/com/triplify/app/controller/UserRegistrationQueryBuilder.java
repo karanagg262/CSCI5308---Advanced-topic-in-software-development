@@ -34,23 +34,5 @@ public class UserRegistrationQueryBuilder {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-//        return "INSERT INTO "+ user_table + "(" +
-//                user_table_username + ", " +
-//                user_table_first_name + ", " +
-//                user_table_last_name + ", " +
-//                user_table_email_address + ", " +
-//                user_table_password + ", " +
-//                user_table_is_logged_in + ", " +
-//                user_image + ") " +
-//                "VALUES (" +
-//                "\"" +userTable.getUsername() + "\", " +
-//                "\"" +userTable.getFirstname()+ "\", " +
-//                "\"" +userTable.getLastname()+ "\", " +
-//                "\"" +userTable.getEmailAddress() + "\", " +
-//                "\"" +userTable.getPassword() + "\", " +
-//                "\"" +userTable.isLoggedIn() + "\", " +
-//                userTable.getProfPicPath() +
-//                ");";
     }
 }
