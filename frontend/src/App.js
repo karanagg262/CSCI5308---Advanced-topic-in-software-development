@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './App.css';
 import { URL } from './Constants';
 import { useNavigate } from 'react-router-dom';
+import SimpleExample from './components/GroupLocator';
+import GroupLocator from './components/GroupLocator';
 
 function App() {
 
@@ -39,7 +41,7 @@ function App() {
     fetch(URL + 'users/register?firstname=' + firstname + '&lastname=' + lastname + '&emailAddress=' + email + '&password=' + password, {
       method: 'POST',
     })
-      .then(response => response.json())
+      .then(response => response.data)
       .then(data => {
         console.log(data);
       })
@@ -87,7 +89,8 @@ function App() {
             >Register</div>
           </div>
         </div>
-      </div>
+      </div>      
+      <GroupLocator />
     </>
   );
 }
