@@ -1,4 +1,4 @@
-package com.triplify.app.database;
+package com.triplify.app.expenseFeature.database;
 
 public class ExpenseDatabaseContstant {
     public static final String expenses_table =

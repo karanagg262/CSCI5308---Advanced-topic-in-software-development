@@ -1,4 +1,4 @@
-package com.triplify.app.model;
+package com.triplify.app.expenseFeature.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Expenses {
+public class AddExpenses {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +29,11 @@ public class Expenses {
 
     @Column(name = "currency")
     private String currency;
+    @Column(name = "useridlist")
+    private ArrayList<Long> useridlist;
 
-    @Column(name = "fromuserid")
-    private Long fromuserid;
-
-    @Column(name = "touserid")
-    private Long touserid;
-
+    @Column(name = "paidbyuserid")
+    private Long paidbyuserid;
     @Column(name = "groupid")
     private Long groupid;
 
@@ -46,7 +44,6 @@ public class Expenses {
     public void setGroupid(Long groupid) {
         this.groupid = groupid;
     }
-
     public Long getId() {
         return id;
     }
@@ -87,19 +84,19 @@ public class Expenses {
         this.currency = currency;
     }
 
-    public Long getFromuserid() {
-        return fromuserid;
+    public ArrayList<Long> getUseridlist() {
+        return useridlist;
     }
 
-    public void setFromuserid(Long fromuserid) {
-        this.fromuserid = fromuserid;
+    public void setUseridlist(ArrayList<Long> useridlist) {
+        this.useridlist = useridlist;
     }
 
-    public Long getTouserid() {
-        return touserid;
+    public Long getPaidbyuserid() {
+        return paidbyuserid;
     }
 
-    public void setTouserid(Long touserid) {
-        this.touserid = touserid;
+    public void setPaidbyuserid(Long paidbyuserid) {
+        this.paidbyuserid = paidbyuserid;
     }
 }
