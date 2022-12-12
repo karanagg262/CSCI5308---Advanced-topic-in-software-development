@@ -89,8 +89,7 @@ function App() {
             >Register</div>
           </div>
         </div>
-      </div>      
-      <GroupLocator />
+      </div>
     </>
   );
 }
