@@ -14,7 +14,6 @@ public class UserTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotNull
     private String firstname;
     private String lastname;
@@ -24,6 +23,8 @@ public class UserTable {
     private boolean isLoggedIn;
     @NotNull
     private String password;
+
+    private String username;
 
     @Lob
     @Column(name="prof_pic")
@@ -74,6 +75,30 @@ public class UserTable {
         this.emailAddress = emailAddress;
         this.password = password;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public String toString() {
+        return "UserTable{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", isLoggedIn=" + isLoggedIn +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", profPic=" + Arrays.toString(profPic) +
+                '}';
+    }
+
+
 
     public Long getId() {
         return id;

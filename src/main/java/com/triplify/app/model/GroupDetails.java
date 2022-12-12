@@ -1,7 +1,6 @@
 package com.triplify.app.model;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 public class GroupDetails {
@@ -10,30 +9,32 @@ public class GroupDetails {
     private String tripStartDate;
     private String tripEndDate;
     private String destination;
+    private String groupDescription;
     private String tripType;
-
     private Long user_id;
 
     public GroupDetails(){
 
     }
 
-    public GroupDetails(String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, Long user_id) {
+    public GroupDetails(String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, Long user_id) {
         this.groupName = groupName;
         this.tripStartDate = tripStartDate;
         this.tripEndDate = tripEndDate;
         this.destination = destination;
         this.tripType = tripType;
+        this.groupDescription = groupDescription;
         this.user_id = user_id;
     }
 
-    public GroupDetails(Long id, String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, Long user_id) {
+    public GroupDetails(Long id, String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, Long user_id) {
         this.id = id;
         this.groupName = groupName;
         this.tripStartDate = tripStartDate;
         this.tripEndDate = tripEndDate;
         this.destination = destination;
         this.tripType = tripType;
+        this.groupDescription = groupDescription;
         this.user_id = user_id;
     }
 
@@ -76,6 +77,13 @@ public class GroupDetails {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+    public String getGroupDescription() {
+        return groupDescription;
+    }
+
+    public void setGroupDescription(String groupDescription) {
+        this.groupDescription = groupDescription;
+    }
 
     public String getTripType() {
         return tripType;
@@ -93,15 +101,6 @@ public class GroupDetails {
         this.user_id = user_id;
     }
 
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof GroupDetails)) return false;
-        UserTable user = (UserTable) o;
-        return Objects.equals(emailAddress, user.emailAddress) &&
-                Objects.equals(password, user.password);
-    }*/
-
     @Override
     public String toString() {
         return "GroupDetails{" +
@@ -110,7 +109,9 @@ public class GroupDetails {
                 ", tripStartDate='" + tripStartDate + '\'' +
                 ", tripEndDate='" + tripEndDate + '\'' +
                 ", destination='" + destination + '\'' +
+                ", groupDescription='" + groupDescription + '\'' +
                 ", tripType='" + tripType + '\'' +
+                ", user_id=" + user_id +
                 '}';
     }
 }

@@ -19,6 +19,9 @@ public class UserDatabaseConstant {
     public static final String user_table_email_address =
             "email_address";
 
+    public static final String user_table_username =
+            "username";
+
     public static final String user_table_password =
             "password";
 

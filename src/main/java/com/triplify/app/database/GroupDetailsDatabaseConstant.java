@@ -13,6 +13,9 @@ public class GroupDetailsDatabaseConstant {
             "trip_end_date";
     public static final String group_destination =
             "destination";
+
+    public static final String group_description =
+            "group_description";
     public static final String group_type =
             "trip_type";
 

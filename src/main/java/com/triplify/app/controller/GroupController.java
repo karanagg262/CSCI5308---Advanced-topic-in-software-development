@@ -5,7 +5,6 @@ import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.model.GroupDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,6 @@ import java.util.List;
 import static com.triplify.app.database.GroupDetailsDatabaseConstant.*;
 
 @RestController
-// @RequestMapping(path = "api/v1/groups") //TODO: change url to a specific group based on user selection
 public class GroupController {
 
     GroupCreationQueryBuilder groupCreationQueryBuilder =
@@ -29,9 +27,6 @@ public class GroupController {
         List<GroupDetails> listOfGroups = new ArrayList<>();
 
         try {
-
-            System.out.println(connection.getCatalog());
-
             ResultSet groupDetailsResultSet =
                     connection.createStatement().executeQuery("select * from group_details");
 
@@ -41,10 +36,11 @@ public class GroupController {
                 String groupStartDate = groupDetailsResultSet.getString(""+group_trip_start_date);
                 String groupEndDate = groupDetailsResultSet.getString(""+group_trip_end_date);
                 String groupDestination = groupDetailsResultSet.getString(""+group_destination);
+                String groupDescription = groupDetailsResultSet.getString(""+group_description);
                 String groupType = groupDetailsResultSet.getString(""+group_type);
                 Long group_user_id = groupDetailsResultSet.getLong(""+group_creater_user_id);
 
-                GroupDetails groupDetails = new GroupDetails(id,groupName,groupStartDate,groupEndDate,groupDestination,groupType,group_user_id);
+                GroupDetails groupDetails = new GroupDetails(id,groupName,groupStartDate,groupEndDate,groupDestination,groupType,groupDescription,group_user_id);
                 listOfGroups.add(groupDetails);
             }
 
@@ -63,6 +59,7 @@ public class GroupController {
                               @RequestParam("groupStartDate") String tripStartDate,
                               @RequestParam("groupEndDate") String tripEndDate,
                               @RequestParam("groupDestination") String destination,
+                              @RequestParam("groupDescription") String groupDescription,
                               @RequestParam("groupType") String tripType,
                               @RequestParam("user_id") Long user_id) throws DatabaseExceptionHandler {
 
@@ -71,12 +68,20 @@ public class GroupController {
         groupDetails.setTripStartDate(tripStartDate);
         groupDetails.setTripEndDate(tripEndDate);
         groupDetails.setDestination(destination);
+        groupDetails.setGroupDescription(groupDescription);
         groupDetails.setTripType(tripType);
         groupDetails.setUser_id(user_id);
 
         List<GroupDetails> listOfGroups = getAllGroupDetails();
         for(GroupDetails group : listOfGroups){
-            if(group.equals(groupDetails)){
+
+            if(group.getGroupName().equalsIgnoreCase(groupDetails.getGroupName()) &&
+                group.getGroupDescription().equalsIgnoreCase(groupDetails.getGroupDescription()) &&
+                group.getTripStartDate().equalsIgnoreCase(groupDetails.getTripStartDate()) &&
+                group.getTripEndDate().equalsIgnoreCase(groupDetails.getTripEndDate()) &&
+                group.getTripType().equalsIgnoreCase(groupDetails.getTripType()) &&
+                group.getDestination().equalsIgnoreCase(groupDetails.getDestination())){
+
                 System.out.println("Group is already exists!!");
                 return "GROUP_ALREADY_EXISTS";
             }
