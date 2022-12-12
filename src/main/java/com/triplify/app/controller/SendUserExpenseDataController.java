@@ -19,7 +19,7 @@ import static com.triplify.app.database.ExpenseDatabaseContstant.*;
 @RequestMapping(path = "api/v1/users")
 public class SendUserExpenseDataController {
     @GetMapping("/userexpenses")
-    public List<Expenses> getAllExpenseDetails() throws DatabaseExceptionHandler {
+    public List<Expenses> getAllExpenseDetails(@RequestParam Long userid) throws DatabaseExceptionHandler {
         Connection connection =
                 DatabaseConnection.getInstance().getDatabaseConnection();
         List<Expenses> listOfuserExpenses = new ArrayList<>();
@@ -34,7 +34,6 @@ public class SendUserExpenseDataController {
             while (userDetailsResultSet.next()) {
                 Long from_user_id = userDetailsResultSet.getLong("" + expenses_table_from_user_id);
                 Long to_user_id = userDetailsResultSet.getLong("" + expenses_table_to_user_id);
-                Long userid = 12343L;
                 if((from_user_id.equals(userid) || to_user_id.equals(userid)) && !from_user_id.equals(to_user_id)) {
 
                     Long id = userDetailsResultSet.getLong("" + expenses_table_id);
@@ -68,7 +67,7 @@ public class SendUserExpenseDataController {
     }
 
     @GetMapping("/calculatetotal")
-    public float calculateUserTotalExpense() throws DatabaseExceptionHandler {
+    public float calculateUserTotalExpense(@RequestParam Long userid) throws DatabaseExceptionHandler {
         Connection connection =
                 DatabaseConnection.getInstance().getDatabaseConnection();
         long total = 0;
@@ -79,10 +78,11 @@ public class SendUserExpenseDataController {
             while (userDetailsResultSet.next()) {
                 Long from_user_id = userDetailsResultSet.getLong("" + expenses_table_from_user_id);
                 Long to_user_id = userDetailsResultSet.getLong("" + expenses_table_to_user_id);
-                Long userid = 12343L;
-                if(from_user_id.equals(userid) || to_user_id.equals(userid)) {
-
-                    Float amount = userDetailsResultSet.getFloat("" + expenses_table_amount);
+                Float amount = userDetailsResultSet.getFloat("" + expenses_table_amount);
+                if(from_user_id.equals(userid) && (to_user_id.equals(userid)) && from_user_id.equals(to_user_id)){
+                    total = (long) (total + amount);
+                }
+                if(to_user_id.equals(userid) && !from_user_id.equals(to_user_id)) {
                     total = (long) (total + amount);
                 }
             }
