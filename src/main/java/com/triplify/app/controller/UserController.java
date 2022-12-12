@@ -60,6 +60,7 @@ public class UserController {
                 String lastname = resultSet.getString("lastname");
                 String emailAddress = resultSet.getString("email_address");
                 String password = resultSet.getString("password");
+                String username = resultSet.getString("username");
                 boolean isLoggedIn = resultSet.getBoolean("is_logged_in");
                 Blob image = resultSet.getBlob("image");
 
@@ -89,6 +90,7 @@ public class UserController {
         userTable.setLastname(lastname);
         userTable.setEmailAddress(emailAddress);
         userTable.setPassword(password);
+        userTable.setUsername(username);
         userTable.setLoggedIn(false);
         userTable.setUsername(username);
         userTable.setDob(dob);

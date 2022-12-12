@@ -12,6 +12,7 @@ public class GroupCreationQueryBuilder {
                 group_trip_start_date + ", " +
                 group_trip_end_date + ", " +
                 group_destination + ", " +
+                group_description + ", " +
                 group_type + ", " +
                 group_creater_user_id + ") " +
                 "VALUES (" +
@@ -19,6 +20,7 @@ public class GroupCreationQueryBuilder {
                 "\"" +groupDetails.getTripStartDate()+ "\", " +
                 "\"" +groupDetails.getTripEndDate() + "\", " +
                 "\"" +groupDetails.getDestination() + "\", " +
+                "\"" +groupDetails.getGroupDescription() + "\", " +
                 "\"" +groupDetails.getTripType() + "\", " +
                 groupDetails.getUser_id() +
                 ");";
