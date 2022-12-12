@@ -26,5 +26,4 @@ public class DatabaseExceptionHandler extends Throwable {
                 ", error=" + error +
                 '}';
     }
-
 }
