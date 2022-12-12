@@ -1,11 +1,8 @@
-package com.triplify.app.controller;
+package com.triplify.app.expenseFeature.service;
 
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.model.AddExpenses;
-import com.triplify.app.model.Expenses;
-import com.triplify.app.model.GroupDetails;
-import org.springframework.web.bind.annotation.*;
+import com.triplify.app.expenseFeature.model.Expenses;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,13 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.triplify.app.database.ExpenseDatabaseContstant.*;
+import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.*;
+import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.expenses_table_id_group_details;
 
-@RestController
-@RequestMapping(path = "api/v1/users")
-public class SendUserExpenseDataController {
-    @GetMapping("/userexpenses")
-    public List<Expenses> getAllExpenseDetails(@RequestParam Long userid) throws DatabaseExceptionHandler {
+public class sendUserExpense {
+
+    public static List<Expenses> fetchMyExpenses(Long userid) throws DatabaseExceptionHandler {
         Connection connection =
                 DatabaseConnection.getInstance().getDatabaseConnection();
         List<Expenses> listOfuserExpenses = new ArrayList<>();
@@ -66,8 +62,7 @@ public class SendUserExpenseDataController {
         return listOfuserExpenses;
     }
 
-    @GetMapping("/calculatetotal")
-    public float calculateUserTotalExpense(@RequestParam Long userid) throws DatabaseExceptionHandler {
+    public static float calculateTotalExpense(Long userid) throws DatabaseExceptionHandler {
         Connection connection =
                 DatabaseConnection.getInstance().getDatabaseConnection();
         long total = 0;

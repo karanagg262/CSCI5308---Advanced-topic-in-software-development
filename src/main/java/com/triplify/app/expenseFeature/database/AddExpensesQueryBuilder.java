@@ -1,12 +1,12 @@
-package com.triplify.app.controller;
+package com.triplify.app.expenseFeature.database;
 
-import com.triplify.app.model.Expenses;
+import com.triplify.app.expenseFeature.model.Expenses;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static com.triplify.app.database.ExpenseDatabaseContstant.*;
+import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.*;
 public class AddExpensesQueryBuilder {
     public static int insertExpenseQuery(final Expenses expenses, Connection connection){
         String query = "INSERT INTO "+ expenses_table + "(" +

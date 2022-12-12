@@ -3,13 +3,11 @@ package com.triplify.app.controller;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.model.Checklist;
-import com.triplify.app.model.Expenses;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import static com.triplify.app.database.ChecklistDatabaseConstant.*;
 
