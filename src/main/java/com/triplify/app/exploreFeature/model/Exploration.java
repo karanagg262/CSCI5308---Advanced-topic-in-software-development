@@ -1,11 +1,26 @@
 package com.triplify.app.exploreFeature.model;
 
+import com.triplify.app.controller.GroupAddMemberController;
+import com.triplify.app.controller.GroupController;
+import com.triplify.app.database.DatabaseConnection;
+import com.triplify.app.database.DatabaseExceptionHandler;
+import com.triplify.app.exploreFeature.database.ExplorationTableInsertQueryBuilder;
+import com.triplify.app.exploreFeature.exception.ExplorationException;
+import com.triplify.app.model.GroupDetails;
+import com.triplify.app.model.GroupMembersDetails;
+
+import javax.persistence.Entity;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+@Entity
 public class Exploration {
     private Long explore_id;
     private String groupName;
     private String placeDescription;
     private int numberOfMembers;
-
     private Long groupId;
 
     public Exploration(){
@@ -76,5 +91,46 @@ public class Exploration {
                 ", numberOfMembers=" + numberOfMembers +
                 ", groupId=" + groupId +
                 '}';
+    }
+
+    public boolean validateSearchLocationString(final String location)
+        throws ExplorationException {
+        final boolean isStringValid = (location != null) &&
+                (!location.trim().isEmpty());
+        if(!isStringValid){
+            throw new ExplorationException("Invalid location was searched there!!");
+        }else{
+            return true;
+        }
+    }
+
+    public List<GroupDetails> getGroupDetailsList() throws DatabaseExceptionHandler {
+        return new GroupController().getAllGroupDetails();
+    }
+
+    public List<GroupMembersDetails> getGroupMembersDetailsList() throws DatabaseExceptionHandler {
+        return new GroupAddMemberController().getAllMembers();
+    }
+
+    public void insertQueryInExplorationTable(Exploration exploration) throws DatabaseExceptionHandler {
+
+        try (final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+             final Statement statement = connection.createStatement()){
+
+            ExplorationTableInsertQueryBuilder explorationTableInsertQueryBuilder
+                    = new ExplorationTableInsertQueryBuilder();
+
+            final String insertExplorationTableQuery =
+                    explorationTableInsertQueryBuilder.explorationTableInsertQuery(exploration);
+
+            final int rowInserted =
+                    statement.executeUpdate(insertExplorationTableQuery, Statement.RETURN_GENERATED_KEYS);
+
+            if (rowInserted > 0) {
+                System.out.println("Successfully retrieved the groups going for this trip");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

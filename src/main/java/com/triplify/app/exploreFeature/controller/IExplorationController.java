@@ -1,5 +1,6 @@
 package com.triplify.app.exploreFeature.controller;
 
+import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.exploreFeature.exception.ExplorationException;
 import com.triplify.app.exploreFeature.model.Exploration;
 
@@ -8,6 +9,6 @@ import java.util.List;
 
 public interface IExplorationController {
 
-    List<Exploration> searchGroups(final String location) throws ExplorationException, SQLException;
+    List<Exploration> searchGroups(final String location) throws ExplorationException, SQLException, DatabaseExceptionHandler;
 
 }
