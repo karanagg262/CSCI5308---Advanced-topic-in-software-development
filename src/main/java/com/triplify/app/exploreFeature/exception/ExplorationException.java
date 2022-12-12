@@ -15,8 +15,6 @@ public class ExplorationException extends Exception{
 
     @Override
     public String toString() {
-        return "ExplorationException{" +
-                "errorMessage='" + errorMessage + '\'' +
-                '}';
+        return "ExplorationException{" + "errorMessage='" + errorMessage + '\'' + '}';
     }
 }
