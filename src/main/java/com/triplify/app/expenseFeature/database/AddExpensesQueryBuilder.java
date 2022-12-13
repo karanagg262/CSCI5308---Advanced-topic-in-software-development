@@ -7,8 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.*;
-public class AddExpensesQueryBuilder {
-    public static int insertExpenseQuery(final Expenses expenses, Connection connection){
+public class AddExpensesQueryBuilder implements IAddExpensesQueryBuilder{
+    public int insertExpenseQuery(final Expenses expenses, Connection connection){
         String query = "INSERT INTO "+ expenses_table + "(" +
                 expenses_table_transaction_id + ", " +
                 expenses_table_description + ", " +
