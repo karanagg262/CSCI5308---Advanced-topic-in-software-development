@@ -1,8 +1,8 @@
-package com.triplify.app.exploreFeature.controller;
+package com.triplify.app.Explore.controller;
 
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.exploreFeature.exception.ExplorationException;
-import com.triplify.app.exploreFeature.model.Exploration;
+import com.triplify.app.Explore.exception.ExplorationException;
+import com.triplify.app.Explore.model.Exploration;
 
 import java.sql.SQLException;
 import java.util.List;

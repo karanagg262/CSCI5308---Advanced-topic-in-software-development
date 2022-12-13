@@ -1,4 +1,4 @@
-package com.triplify.app.exploreFeature.database;
+package com.triplify.app.Explore.database;
 
 public class ExplorationDatabaseConstant {
     public static final String exploration_table_name =

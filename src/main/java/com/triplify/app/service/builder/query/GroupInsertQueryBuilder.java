@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.triplify.app.database.GroupDetailsDatabaseConstant.*;
+import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.*;
 
 public class GroupInsertQueryBuilder implements QueryBuilder{
     private final String baseQuery = "INSERT INTO "+ group_details_table + "(" +

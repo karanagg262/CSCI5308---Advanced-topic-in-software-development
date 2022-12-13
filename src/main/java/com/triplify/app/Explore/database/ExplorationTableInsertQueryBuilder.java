@@ -1,8 +1,8 @@
-package com.triplify.app.exploreFeature.database;
+package com.triplify.app.Explore.database;
 
-import com.triplify.app.exploreFeature.model.Exploration;
+import com.triplify.app.Explore.model.Exploration;
 
-import static com.triplify.app.exploreFeature.database.ExplorationDatabaseConstant.*;
+import static com.triplify.app.Explore.database.ExplorationDatabaseConstant.*;
 
 public class ExplorationTableInsertQueryBuilder implements IExplorationTableInsertQueryBuilder {
 
