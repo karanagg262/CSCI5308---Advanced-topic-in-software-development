@@ -1,30 +1,26 @@
 package com.triplify.app.expenseFeature.controller;
 
-import com.triplify.app.database.DatabaseConnection;
-import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.expenseFeature.database.AddExpensesQueryBuilder;
 import com.triplify.app.expenseFeature.model.AddExpenses;
 import com.triplify.app.expenseFeature.model.Expenses;
 import com.triplify.app.expenseFeature.service.AddNewExpenses;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 @RestController
 @RequestMapping(path = "api/v1/users")
 
-public class AddExpensesController {
+public class AddExpensesController implements  IAddExpensesController{
     @PostMapping("/addexpenses")
-    public void postExpense(@RequestBody AddExpenses expenses) throws DatabaseExceptionHandler, SQLException {
-
-        AddNewExpenses.splitExpenses(expenses);
+    @Override
+    public void postExpense(@RequestBody AddExpenses expenses) {
+        AddNewExpenses addNewExpenses = new AddNewExpenses();
+        addNewExpenses.splitExpenses(expenses);
     }
 
     @PostMapping("/settleexpenses")
-    public void settleExpense(@RequestBody Expenses expenses) throws DatabaseExceptionHandler, SQLException {
-        AddNewExpenses.settleMyExpenses(expenses);
+    @Override
+    public void settleExpense(@RequestBody Expenses expenses) {
+        AddNewExpenses addNewExpenses = new AddNewExpenses();
+        addNewExpenses.settleMyExpenses(expenses);
     }
 }

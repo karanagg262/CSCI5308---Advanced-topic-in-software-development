@@ -1,5 +1,6 @@
 package com.triplify.app.expenseFeature.database;
 
+import com.triplify.app.Explore.database.ExplorationTableInsertQueryBuilder;
 import com.triplify.app.expenseFeature.model.Expenses;
 
 import java.sql.Connection;
@@ -7,8 +8,21 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.*;
-public class AddExpensesQueryBuilder {
-    public static int insertExpenseQuery(final Expenses expenses, Connection connection){
+public class AddExpensesQueryBuilder implements IAddExpensesQueryBuilder{
+    private static AddExpensesQueryBuilder instance;
+
+    public AddExpensesQueryBuilder(){
+
+    }
+
+    public static AddExpensesQueryBuilder getInstance(){
+        if (instance == null){
+            instance = new AddExpensesQueryBuilder();
+        }
+        return instance;
+    }
+    @Override
+    public int insertExpenseQuery(final Expenses expenses, Connection connection){
         String query = "INSERT INTO "+ expenses_table + "(" +
                 expenses_table_transaction_id + ", " +
                 expenses_table_description + ", " +

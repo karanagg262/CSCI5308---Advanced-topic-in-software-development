@@ -11,16 +11,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddNewExpenses {
+public class AddNewExpenses implements IAddNewExpenses {
     private static List<Expenses> addUserExpense = new ArrayList<>();
-    public static void splitExpenses(AddExpenses expenses) throws DatabaseExceptionHandler, SQLException {
+    @Override
+    public void splitExpenses(AddExpenses expenses) {
         ArrayList<Long> useridlist = expenses.getUseridlist();
         int size = useridlist.size();
         float split = expenses.getAmount()/size;
         int id = -1;
-
         for (int i = 0; i < size; i++) {
-            if (useridlist.get(i).equals(expenses.getPaidbyuserid())) {
+            if (useridlist.get(i).equals(expenses.getPaidbyuserid()))
+            {
                 setExpenses(expenses, expenses.getAmount() - split, useridlist.get(i));
                 id = i;
             } else {
@@ -30,16 +31,14 @@ public class AddNewExpenses {
         if (id < 0) {
             setExpenses(expenses, expenses.getAmount(), 0L);
         }
-
     }
+    @Override
+    public void setExpenses(AddExpenses expenses, float splittedAmount, Long useridlist)
+    {
+        try{
 
-    public static void setExpenses(AddExpenses expenses, float splittedAmount, Long useridlist)
-            throws DatabaseExceptionHandler, SQLException {
-
-        Connection connection =
-                DatabaseConnection.getInstance().getDatabaseConnection();
-
-        try {
+            Connection connection =
+                    DatabaseConnection.getInstance().getDatabaseConnection();
             Expenses expense = new Expenses();
             expense.setId(expenses.getId());
             expense.setTransaction_id(expenses.getTransaction_id());
@@ -50,9 +49,9 @@ public class AddNewExpenses {
             expense.setFromuserid(expenses.getPaidbyuserid());
             expense.setTouserid(useridlist);
             addUserExpense.add(expense);
-
+            AddExpensesQueryBuilder addExpensesQueryBuilder = new AddExpensesQueryBuilder();
             final int rowInserted =
-                    AddExpensesQueryBuilder.insertExpenseQuery(expense, connection);
+                    addExpensesQueryBuilder.insertExpenseQuery(expense, connection);
 
             if(rowInserted > 0){
                 System.out.println("Yes row is inserted !!");
@@ -62,16 +61,19 @@ public class AddNewExpenses {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (DatabaseExceptionHandler e) {
+            throw new RuntimeException(e);
         }
     }
-
-    public static void settleMyExpenses(Expenses expenses) throws DatabaseExceptionHandler {
+    @Override
+    public void settleMyExpenses(Expenses expenses){
+        try {
         Connection connection =
                 DatabaseConnection.getInstance().getDatabaseConnection();
-        try {
             expenses.setAmount(expenses.getAmount()*-1);
+            AddExpensesQueryBuilder addExpensesQueryBuilder = new AddExpensesQueryBuilder();
             final int rowInserted =
-                    AddExpensesQueryBuilder.insertExpenseQuery(expenses, connection);
+                    addExpensesQueryBuilder.insertExpenseQuery(expenses, connection);
 
             if(rowInserted > 0){
                 System.out.println("Yes row is inserted !!");
@@ -80,6 +82,8 @@ public class AddNewExpenses {
                 connection.close();
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (DatabaseExceptionHandler e) {
             throw new RuntimeException(e);
         }
     }

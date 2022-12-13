@@ -14,14 +14,15 @@ import java.util.List;
 import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.*;
 import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.expenses_table_id_group_details;
 
-public class sendUserExpense {
+public class SendUserExpense implements ISendUserExpense {
 
-    public static List<Expenses> fetchMyExpenses(Long userid) throws DatabaseExceptionHandler {
-        Connection connection =
-                DatabaseConnection.getInstance().getDatabaseConnection();
+    @Override
+    public List<Expenses> fetchMyExpenses(Long userid) {
         List<Expenses> listOfuserExpenses = new ArrayList<>();
 
         try {
+            Connection connection =
+                DatabaseConnection.getInstance().getDatabaseConnection();
 
             System.out.println(connection.getCatalog());
 
@@ -59,16 +60,17 @@ public class sendUserExpense {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (DatabaseExceptionHandler e) {
+            throw new RuntimeException(e);
         }
         return listOfuserExpenses;
     }
-
-    public static float calculateTotalExpense(Long userid) throws DatabaseExceptionHandler {
-        Connection connection =
-                DatabaseConnection.getInstance().getDatabaseConnection();
+    @Override
+    public float calculateTotalExpense(Long userid) {
         long total = 0;
         try {
-
+            Connection connection =
+                DatabaseConnection.getInstance().getDatabaseConnection();
             ResultSet userDetailsResultSet =
                     connection.createStatement().executeQuery("select * from User_expenses");
             while (userDetailsResultSet.next()) {
@@ -88,6 +90,8 @@ public class sendUserExpense {
             }
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (DatabaseExceptionHandler e) {
             throw new RuntimeException(e);
         }
         return total;
