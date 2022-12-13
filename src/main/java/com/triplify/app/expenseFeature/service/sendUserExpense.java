@@ -14,9 +14,10 @@ import java.util.List;
 import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.*;
 import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.expenses_table_id_group_details;
 
-public class SendUserExpense {
+public class SendUserExpense implements ISendUserExpense {
 
-    public static List<Expenses> fetchMyExpenses(Long userid) {
+    @Override
+    public List<Expenses> fetchMyExpenses(Long userid) {
         List<Expenses> listOfuserExpenses = new ArrayList<>();
 
         try {
@@ -64,8 +65,8 @@ public class SendUserExpense {
         }
         return listOfuserExpenses;
     }
-
-    public static float calculateTotalExpense(Long userid) {
+    @Override
+    public float calculateTotalExpense(Long userid) {
         long total = 0;
         try {
             Connection connection =
