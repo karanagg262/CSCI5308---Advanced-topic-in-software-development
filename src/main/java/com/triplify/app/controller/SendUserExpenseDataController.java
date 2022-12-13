@@ -2,9 +2,7 @@ package com.triplify.app.controller;
 
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.model.AddExpenses;
 import com.triplify.app.model.Expenses;
-import com.triplify.app.model.GroupDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;

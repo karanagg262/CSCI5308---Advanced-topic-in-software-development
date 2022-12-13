@@ -1,4 +1,4 @@
-package com.triplify.app.database;
+package com.triplify.app.Group.database;
 
 public class GroupMemberDetailsDatabaseConstant {
     public static final String group_member_details_table =

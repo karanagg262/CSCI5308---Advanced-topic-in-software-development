@@ -1,10 +1,10 @@
 package com.triplify.app.exploreFeature.exlporation;
 
-import com.triplify.app.controller.GroupAddMemberController;
-import com.triplify.app.controller.GroupController;
+import com.triplify.app.Group.controller.GroupAddMemberController;
+import com.triplify.app.Group.controller.GroupController;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.model.GroupDetails;
-import com.triplify.app.model.GroupMembersDetails;
+import com.triplify.app.Group.model.GroupDetails;
+import com.triplify.app.Group.model.GroupMembersDetails;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

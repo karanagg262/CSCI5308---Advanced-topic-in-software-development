@@ -1,4 +1,4 @@
-package com.triplify.app.exploreFeature.exception;
+package com.triplify.app.Explore.exception;
 
 public class ExplorationException extends Exception{
 
