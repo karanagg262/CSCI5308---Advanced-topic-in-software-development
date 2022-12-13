@@ -39,7 +39,7 @@ function App() {
     fetch(URL + 'users/register?firstname=' + firstname + '&lastname=' + lastname + '&emailAddress=' + email + '&password=' + password, {
       method: 'POST',
     })
-      .then(response => response.json())
+      .then(response => response.data)
       .then(data => {
         console.log(data);
       })
