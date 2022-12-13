@@ -11,7 +11,7 @@ public class ExplorationTableInsertQueryBuilderTest {
 
     @Test
     @DisplayName("Insert Query By Exploration Object!!")
-    public void explorationTableInsertQueryTest(){
+    public void expenseTableInsertQueryTest(){
         final String groupName = "Australia";
         final String groupDestination = "AustraliaHome";
         final int numberOfMembers = 4;
