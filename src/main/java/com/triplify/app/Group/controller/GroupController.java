@@ -1,13 +1,23 @@
 package com.triplify.app.Group.controller;
 
+import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.Group.model.GroupDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.group_details_id;
+import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.group_details_table;
+
 @RestController
+@CrossOrigin
 public class GroupController implements IGroupController {
 
     private GroupDetails createGroupDetails() {
@@ -22,7 +32,19 @@ public class GroupController implements IGroupController {
         List<GroupDetails> groupDetailsList = groupDetails.createAllGroupDetailsList();
         return groupDetailsList;
     }
-
+    @PostMapping("/groups/{id}")
+    public Map<String, Object> getGroup(@PathVariable("group_id") long group_id) throws DatabaseExceptionHandler, SQLException {
+        Connection dbConnection = DatabaseConnection.getInstance().getDatabaseConnection();
+        String query = "SELECT * FROM "+group_details_table +
+                "WHERE "+ group_details_id +
+                "(?)";
+        PreparedStatement pstmt = dbConnection.prepareStatement(query);
+        pstmt.setLong(1,group_id);
+        ResultSet result = pstmt.executeQuery();
+        System.out.println(result.toString());
+        GroupDetails group = new GroupDetails();
+        return new HashMap<String, Object>();
+    }
     @PostMapping("/groups/createGroup")
     public Map<String, Object> createGroup(@RequestParam("groupName") String groupName,
                                            @RequestParam("groupStartDate") String tripStartDate,

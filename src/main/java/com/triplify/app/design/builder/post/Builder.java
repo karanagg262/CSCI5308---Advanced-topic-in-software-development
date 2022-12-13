@@ -1,4 +1,4 @@
-package com.triplify.app.service.builder.post;
+package com.triplify.app.design.builder.post;
 
 import java.sql.Blob;
 

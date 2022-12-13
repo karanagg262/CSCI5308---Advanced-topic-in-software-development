@@ -19,6 +19,9 @@ import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.*;
 
 @Entity
 public class GroupDetails implements IGroupDetails{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "group_id", nullable = false)
     private Long id;
     private String groupName;
     private String tripStartDate;
@@ -27,6 +30,14 @@ public class GroupDetails implements IGroupDetails{
     private String groupDescription;
     private String tripType;
     private Long user_id;
+
+    public Long getGroup_id() {
+        return id;
+    }
+
+    public void setGroup_id(Long group_id) {
+        this.id = group_id;
+    }
 
     public GroupDetails(){
 
