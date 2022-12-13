@@ -1,6 +1,6 @@
-package com.triplify.app.exploreFeature.database;
+package com.triplify.app.Explore.database;
 
-import com.triplify.app.exploreFeature.model.Exploration;
+import com.triplify.app.Explore.model.Exploration;
 
 public interface IExplorationTableInsertQueryBuilder {
     String explorationTableInsertQuery(Exploration exploration);

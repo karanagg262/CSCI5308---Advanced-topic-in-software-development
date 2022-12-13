@@ -1,13 +1,13 @@
-package com.triplify.app.exploreFeature.model;
+package com.triplify.app.Explore.model;
 
-import com.triplify.app.controller.GroupAddMemberController;
-import com.triplify.app.controller.GroupController;
+import com.triplify.app.Explore.database.ExplorationTableInsertQueryBuilder;
+import com.triplify.app.Explore.exception.ExplorationException;
+import com.triplify.app.Group.controller.GroupAddMemberController;
+import com.triplify.app.Group.controller.GroupController;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.exploreFeature.database.ExplorationTableInsertQueryBuilder;
-import com.triplify.app.exploreFeature.exception.ExplorationException;
-import com.triplify.app.model.GroupDetails;
-import com.triplify.app.model.GroupMembersDetails;
+import com.triplify.app.Group.model.GroupDetails;
+import com.triplify.app.Group.model.GroupMembersDetails;
 
 import javax.persistence.Entity;
 import java.sql.Connection;

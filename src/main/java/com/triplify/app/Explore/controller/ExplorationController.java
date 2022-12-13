@@ -1,12 +1,12 @@
-package com.triplify.app.exploreFeature.controller;
+package com.triplify.app.Explore.controller;
 
+import com.triplify.app.Explore.database.IExplorationTableInsertQueryBuilder;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.database.IDatabase;
-import com.triplify.app.exploreFeature.database.IExplorationTableInsertQueryBuilder;
-import com.triplify.app.exploreFeature.exception.ExplorationException;
-import com.triplify.app.exploreFeature.model.Exploration;
-import com.triplify.app.model.GroupDetails;
-import com.triplify.app.model.GroupMembersDetails;
+import com.triplify.app.Explore.exception.ExplorationException;
+import com.triplify.app.Explore.model.Exploration;
+import com.triplify.app.Group.model.GroupDetails;
+import com.triplify.app.Group.model.GroupMembersDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;

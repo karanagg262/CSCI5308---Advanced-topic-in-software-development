@@ -1,6 +1,6 @@
-package com.triplify.app.exploreFeature.controller;
+package com.triplify.app.Explore.controller;
 
-import com.triplify.app.exploreFeature.model.Exploration;
+import com.triplify.app.Explore.model.Exploration;
 import org.springframework.stereotype.Service;
 
 @Service

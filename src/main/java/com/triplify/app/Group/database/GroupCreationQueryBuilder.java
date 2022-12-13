@@ -1,10 +1,11 @@
-package com.triplify.app.controller;
+package com.triplify.app.Group.database;
 
-import com.triplify.app.model.GroupDetails;
+import com.triplify.app.Group.controller.IGroupCreationQueryBuilder;
+import com.triplify.app.Group.model.GroupDetails;
 
-import static com.triplify.app.database.GroupDetailsDatabaseConstant.*;
+import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.*;
 
-public class GroupCreationQueryBuilder {
+public class GroupCreationQueryBuilder implements IGroupCreationQueryBuilder {
 
     public String insertGroupQuery(final GroupDetails groupDetails){
         return "INSERT INTO "+ group_details_table + "(" +
