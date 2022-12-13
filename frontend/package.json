@@ -17,6 +17,7 @@
     "axios": "^1.2.1",
     "base64-img": "1.0.4",
     "dayjs": "^1.11.7",
+    "http-proxy-middleware": "^2.0.6",
     "image-to-base64": "2.0.1",
     "leaflet": "^1.9.3",
     "moment": "^2.29.4",
@@ -37,7 +38,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080",
   "eslintConfig": {
     "extends": [
       "react-app",

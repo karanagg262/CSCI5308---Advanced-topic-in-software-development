@@ -37,7 +37,7 @@ class GroupLocator extends React.Component {
           <Marker key={index} position={[marker.latitude, marker.longitude]}>
             <Popup>
               <span>
-                A pretty CSS3 popup. <br /> Easily customizable.
+                {marker.username}
               </span>
             </Popup>
           </Marker>
