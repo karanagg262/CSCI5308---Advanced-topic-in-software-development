@@ -33,7 +33,7 @@ public class PostsControllerTest {
         post.setDestination("Australia");
         post.setDetails("details");
         post.setPostedDate("12-12-2022");
-        post.setUsername(new Long(10));
+        post.setUsername("user");
         post.setPostImageBytes(temp.getBytes());
         postQueryBuilder.insertPostQuery(post, mockConnection);
     }
