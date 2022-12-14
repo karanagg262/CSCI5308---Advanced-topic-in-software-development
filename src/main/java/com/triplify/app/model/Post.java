@@ -28,7 +28,7 @@ public class Post {
     private String details;
     @Column(name="postedDate")
     private String postedDate;
-    @Column(name="userid")
+    @Column(name="username")
     private String username;
 
     public Post() {
