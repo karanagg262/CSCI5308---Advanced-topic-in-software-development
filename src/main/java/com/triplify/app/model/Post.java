@@ -29,13 +29,13 @@ public class Post {
     @Column(name="details")
     private String details;
     @Column(name="postedDate")
-    private Date postedDate;
+    private String postedDate;
     @Column(name="username")
     private String username;
 
     public Post() {
     }
-    public Post(Long id, String destination, Blob postImage, String details, Date postedDate, String username, byte[] postImageBytes) {
+    public Post(Long id, String destination, Blob postImage, String details, String postedDate, String username, byte[] postImageBytes) {
         this.id = id;
         this.destination = destination;
         this.postImage = postImage;
@@ -82,11 +82,11 @@ public class Post {
         this.details = details;
     }
 
-    public Date getPostedDate() {
+    public String getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(Date postedDate) {
+    public void setPostedDate(String postedDate) {
         this.postedDate = postedDate;
     }
 
