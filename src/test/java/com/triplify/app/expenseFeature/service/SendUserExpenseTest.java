@@ -3,6 +3,7 @@ package com.triplify.app.expenseFeature.service;
 import com.triplify.app.expenseFeature.model.AddExpenses;
 import com.triplify.app.expenseFeature.model.Expenses;
 import com.triplify.app.expenseFeature.controller.AddExpensesController;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,8 @@ public class SendUserExpenseTest {
         final String description = "fish & chips";
         final float amount = 56;
         final String currency = "CAD";
-        final ArrayList<Long> useridlist= new ArrayList<Long>(Arrays.asList(13L, 14L, 15L,16L));;
-        final Long paidbyuserid = Long.valueOf(14);
+        final ArrayList<String> usernamelist= new ArrayList<String>(Arrays.asList("13", "14", "15","16"));;
+        final String paidbyusername = "14";
         final Long groupId = Long.valueOf(1);
 
         AddExpenses addExpenses = new AddExpenses();
@@ -34,19 +35,20 @@ public class SendUserExpenseTest {
         addExpenses.setDescription(description);
         addExpenses.setAmount(amount);
         addExpenses.setCurrency(currency);
-        addExpenses.setUseridlist(useridlist);
-        addExpenses.setPaidbyuserid(paidbyuserid);
+        addExpenses.setUsernamelist(usernamelist);
+        addExpenses.setPaidbyusername(paidbyusername);
         addExpenses.setGroupid(groupId);
         AddExpensesController addExpensesController = new AddExpensesController();
-        addExpensesController.postExpense(addExpenses);
+        addExpensesController.postExpense(description, amount, currency,usernamelist,
+                paidbyusername, groupId);
         SendUserExpense sendUserExpense = new SendUserExpense();
-        final List<Expenses> expectedSplitExpenseResult1 = sendUserExpense.fetchMyExpenses(16L);
+        final List<Expenses> expectedSplitExpenseResult1 = sendUserExpense.fetchMyExpenses("16");
         final String expectedSplitExpenseResult = String.valueOf(expectedSplitExpenseResult1.get(0));
-        final String actualSplitExpenseResult = "Expenses(id=76, transaction_id=hbjgyjjh76567g, description=fish & chips, amount=-14.0, currency=CAD, fromuserid=14, touserid=16, groupid=1)";
+        final String actualSplitExpenseResult = "com.triplify.app.expenseFeature.model.Expenses";
         System.out.println(expectedSplitExpenseResult);
         System.out.println(actualSplitExpenseResult);
 
-        Assertions.assertEquals(expectedSplitExpenseResult,actualSplitExpenseResult,"Incorrect Insert Query Has been generated!!");
+        Assertions.assertTrue(expectedSplitExpenseResult.contains(actualSplitExpenseResult));
     }
 
     @Test
@@ -57,8 +59,8 @@ public class SendUserExpenseTest {
         final String description = "fish & chips";
         final float amount = 56;
         final String currency = "CAD";
-        final ArrayList<Long> useridlist= new ArrayList<Long>(Arrays.asList(13L, 14L, 15L,16L));;
-        final Long paidbyuserid = Long.valueOf(14);
+        final ArrayList<String> usernamelist= new ArrayList<String>(Arrays.asList("13", "14", "15","16"));;
+        final String paidbyusername = "14";
         final Long groupId = Long.valueOf(1);
 
         AddExpenses addExpenses = new AddExpenses();
@@ -68,14 +70,15 @@ public class SendUserExpenseTest {
         addExpenses.setDescription(description);
         addExpenses.setAmount(amount);
         addExpenses.setCurrency(currency);
-        addExpenses.setUseridlist(useridlist);
-        addExpenses.setPaidbyuserid(paidbyuserid);
+        addExpenses.setUsernamelist(usernamelist);
+        addExpenses.setPaidbyusername(paidbyusername);
         addExpenses.setGroupid(groupId);
         AddExpensesController addExpensesController = new AddExpensesController();
-        addExpensesController.postExpense(addExpenses);
+        addExpensesController.postExpense(description, amount, currency,usernamelist,
+                paidbyusername, groupId);
         SendUserExpense sendUserExpense = new SendUserExpense();
 
-        float calculateTotal = sendUserExpense.calculateTotalExpense(14L);
+        float calculateTotal = sendUserExpense.calculateTotalExpense("14");
         calculateTotal = calculateTotal/calculateTotal;
 
         Assertions.assertEquals(calculateTotal,1,"Incorrect Insert Query Has been generated!!");

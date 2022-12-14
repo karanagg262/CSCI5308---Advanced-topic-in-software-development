@@ -19,8 +19,8 @@ public class AddExpensesQueryBuilderTest {
         final String description = "fish & chips";
         final float amount = 56;
         final String currency = "CAD";
-        final Long fromuserid = Long.valueOf(14);
-        final Long touserid = Long.valueOf(14);
+        final String fromusername = "14";
+        final String tousername = "14";
         final Long groupId = Long.valueOf(14);
 
         Expenses expenses = new Expenses();
@@ -30,8 +30,8 @@ public class AddExpensesQueryBuilderTest {
         expenses.setDescription(description);
         expenses.setAmount(amount);
         expenses.setCurrency(currency);
-        expenses.setFromuserid(fromuserid);
-        expenses.setTouserid(touserid);
+        expenses.setFromUsername(fromusername);
+        expenses.setToUsername(tousername);
         expenses.setGroupid(groupId);
 
         AddExpensesQueryBuilder addExpensesQueryBuilder =

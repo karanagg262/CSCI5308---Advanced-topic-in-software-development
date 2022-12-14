@@ -15,25 +15,25 @@ public class AddNewExpenses implements IAddNewExpenses {
     private static List<Expenses> addUserExpense = new ArrayList<>();
     @Override
     public void splitExpenses(AddExpenses expenses) {
-        ArrayList<Long> useridlist = expenses.getUseridlist();
-        int size = useridlist.size();
+        ArrayList<String> usernamelist = expenses.getUsernamelist();
+        int size = usernamelist.size();
         float split = expenses.getAmount()/size;
         int id = -1;
         for (int i = 0; i < size; i++) {
-            if (useridlist.get(i).equals(expenses.getPaidbyuserid()))
+            if (usernamelist.get(i).equals(expenses.getPaidbyusername()))
             {
-                setExpenses(expenses, expenses.getAmount() - split, useridlist.get(i));
+                setExpenses(expenses, expenses.getAmount() - split, usernamelist.get(i));
                 id = i;
             } else {
-                setExpenses(expenses, split * -1, useridlist.get(i));
+                setExpenses(expenses, split * -1, usernamelist.get(i));
             }
         }
         if (id < 0) {
-            setExpenses(expenses, expenses.getAmount(), 0L);
+            setExpenses(expenses, expenses.getAmount(), "");
         }
     }
     @Override
-    public void setExpenses(AddExpenses expenses, float splittedAmount, Long useridlist)
+    public void setExpenses(AddExpenses expenses, float splittedAmount, String useridlist)
     {
         try{
 
@@ -46,8 +46,9 @@ public class AddNewExpenses implements IAddNewExpenses {
             expense.setAmount(splittedAmount);
             expense.setCurrency(expenses.getCurrency());
             expense.setGroupid(expenses.getGroupid());
-            expense.setFromuserid(expenses.getPaidbyuserid());
-            expense.setTouserid(useridlist);
+            expense.setFromUsername(expenses.getPaidbyusername());
+            expense.setToUsername(useridlist);
+            expense.setToUsername(useridlist);
             addUserExpense.add(expense);
             AddExpensesQueryBuilder addExpensesQueryBuilder = new AddExpensesQueryBuilder();
             final int rowInserted =
@@ -72,6 +73,7 @@ public class AddNewExpenses implements IAddNewExpenses {
                 DatabaseConnection.getInstance().getDatabaseConnection();
             expenses.setAmount(expenses.getAmount()*-1);
             AddExpensesQueryBuilder addExpensesQueryBuilder = new AddExpensesQueryBuilder();
+            System.out.println(expenses.getFromUsername()+"Karan");
             final int rowInserted =
                     addExpensesQueryBuilder.insertExpenseQuery(expenses, connection);
 

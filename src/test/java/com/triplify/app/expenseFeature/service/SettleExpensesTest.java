@@ -5,6 +5,7 @@ import com.triplify.app.expenseFeature.model.AddExpenses;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,8 +22,9 @@ public class SettleExpensesTest {
         final String description = "fish & chips";
         final float amount = 56;
         final String currency = "CAD";
-        final ArrayList<Long> useridlist= new ArrayList<Long>(Arrays.asList(13L, 14L, 15L,16L));;
-        final Long paidbyuserid = Long.valueOf(14);
+        final ArrayList<String> usernamelist = new ArrayList<String>(Arrays.asList("13", "14", "15","16"));;
+
+        final String paidbyusername = "14";
         final Long groupId = Long.valueOf(1);
 
         AddExpenses addExpenses = new AddExpenses();
@@ -32,18 +34,19 @@ public class SettleExpensesTest {
         addExpenses.setDescription(description);
         addExpenses.setAmount(amount);
         addExpenses.setCurrency(currency);
-        addExpenses.setUseridlist(useridlist);
-        addExpenses.setPaidbyuserid(paidbyuserid);
+        addExpenses.setUsernamelist(usernamelist);
+        addExpenses.setPaidbyusername(paidbyusername);
         addExpenses.setGroupid(groupId);
         AddExpensesController addExpensesController = new AddExpensesController();
-        addExpensesController.postExpense(addExpenses);
+        addExpensesController.postExpense(description, amount, currency,usernamelist,
+        paidbyusername, groupId);
 
-        final long userid = 15;
+        final String userid = "15";
         final long groupid_demo = 1;
 
         SettleExpenses settleExpenses = new SettleExpenses();
-        HashMap<Long, Float> fetchExpenses = settleExpenses.fetchSettleExpenses(
-                addExpenses.getPaidbyuserid(), addExpenses.getGroupid());
+        HashMap<String, Float> fetchExpenses = settleExpenses.fetchSettleExpenses(
+                addExpenses.getPaidbyusername(), addExpenses.getGroupid());
         for(Map.Entry m:fetchExpenses.entrySet()){
             System.out.println(m.getKey()+" "+m.getValue());
         }

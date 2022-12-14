@@ -5,6 +5,6 @@ import com.triplify.app.expenseFeature.model.Expenses;
 import java.util.List;
 
 public interface ISendUserExpense {
-    public List<Expenses> fetchMyExpenses(Long userid);
-    public float calculateTotalExpense(Long userid);
+    public List<Expenses> fetchMyExpenses(String userid);
+    public float calculateTotalExpense(String userid);
 }

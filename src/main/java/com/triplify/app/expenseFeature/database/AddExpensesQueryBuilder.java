@@ -28,8 +28,8 @@ public class AddExpensesQueryBuilder implements IAddExpensesQueryBuilder{
                 expenses_table_description + ", " +
                 expenses_table_amount + ", " +
                 expenses_table_currency + ", " +
-                expenses_table_from_user_id + ", " +
-                expenses_table_to_user_id + ", " +
+                expenses_table_from_username + ", " +
+                expenses_table_to_username + ", " +
                 expenses_table_id_group_details + ") " +
                 "VALUES (?,?,?,?,?,?,?);";
         try{
@@ -38,8 +38,8 @@ public class AddExpensesQueryBuilder implements IAddExpensesQueryBuilder{
             pstmt.setString(2, expenses.getDescription());
             pstmt.setFloat(3, expenses.getAmount());
             pstmt.setString(4, expenses.getCurrency());
-            pstmt.setLong(5, expenses.getFromuserid());
-            pstmt.setLong(6, expenses.getTouserid());
+            pstmt.setString(5, expenses.getFromUsername());
+            pstmt.setString(6, expenses.getToUsername());
             pstmt.setLong(7, expenses.getGroupid());
             return pstmt.executeUpdate();
 
