@@ -15,7 +15,7 @@ public class GroupCreationQueryBuilder implements IGroupCreationQueryBuilder {
                 group_destination + ", " +
                 group_description + ", " +
                 group_type + ", " +
-                group_creater_user_id + ") " +
+                group_creator_user_id + ") " +
                 "VALUES (" +
                 "\"" +groupDetails.getGroupName()+ "\", " +
                 "\"" +groupDetails.getTripStartDate()+ "\", " +

@@ -19,7 +19,7 @@ public class PostsController {
 
     PostQueryBuilder postQueryBuilder = new PostQueryBuilder();
     @GetMapping("/posts")
-    public List<Post> getPosts() throws DatabaseExceptionHandler, SQLException {
+    public List<Post> getPosts() throws DatabaseExceptionHandler{
         Connection connection =
                 DatabaseConnection.getInstance().getDatabaseConnection();
         List<Post> posts = new ArrayList<>();
@@ -38,9 +38,6 @@ public class PostsController {
             Post post = new Post(id, destination, image, details, posted_date, userid, image.getBytes(1, (int) image.length()));
             posts.add(post);
         }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
         }
         catch (Exception e){
             e.printStackTrace();

@@ -21,7 +21,7 @@ public class SendUserExpense implements ISendUserExpense {
 
         try {
             Connection connection =
-                DatabaseConnection.getInstance().getDatabaseConnection();
+                    DatabaseConnection.getInstance().getDatabaseConnection();
 
             System.out.println(connection.getCatalog());
 
@@ -69,7 +69,7 @@ public class SendUserExpense implements ISendUserExpense {
         long total = 0;
         try {
             Connection connection =
-                DatabaseConnection.getInstance().getDatabaseConnection();
+                    DatabaseConnection.getInstance().getDatabaseConnection();
             ResultSet userDetailsResultSet =
                     connection.createStatement().executeQuery("select * from User_expenses");
             while (userDetailsResultSet.next()) {
