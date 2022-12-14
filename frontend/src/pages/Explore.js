@@ -20,7 +20,7 @@ function Explore() {
             return (
                 <div key={group.groupId} className="explore-tile">
                     <img src={exploreImage} alt="halifax" className="explore-image" />
-                    <div>
+                    <div style={{ width: '100%' }}>
                         <div className='explore-name'>{group.groupName}</div>
                         <div className='explore-description'>{group.placeDescription}</div>
                         <div className="join-group-btn" onClick={() => joinGroup(group.groupId)}>

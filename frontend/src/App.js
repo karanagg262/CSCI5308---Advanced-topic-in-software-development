@@ -68,8 +68,7 @@ function App() {
           await dispatch({
             type: 'save_username',
             payload: {
-              // username: username
-              username: 'jaku'
+              username: username
             }
           });
           await navigate('/home');

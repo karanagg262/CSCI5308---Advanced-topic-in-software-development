@@ -55,7 +55,7 @@ function SettleSummary() {
                     <div className="settler-item-name">
                         {item.name}
                     </div>
-                    you {item.amount < 0 ? 'owe' : 'are owed'} {currencySign["CAD"]}<span style={item.amount < 0 ? { color: "#14C110" } : { color: "#FF0505", marginRight: '10px' }}>{item.amount > 0 ? item.amount : item.amount * -1}    </span> {' >> '}<span style={{ fontSize: '13px', fontStyle: 'italic' }}>   {'('} select to pay {')'}</span>
+                    you {item.amount < 0 ? 'owe' : 'are owed'} {currencySign["CAD"]}<span style={item.amount < 0 ? { color: "#FF0505" } : { color: "#14C110", marginRight: '10px' }}>{item.amount > 0 ? item.amount : item.amount * -1}    </span> {' >> '}<span style={{ fontSize: '13px', fontStyle: 'italic' }}>   {'('} select to pay {')'}</span>
                 </div>
             );
         });
@@ -92,9 +92,17 @@ function SettleSummary() {
                     {state.group.tripStartDate} - {state.group.tripEndDate}
                 </div>
             </div>
-            <div style={{ overflowY: 'scroll', height: '65vh' }}>
-                {renderSettlers()}
-            </div>
+            {
+                settlers.length === 0
+                    ?
+                    <div className="group-no-member">
+                        Nothing to settle.
+                    </div>
+                    :
+                    <div style={{ overflowY: 'scroll', height: '65vh' }}>
+                        {renderSettlers()}
+                    </div>
+            }
             {
                 open
                     ?

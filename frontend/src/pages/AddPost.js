@@ -28,13 +28,14 @@ function AddPost() {
         formData.append('username', state.username);
         formData.append('image', data);
         console.log(formData)
-        fetch(BACKEND_URL + 'api/v1/allposts/savepost', {
+        fetch(BACKEND_URL + 'save/post', {
             method: 'POST',
             body: formData
         })
             .then((response) => response.json())
             .then((data) => {
                 console.log('Success:', data);
+                navigate('/posts');
             })
             .catch((error) => {
                 console.error('Error:', error);

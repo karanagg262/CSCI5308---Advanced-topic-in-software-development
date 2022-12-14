@@ -35,9 +35,7 @@ function Member() {
                         isAdmin && state.username !== item.username ?
                             <div className="checklist-item-checkbox">
                                 <FontAwesomeIcon icon={solid("trash")} className="trash-icon" onClick={async () => {
-                                    let newMembers = [...members];
-                                    await newMembers.splice(index, 1);
-                                    await updateMembers(newMembers);
+                                    await deleteMember(index, item.username);
                                 }} />
                             </div>
                             :
@@ -71,6 +69,26 @@ function Member() {
                     await updateName("");
                 } else {
                     alert("Member not added. Please try again.");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    const deleteMember = async (index, name) => {
+        await fetch(BACKEND_URL + "groups/groupMemberDelete?username=" + name + "&group_id=" + state.group.id, {
+            method: "POST"
+        })
+            .then(res => res.json())
+            .then(async data => {
+                console.log(data);
+                if (data) {
+                    let newMembers = [...members];
+                    await newMembers.splice(index, 1);
+                    await updateMembers(newMembers);
+                } else {
+                    alert("Member not deleted. Please try again.");
                 }
             })
             .catch(err => {
