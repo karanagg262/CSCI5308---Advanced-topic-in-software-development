@@ -18,13 +18,13 @@ public class PostQueryBuilder {
                 post_table_username + ") " +
                 "VALUES (?,?,?,?,?);";
         try {
-            PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setString(1, post.getDestination());
-            pstmt.setBlob(2, post.getPostImage());
-            pstmt.setString(3, post.getDetails());
-            pstmt.setString(4, post.getPostedDate());
-            pstmt.setString(5, post.getUsername());
-            return pstmt.executeUpdate();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, post.getDestination());
+            preparedStatement.setBlob(2, post.getPostImage());
+            preparedStatement.setString(3, post.getDetails());
+            preparedStatement.setString(4, post.getPostedDate());
+            preparedStatement.setString(5, post.getUsername());
+            return preparedStatement.executeUpdate();
 
         } catch (
                 SQLException e) {

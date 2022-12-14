@@ -4,9 +4,7 @@ import javax.persistence.*;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.constraints.NotNull;
 import java.sql.Blob;
-import java.sql.Date;
 import java.sql.SQLException;
-
 
 @Entity
 public class Post {
