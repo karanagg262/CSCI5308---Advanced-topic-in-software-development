@@ -8,13 +8,21 @@ import org.junit.jupiter.api.Test;
 public class GroupDetailsSelectQueryTest {
 
     @Test
-    public void selectQueryForGroupTest(){
-
+    @DisplayName("valid select query for group!!")
+    public void validSelectQueryForGroupTest(){
         GroupDetailsSelectQuery groupDetailsSelectQuery = new GroupDetailsSelectQuery();
-
         final String expectedSelectQuery = groupDetailsSelectQuery.selectQueryForGroup();
         final String actualSelectQuery = "SELECT * from group_details";
         Assertions.assertEquals(expectedSelectQuery,actualSelectQuery,"Incorrect Select Query Has been generated!!");
+    }
+
+    @Test
+    @DisplayName("invalid select query for group!!")
+    public void invalidSelectQueryForGroupTest(){
+        GroupDetailsSelectQuery groupDetailsSelectQuery = new GroupDetailsSelectQuery();
+        final String expectedSelectQuery = groupDetailsSelectQuery.selectQueryForGroup();
+        final String actualSelectQuery = "SELECT * from \"group_details\"";
+        Assertions.assertNotEquals(expectedSelectQuery,actualSelectQuery,"Incorrect Select Query Has been generated!!");
     }
 
 }

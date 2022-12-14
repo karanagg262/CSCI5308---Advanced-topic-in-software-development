@@ -11,6 +11,7 @@ import com.triplify.app.Group.model.GroupMembersDetails;
 
 import javax.persistence.Entity;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -21,24 +22,27 @@ public class Exploration {
     private String groupName;
     private String placeDescription;
     private int numberOfMembers;
+    private String groupType;
     private Long groupId;
 
     public Exploration(){
 
     }
 
-    public Exploration(String groupName, String placeDescription, int numberOfMembers, Long groupId) {
+    public Exploration(String groupName, String placeDescription, int numberOfMembers, String groupType, Long groupId) {
         this.groupName = groupName;
         this.placeDescription = placeDescription;
         this.numberOfMembers = numberOfMembers;
+        this.groupType = groupType;
         this.groupId = groupId;
     }
 
-    public Exploration(Long explore_id, String groupName, String placeDescription, int numberOfMembers, Long groupId) {
+    public Exploration(Long explore_id, String groupName, String placeDescription, int numberOfMembers, String groupType, Long groupId) {
         this.explore_id = explore_id;
         this.groupName = groupName;
         this.placeDescription = placeDescription;
         this.numberOfMembers = numberOfMembers;
+        this.groupType = groupType;
         this.groupId = groupId;
     }
 
@@ -74,6 +78,14 @@ public class Exploration {
         this.numberOfMembers = numberOfMembers;
     }
 
+    public String getGroupType() {
+        return groupType;
+    }
+
+    public void setGroupType(String groupType) {
+        this.groupType = groupType;
+    }
+
     public Long getGroupId() {
         return groupId;
     }
@@ -89,6 +101,7 @@ public class Exploration {
                 ", groupName='" + groupName + '\'' +
                 ", placeDescription='" + placeDescription + '\'' +
                 ", numberOfMembers=" + numberOfMembers +
+                ", groupType='" + groupType + '\'' +
                 ", groupId=" + groupId +
                 '}';
     }
@@ -113,7 +126,6 @@ public class Exploration {
     }
 
     public void insertQueryInExplorationTable(Exploration exploration) throws DatabaseExceptionHandler {
-
         try (final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
              final Statement statement = connection.createStatement()){
 
@@ -132,5 +144,18 @@ public class Exploration {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String joinByUsernameAndGroupId(String username, Long groupId) throws DatabaseExceptionHandler, SQLException {
+        String finalResult = "";
+        Connection connection = makeDBConnection();
+
+
+
+        return null;
+    }
+
+    private Connection makeDBConnection() throws DatabaseExceptionHandler {
+        return DatabaseConnection.getInstance().getDatabaseConnection();
     }
 }

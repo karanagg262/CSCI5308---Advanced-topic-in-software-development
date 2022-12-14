@@ -15,7 +15,7 @@ public class GroupCreationQueryBuilder implements IGroupCreationQueryBuilder {
                 group_destination + ", " +
                 group_description + ", " +
                 group_type + ", " +
-                group_creator_user_id + ") " +
+                group_member_username + ") " +
                 "VALUES (" +
                 "\"" +groupDetails.getGroupName()+ "\", " +
                 "\"" +groupDetails.getTripStartDate()+ "\", " +
@@ -23,7 +23,7 @@ public class GroupCreationQueryBuilder implements IGroupCreationQueryBuilder {
                 "\"" +groupDetails.getDestination() + "\", " +
                 "\"" +groupDetails.getGroupDescription() + "\", " +
                 "\"" +groupDetails.getTripType() + "\", " +
-                groupDetails.getCreator_user_id() +
+                "\"" +groupDetails.getUsername() + "\"" +
                 ");";
     }
 }

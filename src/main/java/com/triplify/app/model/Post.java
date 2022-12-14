@@ -7,7 +7,6 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.SQLException;
 
-import static com.triplify.app.database.PostDatabaseConstant.*;
 
 @Entity
 public class Post {
@@ -31,18 +30,18 @@ public class Post {
     private String details;
     @Column(name="postedDate")
     private Date postedDate;
-    @Column(name="userid")
-    private Long userid;
+    @Column(name="username")
+    private String username;
 
     public Post() {
     }
-    public Post(Long id, String destination, Blob postImage, String details, Date postedDate, Long userid, byte[] postImageBytes) {
+    public Post(Long id, String destination, Blob postImage, String details, Date postedDate, String username, byte[] postImageBytes) {
         this.id = id;
         this.destination = destination;
         this.postImage = postImage;
         this.details = details;
         this.postedDate = postedDate;
-        this.userid = userid;
+        this.username = username;
         this.postImageBytes = postImageBytes;
     }
 
@@ -91,11 +90,11 @@ public class Post {
         this.postedDate = postedDate;
     }
 
-    public Long getUserid() {
-        return userid;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

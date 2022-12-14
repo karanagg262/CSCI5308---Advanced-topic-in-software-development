@@ -49,7 +49,7 @@ public class GroupController implements IGroupController {
             group.put("destination", result.getString(group_destination));
             group.put("description", result.getString(group_description));
             group.put("type", result.getString(group_type));
-            group.put("creator", result.getLong(group_creator_user_id));
+            group.put("username", result.getString(group_member_username));
         }
         return group;
     }
@@ -102,8 +102,10 @@ public class GroupController implements IGroupController {
         }
         catch (Exception e){
             e.printStackTrace();
+            Map<Long,List<String>> failureResponse = new HashMap<>();
+            failureResponse.put(Long.valueOf(1),new ArrayList<String>());
+            return failureResponse;
         }
-        return null;
     }
     @PostMapping("/groups/createGroup")
     public Map<String, Object> createGroup(@RequestParam("groupName") String groupName,
@@ -112,7 +114,7 @@ public class GroupController implements IGroupController {
                                            @RequestParam("groupDestination") String destination,
                                            @RequestParam("groupDescription") String groupDescription,
                                            @RequestParam("groupType") String tripType,
-                                           @RequestParam("creator_user_id") Long creator_user_id)
+                                           @RequestParam("username") String username)
             throws DatabaseExceptionHandler {
 
         GroupDetails groupDetails = createGroupDetails();
@@ -122,7 +124,7 @@ public class GroupController implements IGroupController {
         groupDetails.setDestination(destination);
         groupDetails.setGroupDescription(groupDescription);
         groupDetails.setTripType(tripType);
-        groupDetails.setCreator_user_id(creator_user_id);
+        groupDetails.setUsername(username);
 
         List<GroupDetails> listOfGroups = groupDetails.createAllGroupDetailsList();
         Map<String, Object> response = new HashMap<>();

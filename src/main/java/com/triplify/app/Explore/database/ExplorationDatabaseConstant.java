@@ -11,6 +11,8 @@ public class ExplorationDatabaseConstant {
             "group_description";
     public static final String exploration_group_members =
             "group_members";
+    public static final String exploration_group_type =
+            "group_type";
     public static final String exploration_group_id =
             "id_group";
 }

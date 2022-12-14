@@ -29,31 +29,23 @@ public class GroupDetails implements IGroupDetails{
     private String destination;
     private String groupDescription;
     private String tripType;
-    private Long creator_user_id;
-
-    public Long getGroup_id() {
-        return id;
-    }
-
-    public void setGroup_id(Long group_id) {
-        this.id = group_id;
-    }
+    private String groupMemberUsername;
 
     public GroupDetails(){
 
     }
 
-    public GroupDetails(String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, Long creator_user_id) {
+    public GroupDetails(String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, String username) {
         this.groupName = groupName;
         this.tripStartDate = tripStartDate;
         this.tripEndDate = tripEndDate;
         this.destination = destination;
         this.tripType = tripType;
         this.groupDescription = groupDescription;
-        this.creator_user_id = creator_user_id;
+        this.groupMemberUsername = username;
     }
 
-    public GroupDetails(Long id, String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, Long creator_user_id) {
+    public GroupDetails(Long id, String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, String username) {
         this.id = id;
         this.groupName = groupName;
         this.tripStartDate = tripStartDate;
@@ -61,7 +53,7 @@ public class GroupDetails implements IGroupDetails{
         this.destination = destination;
         this.tripType = tripType;
         this.groupDescription = groupDescription;
-        this.creator_user_id = creator_user_id;
+        this.groupMemberUsername = username;
     }
 
     public Long getId() {
@@ -119,27 +111,15 @@ public class GroupDetails implements IGroupDetails{
         this.tripType = tripType;
     }
 
-    public Long getCreator_user_id() {
-        return creator_user_id;
+    public String getUsername() {
+        return groupMemberUsername;
     }
 
-    public void setCreator_user_id(Long creator_user_id) {
-        this.creator_user_id = creator_user_id;
+    public void setUsername(String groupMemberUsername) {
+        this.groupMemberUsername = groupMemberUsername;
     }
 
-    @Override
-    public String toString() {
-        return "GroupDetails{" +
-                "id=" + id +
-                ", groupName='" + groupName + '\'' +
-                ", tripStartDate='" + tripStartDate + '\'' +
-                ", tripEndDate='" + tripEndDate + '\'' +
-                ", destination='" + destination + '\'' +
-                ", groupDescription='" + groupDescription + '\'' +
-                ", tripType='" + tripType + '\'' +
-                ", creator_group_id=" + creator_user_id +
-                '}';
-    }
+
 
     public Connection makeDBConnection() throws DatabaseExceptionHandler {
         return DatabaseConnection.getInstance().getDatabaseConnection();
@@ -162,9 +142,9 @@ public class GroupDetails implements IGroupDetails{
                 String groupDestination = groupDetailsResultSet.getString(""+group_destination);
                 String groupDescription = groupDetailsResultSet.getString(""+group_description);
                 String groupType = groupDetailsResultSet.getString(""+group_type);
-                Long group_user_id = groupDetailsResultSet.getLong(""+ group_creator_user_id);
+                String groupMemberUsername = groupDetailsResultSet.getString(""+ group_member_username);
 
-                GroupDetails groupDetails = new GroupDetails(id,groupName,groupStartDate,groupEndDate,groupDestination,groupType,groupDescription,group_user_id);
+                GroupDetails groupDetails = new GroupDetails(id,groupName,groupStartDate,groupEndDate,groupDestination,groupType,groupDescription,groupMemberUsername);
                 groupDetailsList.add(groupDetails);
             }
 
@@ -199,7 +179,7 @@ public class GroupDetails implements IGroupDetails{
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            response.put("SUCCESS", true);
+            response.put("SUCCESS", false);
             response.put("MESSAGE", "GROUP_CREATION_FAILED");
         }
         return response;

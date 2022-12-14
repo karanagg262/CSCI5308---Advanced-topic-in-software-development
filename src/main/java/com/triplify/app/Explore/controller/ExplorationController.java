@@ -8,26 +8,21 @@ import com.triplify.app.Explore.model.Exploration;
 import com.triplify.app.Group.model.GroupDetails;
 import com.triplify.app.Group.model.GroupMembersDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 public class ExplorationController implements IExplorationController {
-
-    private IDatabase dbConnection;
-    private IExplorationTableInsertQueryBuilder explorationTableInsertQuery;
     private Exploration exploration;
 
     public ExplorationController(){
         exploration = createExploration();
     }
 
-    public ExplorationController(IDatabase dbConnection,
-                                 IExplorationTableInsertQueryBuilder explorationTableInsertQuery,
-                                 Exploration exploration){
-        this.dbConnection = dbConnection;
-        this.explorationTableInsertQuery = explorationTableInsertQuery;
+    public ExplorationController(Exploration exploration){
         this.exploration = exploration;
     }
 
@@ -62,6 +57,13 @@ public class ExplorationController implements IExplorationController {
             }
         }
         return explorationList;
+    }
+
+    @Override
+    public String joinGroupByUsernameAndGroupId(String username, Long groupId) throws DatabaseExceptionHandler, SQLException {
+        Exploration explorationObject = createExploration();
+        String joinResult = explorationObject.joinByUsernameAndGroupId(username, groupId);
+        return null;
     }
 
     private List<Exploration> calculateGroupsByLocation(List<GroupDetails> groupDetailsList,

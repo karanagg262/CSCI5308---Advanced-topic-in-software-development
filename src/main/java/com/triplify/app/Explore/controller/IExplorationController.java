@@ -11,4 +11,6 @@ public interface IExplorationController {
 
     List<Exploration> searchGroups(final String location) throws ExplorationException, SQLException, DatabaseExceptionHandler;
 
+    String joinGroupByUsernameAndGroupId(String username, Long groupId) throws DatabaseExceptionHandler, SQLException;
+
 }
