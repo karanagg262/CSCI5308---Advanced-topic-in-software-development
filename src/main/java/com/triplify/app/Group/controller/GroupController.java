@@ -29,8 +29,7 @@ public class GroupController implements IGroupController {
     @GetMapping("/groups")
     public List<GroupDetails> getAllGroupDetails() throws DatabaseExceptionHandler {
         GroupDetails groupDetails = createGroupDetails();
-        List<GroupDetails> groupDetailsList = groupDetails.createAllGroupDetailsList();
-        return groupDetailsList;
+        return groupDetails.createAllGroupDetailsList();
     }
     @GetMapping("/groups/{group_id}")
     public Map<String, Object> getGroup(@PathVariable("group_id") long group_id) throws DatabaseExceptionHandler, SQLException {
@@ -38,9 +37,9 @@ public class GroupController implements IGroupController {
         String query = "SELECT * FROM "+group_details_table +
                 " WHERE "+ group_details_id +
                 "=?";
-        PreparedStatement pstmt = dbConnection.prepareStatement(query);
-        pstmt.setLong(1,group_id);
-        ResultSet result = pstmt.executeQuery();
+        PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+        preparedStatement.setLong(1,group_id);
+        ResultSet result = preparedStatement.executeQuery();
         Map<String, Object> group = new HashMap<>();
         while (result.next()){
             group.put("group_id", result.getLong(group_details_id));
@@ -90,7 +89,6 @@ public class GroupController implements IGroupController {
                                                @RequestParam("username") String username) throws DatabaseExceptionHandler, SQLException{
         Find seeker = new Find();
         GroupMemberDetailsQueryBuilder queries = new GroupMemberDetailsQueryBuilder();
-        Long user_id = seeker.findUserIdByUsername(username);
         Connection dbConnection = DatabaseConnection.getInstance().getDatabaseConnection();
         PreparedStatement insertStatement = dbConnection.prepareStatement(queries.groupMemberRelationshipInsertQuery());
         insertStatement.setLong(1,group_id);
