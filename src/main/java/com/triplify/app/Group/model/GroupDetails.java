@@ -29,7 +29,7 @@ public class GroupDetails implements IGroupDetails{
     private String destination;
     private String groupDescription;
     private String tripType;
-    private Long user_id;
+    private Long creator_user_id;
 
     public Long getGroup_id() {
         return id;
@@ -43,17 +43,17 @@ public class GroupDetails implements IGroupDetails{
 
     }
 
-    public GroupDetails(String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, Long user_id) {
+    public GroupDetails(String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, Long creator_user_id) {
         this.groupName = groupName;
         this.tripStartDate = tripStartDate;
         this.tripEndDate = tripEndDate;
         this.destination = destination;
         this.tripType = tripType;
         this.groupDescription = groupDescription;
-        this.user_id = user_id;
+        this.creator_user_id = creator_user_id;
     }
 
-    public GroupDetails(Long id, String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, Long user_id) {
+    public GroupDetails(Long id, String groupName, String tripStartDate, String tripEndDate, String destination, String tripType, String groupDescription, Long creator_user_id) {
         this.id = id;
         this.groupName = groupName;
         this.tripStartDate = tripStartDate;
@@ -61,7 +61,7 @@ public class GroupDetails implements IGroupDetails{
         this.destination = destination;
         this.tripType = tripType;
         this.groupDescription = groupDescription;
-        this.user_id = user_id;
+        this.creator_user_id = creator_user_id;
     }
 
     public Long getId() {
@@ -119,12 +119,12 @@ public class GroupDetails implements IGroupDetails{
         this.tripType = tripType;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getCreator_user_id() {
+        return creator_user_id;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setCreator_user_id(Long creator_user_id) {
+        this.creator_user_id = creator_user_id;
     }
 
     @Override
@@ -137,7 +137,7 @@ public class GroupDetails implements IGroupDetails{
                 ", destination='" + destination + '\'' +
                 ", groupDescription='" + groupDescription + '\'' +
                 ", tripType='" + tripType + '\'' +
-                ", user_id=" + user_id +
+                ", creator_group_id=" + creator_user_id +
                 '}';
     }
 

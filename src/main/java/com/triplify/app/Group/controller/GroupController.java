@@ -112,7 +112,7 @@ public class GroupController implements IGroupController {
                                            @RequestParam("groupDestination") String destination,
                                            @RequestParam("groupDescription") String groupDescription,
                                            @RequestParam("groupType") String tripType,
-                                           @RequestParam("user_id") Long user_id)
+                                           @RequestParam("creator_user_id") Long creator_user_id)
             throws DatabaseExceptionHandler {
 
         GroupDetails groupDetails = createGroupDetails();
@@ -122,7 +122,7 @@ public class GroupController implements IGroupController {
         groupDetails.setDestination(destination);
         groupDetails.setGroupDescription(groupDescription);
         groupDetails.setTripType(tripType);
-        groupDetails.setUser_id(user_id);
+        groupDetails.setCreator_user_id(creator_user_id);
 
         List<GroupDetails> listOfGroups = groupDetails.createAllGroupDetailsList();
         Map<String, Object> response = new HashMap<>();

@@ -26,8 +26,6 @@ public class ExplorationTableInsertQueryBuilderTest {
         final String actualInsertQuery =
                 "INSERT INTO explore_table(group_name, group_description, group_members, id_group) VALUES (\"Australia\", \"AustraliaHome\", \"4\", 14);";
 
-        System.out.println(expectedInsertQuery);
-        System.out.println(actualInsertQuery);
         Assertions.assertEquals(expectedInsertQuery,actualInsertQuery,"Incorrect Insert Query Has been generated!!");
     }
 

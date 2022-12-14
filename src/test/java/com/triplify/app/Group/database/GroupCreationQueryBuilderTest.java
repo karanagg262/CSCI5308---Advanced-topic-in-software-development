@@ -19,7 +19,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setUser_id(Long.valueOf(15));
+        groupDetails.setCreator_user_id(Long.valueOf(15));
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
