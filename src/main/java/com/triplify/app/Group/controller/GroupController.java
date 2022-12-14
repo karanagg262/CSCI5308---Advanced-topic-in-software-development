@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.*;
+import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant.GROUP_HAS_MEMBERS_GROUP_ID;
 import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant.GROUP_HAS_MEMBERS_USERNAME;
 
 @RestController
@@ -84,6 +85,53 @@ public class GroupController implements IGroupController {
         }
         return response;
     }
+
+    @PostMapping("/groups/groupsByUsername")
+    public Map<String,Object> getGroupsByUsername(@RequestParam("username") String username) throws DatabaseExceptionHandler, SQLException {
+
+        Map<String,Object> responseObject = new HashMap<>();
+
+        List<GroupDetails> groupDetailsList = new ArrayList<>();
+        Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("select * from group_has_members");
+        List<Long> groupIds = new ArrayList<>();
+
+        while (resultSet.next()){
+            if (resultSet.getString(""+GROUP_HAS_MEMBERS_USERNAME).equalsIgnoreCase(""+username)){
+                groupIds.add(resultSet.getLong(""+GROUP_HAS_MEMBERS_GROUP_ID));
+            }
+        }
+
+        Connection connectionToGroupTable = DatabaseConnection.getInstance().getDatabaseConnection();
+        for(int i = 0 ; i < groupIds.size() ; i++){
+            ResultSet resultSetGroupDetails = connectionToGroupTable.createStatement().executeQuery("select * from group_details where id_group_details = "+groupIds.get(i));
+            GroupDetails groupDetails = createGroupDetails();
+            while (resultSetGroupDetails.next()){
+                groupDetails.setId(resultSetGroupDetails.getLong(""+group_details_id));
+                groupDetails.setGroupName(resultSetGroupDetails.getString(""+group_name));
+                groupDetails.setTripStartDate(resultSetGroupDetails.getString(""+group_trip_start_date));
+                groupDetails.setTripEndDate(resultSetGroupDetails.getString(""+group_trip_end_date));
+                groupDetails.setDestination(resultSetGroupDetails.getString(""+group_destination));
+                groupDetails.setGroupDescription(resultSetGroupDetails.getString(""+group_description));
+                groupDetails.setTripType(resultSetGroupDetails.getString(""+group_type));
+                groupDetails.setUsername(resultSetGroupDetails.getString(""+ group_member_username));
+
+                groupDetailsList.add(groupDetails);
+            }
+        }
+
+        if(groupDetailsList.size() > 0){
+            responseObject.put("SUCCESS",true);
+            responseObject.put("MESSAGE","Congratulations!! you're in the group");
+            responseObject.put("groupDetails",groupDetailsList);
+        } else {
+            responseObject.put("SUCCESS",false);
+            responseObject.put("MESSAGE","Congratulations!! you're in the group");
+            responseObject.put("groupDetails", null);
+        }
+        return responseObject;
+    }
+
     @PostMapping("/groups/{group_id}/add/member")
     public Map<Long, List<String>> addGroupMembers(@PathVariable("group_id") long group_id,
                                                @RequestParam("username") String username) throws DatabaseExceptionHandler, SQLException{
