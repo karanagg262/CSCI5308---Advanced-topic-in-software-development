@@ -59,9 +59,9 @@ public class GroupController implements IGroupController {
         try {
         Connection dbConnection = DatabaseConnection.getInstance().getDatabaseConnection();
         GroupMemberDetailsQueryBuilder queries = new GroupMemberDetailsQueryBuilder();
-        PreparedStatement pstmt = dbConnection.prepareStatement(queries.groupMemberRelationshipGetQuery());
-        pstmt.setLong(1,group_id);
-        ResultSet results = pstmt.executeQuery();
+        PreparedStatement preparedStatement = dbConnection.prepareStatement(queries.groupMemberRelationshipGetQuery());
+        preparedStatement.setLong(1,group_id);
+        ResultSet results = preparedStatement.executeQuery();
         List<Map<String, Object>> members = new ArrayList<>();
         Find seeker = new Find();
         while(results.next()){
