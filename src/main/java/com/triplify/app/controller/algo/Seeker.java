@@ -21,7 +21,7 @@ public class Seeker {
     {
         List<Map<String, Object>> response = new ArrayList<>();
         String query = "SELECT * FROM " + USER_LOCATION_TABLE +
-                " WHERE " + USER_LOCATION_USERNAME + "!=?";
+                " WHERE " + USER_LOCATION_USERNAME + "=?";
         for(String username:usernames) {
             try {
                 Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
@@ -30,12 +30,11 @@ public class Seeker {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     Map<String, Object> userLocationMap = new HashMap<>();
-                    userLocationMap.put("username", username);
+                    userLocationMap.put("username", resultSet.getString(USER_LOCATION_USERNAME));
                     userLocationMap.put("longitude", resultSet.getDouble(USER_LOCATION_LONGITUDE));
                     userLocationMap.put("latitude", resultSet.getDouble(USER_LOCATION_LATITUDE));
                     response.add(userLocationMap);
                 }
-                return response;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             } catch (DatabaseExceptionHandler e) {

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,13 @@ public class LocationController {
     @GetMapping("/fetch/location/{group_id}")
     public List<Map<String, Object>> fetchGroupLocation(@PathVariable("group_id") Long group_id, @RequestParam("username") String username){
         Seeker seeker = new Seeker();
-        return seeker.findUserLocation(seeker.findMembersInGroup(group_id));
+        List<Map<String, Object>> allMembers = seeker.findUserLocation(seeker.findMembersInGroup(group_id));
+        List<Map<String, Object>> filteredMembers = new ArrayList<>();
+        for(Map<String, Object> member: allMembers){
+            if(!member.get("username").equals(username)){
+                filteredMembers.add(member);
+            }
+        }
+        return filteredMembers;
     }
 }
