@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import static com.triplify.app.checklist.database.ChecklistDatabaseConstant.*;
 
@@ -24,9 +25,11 @@ public class ChecklistController implements IChecklistController {
     @Override
     public Map<String, Object> postChecklist(@RequestParam("group_id") long group_id,
                                              @RequestParam("checklist_name") String checklist_name,
-                                             @RequestParam("checklisted") boolean checklisted,
-                                             @RequestParam("checklist_id") long checklist_id)
+                                             @RequestParam("checklisted") boolean checklisted)
     {
+        Random rand = new Random();
+        int upperbound = 10000;
+        long checklist_id = rand.nextLong(upperbound);
         Map<String,Object> response = new HashMap<>();
         Checklist checklist = new Checklist();
         checklist.setGroup_id(group_id);
