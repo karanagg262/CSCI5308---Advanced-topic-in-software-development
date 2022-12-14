@@ -10,6 +10,22 @@ const Reducer = (state, action) => {
                 ...state,
                 username: action.payload.username
             };
+        case 'started_running':
+            return {
+                ...state,
+                isRunning: action.payload.isRunning
+            };
+        case 'location_updated':
+            return {
+                ...state,
+                latitude: action.payload.latitude,
+                longitude: action.payload.longitude
+            };
+        case 'members_fetched':
+            return {
+                ...state,
+                members: action.payload.members
+            };
         default:
             return {
                 ...state

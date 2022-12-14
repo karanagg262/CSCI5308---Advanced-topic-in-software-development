@@ -1,50 +1,81 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { context } from "../Store";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import Menu from "../components/Menu";
+import { BACKEND_URL } from "../Constants";
 
 function Member() {
 
     const navigate = useNavigate();
     const [state,] = useContext(context);
     let [open, setOpen] = useState(false);
-    let [members, ] = useState([
-        {
-            name: 'John Doe',
-            isAdmin: true
-        },
-        {
-            name: 'Jane Doe',
-            isAdmin: false
-        },
-        {
-            name: 'Dave Smith',
-            isAdmin: false
+    let [name, updateName] = useState("");
+    const [openModal, setOpenModal] = useState(false);
+    let [members, updateMembers] = useState(state.members);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        if (state.group.username === state.username) {
+            setIsAdmin(true);
         }
-    ]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const renderMembers = () => {
         const renderedMembers = members.map((item, index) => {
             return (
                 <div className="checklist-item" key={index}>
                     <div className="checklist-item-name">
-                        {item.name}
+                        {item.username}
                     </div>
                     {
-                        item.isAdmin ?
-                            <></>
-                            :
+                        isAdmin && state.username !== item.username ?
                             <div className="checklist-item-checkbox">
-                                <FontAwesomeIcon icon={solid("trash")} className="trash-icon" />
+                                <FontAwesomeIcon icon={solid("trash")} className="trash-icon" onClick={async () => {
+                                    let newMembers = [...members];
+                                    await newMembers.splice(index, 1);
+                                    await updateMembers(newMembers);
+                                }} />
                             </div>
+                            :
+                            <></>
                     }
                 </div>
             );
         });
         return renderedMembers;
+    }
+
+    const addMember = async () => {
+        const formData = new FormData();
+        formData.append("username", name);
+        await fetch(BACKEND_URL + "groups/" + state.group.id + "/add/member", {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(async data => {
+                console.log(data);
+                if (data) {
+                    let tempMembers = [...members]
+                    let newMember = {
+                        username: name,
+                        isAdmin: false
+                    }
+                    await tempMembers.push(newMember);
+                    await updateMembers(tempMembers);
+                    await setOpenModal(false);
+                    await updateName("");
+                } else {
+                    alert("Member not added. Please try again.");
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     return (
@@ -57,25 +88,24 @@ function Member() {
                     Triplify
                 </div>
                 <div className="header-options">
-                    <div className="header-option">Friends</div>
-                    <div className="header-option">Explore</div>
-                    <div className="header-option">Posts</div>
+                    <div className="header-option" onClick={() => navigate("/explore")}>Explore</div>
+                    <div className="header-option" onClick={() => navigate("/posts")}>Posts</div>
                     <div className="header-option">
-                        <FontAwesomeIcon icon={regular("user")} style={{ color: '#fff', fontSize: '15px' }} />
+                        <FontAwesomeIcon icon={regular("user")} style={{ color: '#fff', fontSize: '15px' }} onClick={() => navigate("/profile")} />
                     </div>
                 </div>
             </div>
             <div className="group-header">
                 <div className="group-title">
                     <div className="group-name">
-                        {state.group.name}
+                        {state.group.groupName}
                     </div>
                     <div className="group-destination">
                         {state.group.destination}
                     </div>
                 </div>
                 <div className="group-interval">
-                    {state.group.startDate} - {state.group.endDate}
+                    {state.group.tripStartDate} - {state.group.tripEndDate}
                 </div>
             </div>
             <div>
@@ -91,7 +121,9 @@ function Member() {
                         </div>
                 }
             </div>
-            <div className="home-add" onClick={() => navigate('/add-group')}>
+            <div className="home-add" onClick={async () => {
+                await setOpenModal(true);
+            }}>
                 <div>
                     +
                 </div>
@@ -102,6 +134,28 @@ function Member() {
                     <Menu toggleOpen={setOpen} />
                     :
                     <></>
+            }
+            {
+                openModal
+                    ?
+                    <div className="modal-bg" onClick={() => {
+                        setOpenModal(false);
+                    }}>
+                        <div className='member-modal' onClick={e => {
+                            e.stopPropagation();
+                        }}>
+                            <div>
+                                <input className="add-member-name" placeholder='Email' value={name} onChange={e => updateName(e.target.value)} />
+                            </div>
+                            <div className="add-group-btn" onClick={async () => {
+                                await addMember();
+                            }}>
+                                Submit
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    null
             }
         </div>
     );

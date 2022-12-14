@@ -22,7 +22,7 @@ public class PostQueryBuilder {
             pstmt.setString(1, post.getDestination());
             pstmt.setBlob(2, post.getPostImage());
             pstmt.setString(3, post.getDetails());
-            pstmt.setDate(4, post.getPostedDate());
+            pstmt.setString(4, post.getPostedDate());
             pstmt.setString(5, post.getUsername());
             return pstmt.executeUpdate();
 

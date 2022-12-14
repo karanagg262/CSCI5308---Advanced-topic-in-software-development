@@ -33,7 +33,7 @@ public class PostsController {
             String destination = postsResultSet.getString(""+post_table_destination);
             Blob image = postsResultSet.getBlob(""+post_table_image);
             String details = postsResultSet.getString(""+post_table_details);
-            Date posted_date = postsResultSet.getDate(""+post_table_posted_date);
+            String posted_date = postsResultSet.getString(""+post_table_posted_date);
             String username = postsResultSet.getString(""+ post_table_username);
             System.out.println("karan"+image);
             Post post = new Post(id, destination, image, details, posted_date, username, image.getBytes(1, (int) image.length()));
@@ -50,7 +50,7 @@ public class PostsController {
     @PostMapping(value="/savepost", consumes = {"multipart/form-data"})
     public void savePost( @RequestParam("destination") String destination,
                           @RequestParam("details") String details,
-                          @RequestParam("postedDate") Date postedDate,
+                          @RequestParam("postedDate") String postedDate,
                           @RequestParam("username") String username,
                           @RequestParam("image") MultipartFile imageFile) throws DatabaseExceptionHandler, IOException {
 
