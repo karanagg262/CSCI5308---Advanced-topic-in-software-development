@@ -1,12 +1,12 @@
-package com.triplify.app.controller;
+package com.triplify.app.checklist.database;
 
-import com.triplify.app.model.Checklist;
+import com.triplify.app.checklist.model.Checklist;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static com.triplify.app.database.ChecklistDatabaseConstant.*;
+import static com.triplify.app.checklist.database.ChecklistDatabaseConstant.*;
 
 public class ChecklistQueryBuilder {
     public static int insertChecklistQuery(final Checklist checklist, Connection connection){

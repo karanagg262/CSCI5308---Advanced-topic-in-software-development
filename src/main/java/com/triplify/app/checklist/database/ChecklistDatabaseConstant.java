@@ -1,4 +1,4 @@
-package com.triplify.app.database;
+package com.triplify.app.checklist.database;
 
 public class ChecklistDatabaseConstant {
     public static final String checklist_table =

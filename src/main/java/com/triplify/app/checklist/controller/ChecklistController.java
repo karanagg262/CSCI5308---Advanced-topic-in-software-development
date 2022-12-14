@@ -1,15 +1,16 @@
-package com.triplify.app.controller;
+package com.triplify.app.checklist.controller;
 
+import com.triplify.app.checklist.database.ChecklistQueryBuilder;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.model.Checklist;
+import com.triplify.app.checklist.model.Checklist;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.triplify.app.database.ChecklistDatabaseConstant.*;
+import static com.triplify.app.checklist.database.ChecklistDatabaseConstant.*;
 
 @RestController
 @RequestMapping(path = "api/v1/groups")
