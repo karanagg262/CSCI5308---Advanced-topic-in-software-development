@@ -19,13 +19,13 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setCreator_user_id(Long.valueOf(15));
+        groupDetails.setUsername("viral123");
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
-                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", 15);";
+                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", \"viral123\");";
 
         Assertions.assertNotEquals(expectedInsertQuery,actualInsertQuery,"Incorrect Insert Query Has been generated!!");
 
@@ -41,13 +41,13 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setCreator_user_id(Long.valueOf(15));
+        groupDetails.setUsername("viral123");
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
-                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", 15);";
+                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", \"viral123\");";
 
         Assertions.assertNotEquals(expectedInsertQuery,actualInsertQuery,"Incorrect Insert Query Has been generated!!");
 
@@ -63,13 +63,13 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setCreator_user_id(Long.valueOf(15));
+        groupDetails.setUsername("viral123");
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
-                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", 15);";
+                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", \"viral123\");";
 
         Assertions.assertNotEquals(expectedInsertQuery,actualInsertQuery,"Incorrect Insert Query Has been generated!!");
 
@@ -85,13 +85,13 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate(null);
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setCreator_user_id(Long.valueOf(15));
+        groupDetails.setUsername("viral123");
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
-                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", 15);";
+                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", \"viral123\");";
         Assertions.assertNotEquals(expectedInsertQuery,actualInsertQuery,"Incorrect Insert Query Has been generated!!");
 
     }
@@ -106,13 +106,13 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate(null);
         groupDetails.setTripType("Public");
-        groupDetails.setCreator_user_id(Long.valueOf(15));
+        groupDetails.setUsername("viral123");
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
-                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", 15);";
+                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", \"viral123\");";
 
         Assertions.assertNotEquals(expectedInsertQuery,actualInsertQuery,"Incorrect Insert Query Has been generated!!");
 
@@ -128,13 +128,13 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType(null);
-        groupDetails.setCreator_user_id(Long.valueOf(15));
+        groupDetails.setUsername("viral123");
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
-                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", 15);";
+                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", \"viral123\");";
 
         Assertions.assertNotEquals(expectedInsertQuery,actualInsertQuery,"Incorrect Insert Query Has been generated!!");
 
@@ -150,13 +150,13 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setCreator_user_id(null);
+        groupDetails.setUsername(null);
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
-                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", 15);";
+                "INSERT INTO group_details(group_name, trip_start_date, trip_end_date, destination, group_description, trip_type, user_id) VALUES (\"Australia\", \"12-12-2022\", \"12-14-2022\", \"Australia\", \"Coming Soon\", \"Public\", \"\");";
 
         Assertions.assertNotEquals(expectedInsertQuery,actualInsertQuery,"Incorrect Insert Query Has been generated!!");
 
@@ -172,7 +172,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setCreator_user_id(Long.valueOf(15));
+        groupDetails.setUsername("viral123");
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 

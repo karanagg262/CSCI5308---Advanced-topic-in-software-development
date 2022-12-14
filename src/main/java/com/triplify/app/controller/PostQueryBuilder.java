@@ -15,7 +15,7 @@ public class PostQueryBuilder {
                 post_table_image + ", " +
                 post_table_details + ", " +
                 post_table_posted_date + ", " +
-                post_table_userid + ") " +
+                post_table_username + ") " +
                 "VALUES (?,?,?,?,?);";
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -23,7 +23,7 @@ public class PostQueryBuilder {
             pstmt.setBlob(2, post.getPostImage());
             pstmt.setString(3, post.getDetails());
             pstmt.setDate(4, post.getPostedDate());
-            pstmt.setLong(5, post.getUserid());
+            pstmt.setString(5, post.getUsername());
             return pstmt.executeUpdate();
 
         } catch (

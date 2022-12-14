@@ -10,6 +10,6 @@ public interface IGroupController {
 
     Map<String, Object> createGroup(String groupName, String tripStartDate,
                                     String tripEndDate,String destination,
-                                    String groupDescription,String tripType,Long user_id)
+                                    String groupDescription,String tripType,String username)
         throws GroupException, DatabaseExceptionHandler, SQLException;
 }

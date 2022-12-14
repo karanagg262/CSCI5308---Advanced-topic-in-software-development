@@ -25,17 +25,57 @@ public class UserController {
         return iGroupCreationFactory.makeUserTable();
     }
 
+    @PostMapping("updateProfile")
+    public Map<String, Object> updateProfile(@RequestParam("username") String username,
+                                             @RequestParam("firstname") String firstname,
+                                             @RequestParam("lastname") String lastname,
+                                             @RequestParam("emailAddress") String emailAddress,
+                                             @RequestParam("avatar") MultipartFile imageFile) throws DatabaseExceptionHandler, SQLException, IOException {
+        UserTable userTable = createUserTable();
+        List<UserTable> userTableList = getAllUsers();
+        Map<String, Object> resultResponse = new HashMap<>();
+
+        for(int i = 0 ; i < userTableList.size() ; i++){
+            if(userTableList.get(i).getUsername().equalsIgnoreCase(username)){
+                userTable.setId(userTableList.get(i).getId());
+                userTable.setFirstname(firstname);
+                userTable.setLastname(lastname);
+                userTable.setEmailAddress(emailAddress);
+                userTable.setPassword(userTableList.get(i).getPassword());
+                userTable.setDob(userTableList.get(i).getDob());
+                userTable.setProfPic(imageFile.getBytes());
+                userTable.setLoggedIn(true);
+                userTable.setUsername(username);
+            }
+        }
+
+        Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+        UpdateUserTableQueryBuilder updateUserTableQueryBuilder = new UpdateUserTableQueryBuilder();
+
+        final int rowUpdated = updateUserTableQueryBuilder.updateQuery(userTable, connection);
+
+        if( rowUpdated > 0){
+            resultResponse.put("SUCCESS",true);
+            resultResponse.put("MESSAGE","SUCCESSFULLY Updated Profile");
+            return resultResponse;
+        } else {
+            resultResponse.put("SUCCESS",false);
+            resultResponse.put("MESSAGE","Not updated properly!!");
+            return resultResponse;
+        }
+    }
+
     @PostMapping("users/login")
-    public Map<String, Object> loginUser(@RequestParam("emailAddress") String username,
+    public Map<String, Object> loginUser(@RequestParam("emailAddress") String emailAddress,
                             @RequestParam("password") String password) throws DatabaseExceptionHandler {
         List<UserTable> listOfUsers = getAllUsers();
         Map<String, Object> response = new HashMap<>();
         for(UserTable user : listOfUsers){
-            if(user.getEmailAddress().equalsIgnoreCase(username) &&
+            if(user.getEmailAddress().equalsIgnoreCase(emailAddress) &&
                 user.getPassword().equalsIgnoreCase(password)){
                 user.setLoggedIn(true);
                 response.put("SUCCESS", true);
-                response.put("USERNAME", username);
+                response.put("USERNAME", user.getUsername());
                 response.put("MESSAGE", "Login successful");
             }
             else{

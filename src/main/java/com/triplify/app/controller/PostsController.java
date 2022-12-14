@@ -33,9 +33,9 @@ public class PostsController {
             Blob image = postsResultSet.getBlob(""+post_table_image);
             String details = postsResultSet.getString(""+post_table_details);
             Date posted_date = postsResultSet.getDate(""+post_table_posted_date);
-            Long userid = postsResultSet.getLong(""+post_table_userid);
+            String username = postsResultSet.getString(""+ post_table_username);
             System.out.println("karan"+image);
-            Post post = new Post(id, destination, image, details, posted_date, userid, image.getBytes(1, (int) image.length()));
+            Post post = new Post(id, destination, image, details, posted_date, username, image.getBytes(1, (int) image.length()));
             posts.add(post);
         }
         }
@@ -50,14 +50,14 @@ public class PostsController {
     public void savePost( @RequestParam("destination") String destination,
                           @RequestParam("details") String details,
                           @RequestParam("postedDate") Date postedDate,
-                          @RequestParam("userid") Long userid,
+                          @RequestParam("username") String username,
                           @RequestParam("image") MultipartFile imageFile) throws DatabaseExceptionHandler, IOException {
 
         Post post = new Post();
         post.setDestination(destination);
         post.setDetails(details);
         post.setPostedDate(postedDate);
-        post.setUserid(userid);
+        post.setUsername(username);
         post.setPostImageBytes(imageFile.getBytes());
 
         try(final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
