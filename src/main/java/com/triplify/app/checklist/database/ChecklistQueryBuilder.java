@@ -8,8 +8,9 @@ import java.sql.SQLException;
 
 import static com.triplify.app.checklist.database.ChecklistDatabaseConstant.*;
 
-public class ChecklistQueryBuilder {
-    public static int insertChecklistQuery(final Checklist checklist, Connection connection){
+public class ChecklistQueryBuilder implements IChecklistQueryBuilder{
+    @Override
+    public int insertChecklistQuery(final Checklist checklist, Connection connection){
         String query = "INSERT INTO "+ checklist_table + "(" +
                 checklist_groupid + ", " +
                 checklist_checklist + ", " +

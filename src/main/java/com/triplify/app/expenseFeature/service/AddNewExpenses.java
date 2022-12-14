@@ -9,12 +9,15 @@ import com.triplify.app.expenseFeature.model.AddExpenses;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddNewExpenses implements IAddNewExpenses {
     private static List<Expenses> addUserExpense = new ArrayList<>();
     @Override
-    public void splitExpenses(AddExpenses expenses) {
+    public Map<String,Object> splitExpenses(AddExpenses expenses) {
+        Map<String,Object> response = new HashMap<>();
         ArrayList<String> usernamelist = expenses.getUsernamelist();
         int size = usernamelist.size();
         float split = expenses.getAmount()/size;
@@ -22,19 +25,21 @@ public class AddNewExpenses implements IAddNewExpenses {
         for (int i = 0; i < size; i++) {
             if (usernamelist.get(i).equals(expenses.getPaidbyusername()))
             {
-                setExpenses(expenses, expenses.getAmount() - split, usernamelist.get(i));
+                response = setExpenses(expenses, expenses.getAmount() - split, usernamelist.get(i));
                 id = i;
             } else {
-                setExpenses(expenses, split * -1, usernamelist.get(i));
+                response = setExpenses(expenses, split * -1, usernamelist.get(i));
             }
         }
         if (id < 0) {
-            setExpenses(expenses, expenses.getAmount(), "");
+            response = setExpenses(expenses, expenses.getAmount(), "");
         }
+        return response;
     }
     @Override
-    public void setExpenses(AddExpenses expenses, float splittedAmount, String useridlist)
+    public Map<String, Object> setExpenses(AddExpenses expenses, float splittedAmount, String useridlist)
     {
+        Map<String,Object> response = new HashMap<>();
         try{
 
             Connection connection =
@@ -58,18 +63,26 @@ public class AddNewExpenses implements IAddNewExpenses {
 
             if(rowInserted > 0){
                 System.out.println("Yes row is inserted !!");
+                response.put("SUCCESS",true);
+                response.put("MESSAGE","Expenses are added successfully");
             }
             if(connection!=null){
                 connection.close();
             }
         } catch (SQLException e) {
+            response.put("SUCCESS",false);
+            response.put("MESSAGE","Expenses are not added!!");
             throw new RuntimeException(e);
         } catch (DatabaseExceptionHandler e) {
+            response.put("SUCCESS",false);
+            response.put("MESSAGE","Expenses are not added!!");
             throw new RuntimeException(e);
         }
+        return response;
     }
     @Override
-    public void settleMyExpenses(Expenses expenses){
+    public Map<String, Object> settleMyExpenses(Expenses expenses){
+        Map<String,Object> response = new HashMap<>();
         try {
         Connection connection =
                 DatabaseConnection.getInstance().getDatabaseConnection();
@@ -80,15 +93,22 @@ public class AddNewExpenses implements IAddNewExpenses {
 
             if(rowInserted > 0){
                 System.out.println("Yes row is inserted !!");
+                response.put("SUCCESS",true);
+                response.put("MESSAGE","Expenses are added successfully");
             }
             if(connection!=null){
                 connection.close();
             }
         } catch (SQLException e) {
+            response.put("SUCCESS",false);
+            response.put("MESSAGE","Expenses are not added!!");
             throw new RuntimeException(e);
         } catch (DatabaseExceptionHandler e) {
+            response.put("SUCCESS",false);
+            response.put("MESSAGE","Expenses are not added!!");
             throw new RuntimeException(e);
         }
+        return response;
     }
 
 }

@@ -25,7 +25,7 @@ public class SendUserExpenseTest {
         final String description = "fish & chips";
         final float amount = 56;
         final String currency = "CAD";
-        final ArrayList<String> usernamelist= new ArrayList<String>(Arrays.asList("13", "14", "15","16"));;
+        final ArrayList<String> usernamelist= new ArrayList<String>(Arrays.asList("13", "14", "15","16"));
         final String paidbyusername = "14";
         final Long groupId = Long.valueOf(1);
         final float full_amount = 56;

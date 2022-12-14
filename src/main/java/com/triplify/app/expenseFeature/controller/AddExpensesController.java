@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.nio.charset.Charset;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 @RestController
@@ -18,13 +20,14 @@ import java.util.Random;
 public class AddExpensesController implements  IAddExpensesController{
     @PostMapping("/addexpenses")
     @Override
-    public void postExpense(@RequestParam("description") String description,
+    public Map<String,Object> postExpense(@RequestParam("description") String description,
                             @RequestParam("amount") float amount,
                             @RequestParam("currency") String currency,
                             @RequestParam("usernamelist") ArrayList<String> usernamelist,
                             @RequestParam("paidbyusername") String paidbyusername,
                             @RequestParam("groupid") long groupid,
                             @RequestParam("dateadded") String date_added) {
+        Map<String,Object> response = new HashMap<>();
         AddExpenses expenses = new AddExpenses();
         int upperbound = 25;
         Random rand = new Random();;
@@ -43,15 +46,19 @@ public class AddExpensesController implements  IAddExpensesController{
         expenses.setFull_amount(amount);
         expenses.setDate_added(date_added);
         AddNewExpenses addNewExpenses = new AddNewExpenses();
-        addNewExpenses.splitExpenses(expenses);
+        response = addNewExpenses.splitExpenses(expenses);
+
+        return response;
     }
 
     @PostMapping("/settleexpenses")
     @Override
-    public void settleExpense(@RequestParam("amount") float amount,
+    public Map<String, Object> settleExpense(@RequestParam("amount") float amount,
                               @RequestParam("fromusername") String fromusername,
                               @RequestParam("tousername") String tousername,
                               @RequestParam("groupid") long groupid) {
+
+        Map<String, Object> response = new HashMap<>();
         Expenses expenses = new Expenses();
         int upperbound = 25;
         Random rand = new Random();;
@@ -70,6 +77,8 @@ public class AddExpensesController implements  IAddExpensesController{
         expenses.setFull_amount(amount);
         expenses.setDate_added(null);
         AddNewExpenses addNewExpenses = new AddNewExpenses();
-        addNewExpenses.settleMyExpenses(expenses);
+        response = addNewExpenses.settleMyExpenses(expenses);
+
+        return response;
     }
 }
