@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static com.triplify.app.checklist.database.ChecklistDatabaseConstant.*;
 
@@ -59,34 +56,47 @@ public class ChecklistController implements IChecklistController {
         return response;
     }
 
-    @GetMapping("/showchecklist")
+    @PostMapping("/showchecklist")
     @Override
-    public Checklist getChecklist(@RequestParam long groupid) {
+    public Map<String, Object> getChecklist(@RequestParam("group_id") long groupid) {
+
+        List<Checklist> checklists = new ArrayList<>();
+        Map<String, Object> responseObject = new HashMap<>();
+
         try{
             Connection connection =
                     DatabaseConnection.getInstance().getDatabaseConnection();
             ResultSet userChecklistResultSet =
                     connection.createStatement().executeQuery("select * from checklist where group_id = "
                             + groupid + ";");
-            while (userChecklistResultSet.next()) {
-                Long groupId = userChecklistResultSet.getLong("" + checklist_groupid);
-                String checklistName = userChecklistResultSet.getString("" + checklist_checklist);
-                Boolean checklisted = userChecklistResultSet.getBoolean("" + checklist_checklisted);
-                Long checklist_id = userChecklistResultSet.getLong("" + checklisted_id);
 
+            while (userChecklistResultSet.next()) {
                 Checklist checklist = new Checklist();
-                checklist.setGroup_id(groupId);
-                checklist.setChecklist_name(checklistName);
-                checklist.setChecklisted(checklisted);
-                checklist.setchecklist_id(checklist_id);
-                return checklist;
+                checklist.setGroup_id(userChecklistResultSet.getLong("" + checklist_groupid));
+                checklist.setChecklist_name(userChecklistResultSet.getString("" + checklist_checklist));
+                checklist.setChecklisted(userChecklistResultSet.getBoolean("" + checklist_checklisted));
+                checklist.setchecklist_id(userChecklistResultSet.getLong("" + checklisted_id));
+
+                checklists.add(checklist);
             }
+
+            responseObject.put("SUCCESS",true);
+            responseObject.put("MESSAGE","Successfully checklists retrieved!!");
+            responseObject.put("checkList",checklists);
+
         }  catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (DatabaseExceptionHandler e) {
             throw new RuntimeException(e);
         }
 
-        return null;
+        if (checklists.size() > 0){
+            return responseObject;
+        }else{
+            responseObject.put("SUCCESS",false);
+            responseObject.put("MESSAGE","Something went wrong!!");
+            responseObject.put("checkList",new ArrayList<>());
+            return responseObject;
+        }
     }
 }
