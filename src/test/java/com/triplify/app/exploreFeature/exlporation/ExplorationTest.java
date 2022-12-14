@@ -1,10 +1,10 @@
 package com.triplify.app.exploreFeature.exlporation;
 
-import com.triplify.app.Group.controller.GroupAddMemberController;
-import com.triplify.app.Group.controller.GroupController;
+import com.triplify.app.group.controller.GroupAddMemberController;
+import com.triplify.app.group.controller.GroupController;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.Group.model.GroupDetails;
-import com.triplify.app.Group.model.GroupMembersDetails;
+import com.triplify.app.group.model.GroupDetails;
+import com.triplify.app.group.model.GroupMembersDetails;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ public class ExplorationTest {
     }
 
     @Test
-    @DisplayName("Getting All Group Details Testing()")
+    @DisplayName("Getting All group Details Testing()")
     public void getGroupDetailsTest(){
         List<GroupDetails> groupDetailsList = new ArrayList<>();
         try {
@@ -44,14 +44,14 @@ public class ExplorationTest {
             throw new RuntimeException(e);
         }
         if(groupDetailsList.size() > 0){
-            Assertions.assertTrue(true,"Yes Group Details is there!!");
+            Assertions.assertTrue(true,"Yes group Details is there!!");
         }else{
-            Assertions.assertFalse(false,"No Group Details is not there!!");
+            Assertions.assertFalse(false,"No group Details is not there!!");
         }
     }
 
     @Test
-    @DisplayName("Getting All Group Details Testing()")
+    @DisplayName("Getting All group Details Testing()")
     public void getGroupMembersDetailsListTest(){
         List<GroupMembersDetails> groupMembersDetailsList = new ArrayList<>();
         try {
@@ -60,9 +60,9 @@ public class ExplorationTest {
             throw new RuntimeException(e);
         }
         if(groupMembersDetailsList.size() > 0){
-            Assertions.assertTrue(true,"Yes Group Details is there!!");
+            Assertions.assertTrue(true,"Yes group Details is there!!");
         }else{
-            Assertions.assertFalse(false,"No Group Details is not there!!");
+            Assertions.assertFalse(false,"No group Details is not there!!");
         }
     }
 

@@ -1,7 +1,7 @@
 package com.triplify.app.design;
 
-import com.triplify.app.model.Post;
-import com.triplify.app.repo.PostsRepository;
+import com.triplify.app.post.model.Post;
+import com.triplify.app.post.database.PostsRepository;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;

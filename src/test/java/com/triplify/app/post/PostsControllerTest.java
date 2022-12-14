@@ -1,8 +1,8 @@
 package com.triplify.app.post;
 
-import com.triplify.app.controller.PostQueryBuilder;
+import com.triplify.app.post.controller.PostQueryBuilder;
 import com.triplify.app.database.DatabaseConnection;
-import com.triplify.app.model.Post;
+import com.triplify.app.post.model.Post;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

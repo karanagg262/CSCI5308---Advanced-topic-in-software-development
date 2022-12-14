@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 
 import java.util.Random;
-@DisplayName("Group checklist Testing!!")
+@DisplayName("group checklist Testing!!")
 public class ChecklistQueryBuilderTest {
     @Test
     @DisplayName("checklist query testing!!")
