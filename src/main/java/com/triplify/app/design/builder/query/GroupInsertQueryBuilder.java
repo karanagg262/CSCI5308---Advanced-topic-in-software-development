@@ -8,13 +8,13 @@ import java.util.List;
 import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.*;
 
 public class GroupInsertQueryBuilder implements QueryBuilder{
-    private final String baseQuery = "INSERT INTO "+ group_details_table + "(" +
-            group_name + ", " +
-            group_trip_start_date + ", " +
-            group_trip_end_date + ", " +
-            group_destination + ", " +
-            group_type + ", " +
-            group_member_username + ") " +
+    private final String baseQuery = "INSERT INTO "+ GROUP_DETAILS_TABLE + "(" +
+            GROUP_NAME + ", " +
+            GROUP_TRIP_START_DATE + ", " +
+            GROUP_TRIP_END_DATE + ", " +
+            GROUP_DESTINATION + ", " +
+            GROUP_TYPE + ", " +
+            GROUP_MEMBER_USERNAME + ") " +
             "VALUES (?,?,?,?,?,?);";
     private String type;
     private String table;

@@ -6,13 +6,11 @@ import com.triplify.app.Group.model.GroupDetails;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import org.springframework.web.bind.annotation.*;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.*;
 import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant.GROUP_HAS_MEMBERS_GROUP_ID;
 import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant.GROUP_HAS_MEMBERS_USERNAME;
@@ -22,8 +20,7 @@ import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant
 public class GroupController implements IGroupController {
 
     private GroupDetails createGroupDetails() {
-        IGroupCreationFactory iGroupCreationFactory =
-                GroupFactory.factorySingleton();
+        IGroupCreationFactory iGroupCreationFactory = GroupFactory.factorySingleton();
         return iGroupCreationFactory.makeGroupDetails();
     }
 
@@ -32,57 +29,105 @@ public class GroupController implements IGroupController {
         GroupDetails groupDetails = createGroupDetails();
         return groupDetails.createAllGroupDetailsList();
     }
+
+    @PostMapping("/groups/groupMemberDelete")
+    public Map<String, Object> memberDelete(@RequestParam("username") String username,
+                                            @RequestParam("group_id") Long group_id)
+            throws DatabaseExceptionHandler, SQLException {
+
+        Map<String, Object> responseMemberDelete = new HashMap<>();
+        Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+
+        Statement statement = connection.createStatement();
+        DeleteGroupMemberFromGroupQueryBuilder deleteGroupMemberFromGroupQueryBuilder
+                = new DeleteGroupMemberFromGroupQueryBuilder();
+        final int rowDeleted = statement.executeUpdate(deleteGroupMemberFromGroupQueryBuilder.deleteMember(username,group_id));
+
+        if(rowDeleted > 0){
+            responseMemberDelete.put("SUCCESS",true);
+            responseMemberDelete.put("MESSAGE","USER DELETED");
+        }else {
+            responseMemberDelete.put("SUCCESS",false);
+            responseMemberDelete.put("MESSAGE","USER NOT DELETED!!");
+        }
+        if(connection!=null){
+            connection.close();
+        }
+        return responseMemberDelete;
+    }
+
     @GetMapping("/groups/{group_id}")
-    public Map<String, Object> getGroup(@PathVariable("group_id") long group_id) throws DatabaseExceptionHandler, SQLException {
+    public Map<String, Object> getGroup(@PathVariable("group_id") long group_id)
+            throws DatabaseExceptionHandler, SQLException {
+
         Connection dbConnection = DatabaseConnection.getInstance().getDatabaseConnection();
-        String query = "SELECT * FROM "+group_details_table +
-                " WHERE "+ group_details_id +
+        String query = "SELECT * FROM "+GROUP_DETAILS_TABLE +
+                " WHERE "+ GROUP_DETAILS_ID +
                 "=?";
+
         PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
         preparedStatement.setLong(1,group_id);
         ResultSet result = preparedStatement.executeQuery();
+
         Map<String, Object> group = new HashMap<>();
         while (result.next()){
-            group.put("group_id", result.getLong(group_details_id));
-            group.put("name", result.getString(group_name));
-            group.put("start_date", result.getString(group_trip_start_date));
-            group.put("end-date", result.getString(group_trip_end_date));
-            group.put("destination", result.getString(group_destination));
-            group.put("description", result.getString(group_description));
-            group.put("type", result.getString(group_type));
-            group.put("username", result.getString(group_member_username));
+            group.put("group_id", result.getLong(GROUP_DETAILS_ID));
+            group.put("name", result.getString(""+GROUP_NAME));
+            group.put("start_date", result.getString(""+GROUP_TRIP_START_DATE));
+            group.put("end-date", result.getString(""+GROUP_TRIP_END_DATE));
+            group.put("destination", result.getString(""+GROUP_DESTINATION));
+            group.put("description", result.getString(""+GROUP_DESCRIPTION));
+            group.put("type", result.getString(""+GROUP_TYPE));
+            group.put("username", result.getString(""+GROUP_MEMBER_USERNAME));
         }
+
+        if(dbConnection!=null){
+            dbConnection.close();
+        }
+
         return group;
     }
+
     @GetMapping("/groups/{group_id}/members")
     public Map<String ,Object> getGroupMembers(@PathVariable("group_id") long group_id) throws DatabaseExceptionHandler{
+
         Map<String, Object> response = new HashMap<>();
+
         try {
-        Connection dbConnection = DatabaseConnection.getInstance().getDatabaseConnection();
-        GroupMemberDetailsQueryBuilder queries = new GroupMemberDetailsQueryBuilder();
-        PreparedStatement preparedStatement = dbConnection.prepareStatement(queries.groupMemberRelationshipGetQuery());
-        preparedStatement.setLong(1,group_id);
-        ResultSet results = preparedStatement.executeQuery();
-        List<Map<String, Object>> members = new ArrayList<>();
-        Find seeker = new Find();
-        while(results.next()){
-            Map<String, Object> userMap= new HashMap<>();
-            String username = results.getString(GROUP_HAS_MEMBERS_USERNAME);
-            userMap.put("username",username);
-            members.add(userMap);
-        }
-        for(Map<String, Object> member: members){
-            member.put("id", seeker.findUserIdByUsername((String) member.get("username")));
-        }
-        response.put("members", members);
-        }
-        catch (SQLIntegrityConstraintViolationException e){
+            Connection dbConnection = DatabaseConnection.getInstance().getDatabaseConnection();
+
+            GroupMemberDetailsQueryBuilder queries = new GroupMemberDetailsQueryBuilder();
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(queries.groupMemberRelationshipGetQuery());
+            preparedStatement.setLong(1,group_id);
+            ResultSet results = preparedStatement.executeQuery();
+
+            List<Map<String, Object>> members = new ArrayList<>();
+            Find seeker = new Find();
+
+            while(results.next()){
+                Map<String, Object> userMap= new HashMap<>();
+                String username = results.getString(GROUP_HAS_MEMBERS_USERNAME);
+                userMap.put("username",username);
+                members.add(userMap);
+            }
+
+            for(Map<String, Object> member: members){
+                member.put("id", seeker.findUserIdByUsername((String) member.get("username")));
+            }
+
+            if(dbConnection!=null){
+                dbConnection.close();
+            }
+
+            response.put("members", members);
+
+        } catch (SQLIntegrityConstraintViolationException e){
             response.put("Error", "User does not exist.");
             return response;
-        }
-        catch (SQLException sqlException){
+        } catch (SQLException sqlException){
             response.put("Error", sqlException.getMessage());
         }
+
         return response;
     }
 
@@ -93,7 +138,10 @@ public class GroupController implements IGroupController {
 
         List<GroupDetails> groupDetailsList = new ArrayList<>();
         Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("select * from group_has_members");
+
+        GroupHasMembersSelectQuery groupHasMembersSelectQuery = new GroupHasMembersSelectQuery();
+
+        ResultSet resultSet = connection.createStatement().executeQuery(groupHasMembersSelectQuery.selectQuery());
         List<Long> groupIds = new ArrayList<>();
 
         while (resultSet.next()){
@@ -107,14 +155,14 @@ public class GroupController implements IGroupController {
             ResultSet resultSetGroupDetails = connectionToGroupTable.createStatement().executeQuery("select * from group_details where id_group_details = "+groupIds.get(i));
             GroupDetails groupDetails = createGroupDetails();
             while (resultSetGroupDetails.next()){
-                groupDetails.setId(resultSetGroupDetails.getLong(""+group_details_id));
-                groupDetails.setGroupName(resultSetGroupDetails.getString(""+group_name));
-                groupDetails.setTripStartDate(resultSetGroupDetails.getString(""+group_trip_start_date));
-                groupDetails.setTripEndDate(resultSetGroupDetails.getString(""+group_trip_end_date));
-                groupDetails.setDestination(resultSetGroupDetails.getString(""+group_destination));
-                groupDetails.setGroupDescription(resultSetGroupDetails.getString(""+group_description));
-                groupDetails.setTripType(resultSetGroupDetails.getString(""+group_type));
-                groupDetails.setUsername(resultSetGroupDetails.getString(""+ group_member_username));
+                groupDetails.setId(resultSetGroupDetails.getLong(""+GROUP_DETAILS_ID));
+                groupDetails.setGroupName(resultSetGroupDetails.getString(""+GROUP_NAME));
+                groupDetails.setTripStartDate(resultSetGroupDetails.getString(""+GROUP_TRIP_START_DATE));
+                groupDetails.setTripEndDate(resultSetGroupDetails.getString(""+GROUP_TRIP_END_DATE));
+                groupDetails.setDestination(resultSetGroupDetails.getString(""+GROUP_DESTINATION));
+                groupDetails.setGroupDescription(resultSetGroupDetails.getString(""+GROUP_DESCRIPTION));
+                groupDetails.setTripType(resultSetGroupDetails.getString(""+GROUP_TYPE));
+                groupDetails.setUsername(resultSetGroupDetails.getString(""+ GROUP_MEMBER_USERNAME));
 
                 groupDetailsList.add(groupDetails);
             }
@@ -126,35 +174,42 @@ public class GroupController implements IGroupController {
             responseObject.put("groupDetails",groupDetailsList);
         } else {
             responseObject.put("SUCCESS",false);
-            responseObject.put("MESSAGE","Congratulations!! you're in the group");
-            responseObject.put("groupDetails", null);
+            responseObject.put("MESSAGE","Bad luck!! you're not in any of the group");
+            responseObject.put("groupDetails", new ArrayList<>());
+        }
+
+        if(connection!=null){
+            connection.close();
         }
         return responseObject;
     }
 
     @PostMapping("/groups/{group_id}/add/member")
     public Map<Long, List<String>> addGroupMembers(@PathVariable("group_id") long group_id,
-                                               @RequestParam("username") String username) throws DatabaseExceptionHandler, SQLException{
+                                                   @RequestParam("username") String username) throws DatabaseExceptionHandler, SQLException{
+
         Find seeker = new Find();
         GroupMemberDetailsQueryBuilder queries = new GroupMemberDetailsQueryBuilder();
+
         Connection dbConnection = DatabaseConnection.getInstance().getDatabaseConnection();
         PreparedStatement insertStatement = dbConnection.prepareStatement(queries.groupMemberRelationshipInsertQuery());
         insertStatement.setLong(1,group_id);
         insertStatement.setString(2, username);
+
         try {
             insertStatement.execute();
             Map<Long, List<String>> response = new HashMap<>();
             List<String> usernames = seeker.findUsersInGroup(group_id);
             response.put(group_id, usernames);
             return response;
-        }
-        catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
             Map<Long,List<String>> failureResponse = new HashMap<>();
             failureResponse.put(Long.valueOf(1),new ArrayList<String>());
             return failureResponse;
         }
     }
+
     @PostMapping("/groups/createGroup")
     public Map<String, Object> createGroup(@RequestParam("groupName") String groupName,
                                            @RequestParam("groupStartDate") String tripStartDate,
@@ -162,8 +217,7 @@ public class GroupController implements IGroupController {
                                            @RequestParam("groupDestination") String destination,
                                            @RequestParam("groupDescription") String groupDescription,
                                            @RequestParam("groupType") String tripType,
-                                           @RequestParam("username") String username)
-            throws DatabaseExceptionHandler {
+                                           @RequestParam("username") String username) throws DatabaseExceptionHandler {
 
         GroupDetails groupDetails = createGroupDetails();
         groupDetails.setGroupName(groupName);

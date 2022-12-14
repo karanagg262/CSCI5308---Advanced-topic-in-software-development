@@ -4,10 +4,10 @@ import com.triplify.app.Group.controller.GroupController;
 import com.triplify.app.Group.controller.GroupFactory;
 import com.triplify.app.Group.controller.GroupMembersDetailsSelectQuery;
 import com.triplify.app.Group.database.GroupMemberDetailsQueryBuilder;
-import com.triplify.app.controller.UserController;
+import com.triplify.app.User.controller.UserController;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.model.UserTable;
+import com.triplify.app.User.model.UserTable;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant.*;
-import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant.group_member_details_user_id;
 
 public class GroupMembersDetails {
 
@@ -28,7 +27,6 @@ public class GroupMembersDetails {
     private String groupDestination;
     private String groupMemberFirstName;
     private String groupMemberLastName;
-
     private Long user_id;
 
     public GroupMembersDetails() {
@@ -124,28 +122,26 @@ public class GroupMembersDetails {
             ResultSet resultSet = connection.createStatement().executeQuery(groupMembersDetailsSelectQuery.selectGroupMemberDetailsQuery());
 
             while (resultSet.next()){
-                groupMembersDetails.setId(resultSet.getLong(""+group_member_details_id));
-                groupMembersDetails.setGroupName(resultSet.getString(""+group_member_details_group_name));
-                groupMembersDetails.setGroupDestination(resultSet.getString(""+group_member_details_destination));
-                groupMembersDetails.setGroupMemberFirstName(resultSet.getString(""+group_member_details_first_name));
-                groupMembersDetails.setGroupMemberLastName(resultSet.getString(""+group_member_details_last_name));
-                groupMembersDetails.setUser_id(resultSet.getLong(""+group_member_details_user_id));
+                groupMembersDetails.setId(resultSet.getLong(""+GROUP_MEMBER_DETAILS_ID));
+                groupMembersDetails.setGroupName(resultSet.getString(""+GROUP_MEMBER_DETAILS_GROUP_NAME));
+                groupMembersDetails.setGroupDestination(resultSet.getString(""+GROUP_MEMBER_DETAILS_DESTINATION));
+                groupMembersDetails.setGroupMemberFirstName(resultSet.getString(""+GROUP_MEMBER_DETAILS_FIRST_NAME));
+                groupMembersDetails.setGroupMemberLastName(resultSet.getString(""+GROUP_MEMBER_DETAILS_LAST_NAME));
+                groupMembersDetails.setUser_id(resultSet.getLong(""+GROUP_MEMBER_DETAILS_USER_ID));
                 groupMembersDetailsList.add(groupMembersDetails);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return groupMembersDetailsList;
     }
 
     public Map<String, Object> addMemberInGroup(String username) throws DatabaseExceptionHandler {
 
         Map<String,Object> response  = new HashMap<>();
-
         List<UserTable> userTableList = new UserController().getAllUsers();
         List<GroupDetails> groupDetailsList = new GroupController().getAllGroupDetails();
+
         List<GroupMembersDetails> groupMembersDetailsList = getAllMembersForGroup(GroupFactory.factorySingleton().makeGroupMemberDetails());
         GroupMembersDetails groupMembersDetails = GroupFactory.factorySingleton().makeGroupMemberDetails();
 
@@ -190,15 +186,12 @@ public class GroupMembersDetails {
         }
 
         try{
-
             Connection connection = makeDBConnection();
             Statement statement = connection.createStatement();
 
             GroupMemberDetailsQueryBuilder groupMemberDetailsQueryBuilder = new GroupMemberDetailsQueryBuilder();
             final String insertQueryGroupMember = groupMemberDetailsQueryBuilder.groupMemberInsertQuery(groupMembersDetails);
-
-            final int rawInserted =
-                    statement.executeUpdate(insertQueryGroupMember, Statement.RETURN_GENERATED_KEYS);
+            final int rawInserted = statement.executeUpdate(insertQueryGroupMember, Statement.RETURN_GENERATED_KEYS);
 
             if(rawInserted > 0){
                 response.put("SUCCESS", true);
@@ -207,7 +200,6 @@ public class GroupMembersDetails {
                 response.put("SUCCESS", false);
                 response.put("MESSAGE", "Something went wrong!!");
             }
-
         }catch (SQLException e){
             System.out.println(e.getMessage());
             response.put("SUCCESS", false);

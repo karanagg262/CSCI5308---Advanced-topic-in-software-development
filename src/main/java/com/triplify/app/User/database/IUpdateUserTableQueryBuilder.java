@@ -1,6 +1,6 @@
-package com.triplify.app.controller;
+package com.triplify.app.User.database;
 
-import com.triplify.app.model.UserTable;
+import com.triplify.app.User.model.UserTable;
 
 import java.sql.Connection;
 

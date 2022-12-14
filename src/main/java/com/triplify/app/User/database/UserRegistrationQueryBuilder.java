@@ -1,12 +1,12 @@
-package com.triplify.app.controller;
+package com.triplify.app.User.database;
 
-import com.triplify.app.model.UserTable;
+import com.triplify.app.User.model.UserTable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static com.triplify.app.database.UserDatabaseConstant.*;
+import static com.triplify.app.User.database.UserDatabaseConstant.*;
 
 public class UserRegistrationQueryBuilder {
     public int insertQuery(final UserTable userTable, Connection connection){

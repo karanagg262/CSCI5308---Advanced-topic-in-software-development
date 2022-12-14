@@ -1,7 +1,7 @@
-package com.triplify.app.controller;
+package com.triplify.app.User.database;
 
-import static com.triplify.app.database.UserDatabaseConstant.user_table;
-import static com.triplify.app.database.UserDatabaseConstant.user_table_username;
+import static com.triplify.app.User.database.UserDatabaseConstant.user_table;
+import static com.triplify.app.User.database.UserDatabaseConstant.user_table_username;
 
 public class UserDetailsQueryBuilder implements IUserDetailsQueryBuilder{
 

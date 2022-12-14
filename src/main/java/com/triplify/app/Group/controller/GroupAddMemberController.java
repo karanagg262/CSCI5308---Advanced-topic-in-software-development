@@ -1,4 +1,5 @@
 package com.triplify.app.Group.controller;
+
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.Group.model.GroupMembersDetails;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +11,7 @@ import java.util.Map;
 public class GroupAddMemberController {
 
     private GroupMembersDetails createGroupMemberDetails() {
-        IGroupCreationFactory iGroupCreationFactory =
-                GroupFactory.factorySingleton();
+        IGroupCreationFactory iGroupCreationFactory = GroupFactory.factorySingleton();
         return iGroupCreationFactory.makeGroupMemberDetails();
     }
 

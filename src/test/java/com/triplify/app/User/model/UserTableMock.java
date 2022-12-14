@@ -1,7 +1,5 @@
 package com.triplify.app.User.model;
 
-import com.triplify.app.model.IAuthenticationResult;
-
 public class UserTableMock implements IAuthenticationResult {
     @Override
     public AuthenticationResult login(String emailAddress, String password) {

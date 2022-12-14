@@ -2,7 +2,6 @@ package com.triplify.app.Group.controller.algo;
 
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant.*;
-import static com.triplify.app.database.UserDatabaseConstant.*;
+import static com.triplify.app.User.database.UserDatabaseConstant.*;
 
 public class Find {
     public Long findUserIdByUsername(String username) throws DatabaseExceptionHandler, SQLException {
@@ -22,15 +21,17 @@ public class Find {
             connection = DatabaseConnection.getInstance().getDatabaseConnection();
             String query = "SELECT " + user_table_id + " FROM " + user_table +
                     " WHERE " + user_table_username + "=?";
+
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
+
             result = preparedStatement.executeQuery();
             while (result.next()) {
                 return result.getLong(user_table_id);
             }
+
             return null;
-        }
-        finally {
+        } finally {
             if (result != null) {
                 result.close();
             }
@@ -47,22 +48,26 @@ public class Find {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet result = null;
+
         String query = "SELECT " + GROUP_HAS_MEMBERS_USERNAME +
                 " FROM " + GROUP_HAS_MEMBERS_TABLE +
                 " WHERE " + GROUP_HAS_MEMBERS_GROUP_ID +
                 "=?";
+
         try {
             connection = DatabaseConnection.getInstance().getDatabaseConnection();
             preparedStatement = connection.prepareStatement(query);
+
             preparedStatement.setLong(1, group_id);
             result = preparedStatement.executeQuery();
             List<String> usernames = new ArrayList<>();
+
             while (result.next()) {
                 usernames.add(result.getString(GROUP_HAS_MEMBERS_USERNAME));
             }
+
             return usernames;
-        }
-        finally {
+        } finally {
             if (result != null) {
                 result.close();
             }

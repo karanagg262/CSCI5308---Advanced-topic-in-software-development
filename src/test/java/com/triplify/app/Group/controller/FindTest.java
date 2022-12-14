@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant.*;
-import static com.triplify.app.database.UserDatabaseConstant.*;
+import static com.triplify.app.User.database.UserDatabaseConstant.*;
 
 @DisplayName("Find Queries Testing here for gorup!!")
 public class FindTest {

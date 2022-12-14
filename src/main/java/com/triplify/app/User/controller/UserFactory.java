@@ -1,8 +1,6 @@
-package com.triplify.app.controller;
+package com.triplify.app.User.controller;
 
-import com.triplify.app.Explore.controller.ExplorationFactory;
-import com.triplify.app.Explore.controller.IExplorationFactory;
-import com.triplify.app.model.UserTable;
+import com.triplify.app.User.model.UserTable;
 
 public class UserFactory implements IUserCreationFactory{
 

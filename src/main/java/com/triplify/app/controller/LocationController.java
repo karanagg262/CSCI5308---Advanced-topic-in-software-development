@@ -19,13 +19,10 @@ import static com.triplify.app.database.LocationDatabaseConstant.*;
 @CrossOrigin
 public class LocationController {
     @PatchMapping("/save/location")
-    public Map<String, Boolean> saveUserLocation
-            (
-             @RequestParam("username") String username,
-             @RequestParam("latitude") double latitude,
-             @RequestParam("longitude") double longitude
-            )
-    {
+    public Map<String, Boolean> saveUserLocation (@RequestParam("username") String username,
+                                                  @RequestParam("latitude") double latitude,
+                                                  @RequestParam("longitude") double longitude) {
+
         Map<String, Boolean> response = new HashMap<>();
         String query = "INSERT INTO " + USER_LOCATION_TABLE +
                 " (" + USER_LOCATION_USERNAME + ","
@@ -34,6 +31,7 @@ public class LocationController {
                 + " VALUES (?,?,?)"
                 + " ON DUPLICATE KEY UPDATE "
                 + USER_LOCATION_USERNAME + "=?";
+
         try{
             Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -52,10 +50,12 @@ public class LocationController {
     }
 
     @GetMapping("/fetch/location/{group_id}")
-    public List<Map<String, Object>> fetchGroupLocation(@PathVariable("group_id") Long group_id, @RequestParam("username") String username){
+    public List<Map<String, Object>> fetchGroupLocation(@PathVariable("group_id") Long group_id,
+                                                        @RequestParam("username") String username){
         Seeker seeker = new Seeker();
         List<Map<String, Object>> allMembers = seeker.findUserLocation(seeker.findMembersInGroup(group_id));
         List<Map<String, Object>> filteredMembers = new ArrayList<>();
+
         for(Map<String, Object> member: allMembers){
             if(!member.get("username").equals(username)){
                 filteredMembers.add(member);

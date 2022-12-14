@@ -1,4 +1,4 @@
-package com.triplify.app.model;
+package com.triplify.app.User.model;
 
 import javax.persistence.*;
 import javax.sql.rowset.serial.SerialBlob;

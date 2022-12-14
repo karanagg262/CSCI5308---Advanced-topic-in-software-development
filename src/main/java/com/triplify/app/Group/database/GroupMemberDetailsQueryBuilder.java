@@ -6,12 +6,12 @@ import static com.triplify.app.Group.database.GroupMemberDetailsDatabaseConstant
 
 public class GroupMemberDetailsQueryBuilder implements IGroupMemberDetailsQueryBuilder{
     public String groupMemberInsertQuery(final GroupMembersDetails groupMembersDetails){
-        return "INSERT INTO "+ group_member_details_table + "(" +
-                group_member_details_group_name + ", " +
-                group_member_details_destination + ", " +
-                group_member_details_first_name + ", " +
-                group_member_details_last_name + ", " +
-                group_member_details_user_id + ") " +
+        return "INSERT INTO "+ GROUP_MEMBER_DETAILS_TABLE + "(" +
+                GROUP_MEMBER_DETAILS_GROUP_NAME + ", " +
+                GROUP_MEMBER_DETAILS_DESTINATION + ", " +
+                GROUP_MEMBER_DETAILS_FIRST_NAME + ", " +
+                GROUP_MEMBER_DETAILS_LAST_NAME + ", " +
+                GROUP_MEMBER_DETAILS_USER_ID + ") " +
                 "VALUES (" +
                 "\"" +groupMembersDetails.getGroupName()+ "\", " +
                 "\"" +groupMembersDetails.getGroupDestination()+ "\", " +
