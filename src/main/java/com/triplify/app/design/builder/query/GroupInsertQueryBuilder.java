@@ -14,7 +14,7 @@ public class GroupInsertQueryBuilder implements QueryBuilder{
             group_trip_end_date + ", " +
             group_destination + ", " +
             group_type + ", " +
-            group_creator_user_id + ") " +
+            group_member_username + ") " +
             "VALUES (?,?,?,?,?,?);";
     private String type;
     private String table;

@@ -1,6 +1,7 @@
 package com.triplify.app.Explore.controller;
 
 import com.triplify.app.Explore.database.IExplorationTableInsertQueryBuilder;
+import com.triplify.app.Group.controller.GroupController;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.database.IDatabase;
 import com.triplify.app.Explore.exception.ExplorationException;
@@ -8,26 +9,22 @@ import com.triplify.app.Explore.model.Exploration;
 import com.triplify.app.Group.model.GroupDetails;
 import com.triplify.app.Group.model.GroupMembersDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
 public class ExplorationController implements IExplorationController {
-
-    private IDatabase dbConnection;
-    private IExplorationTableInsertQueryBuilder explorationTableInsertQuery;
     private Exploration exploration;
 
     public ExplorationController(){
         exploration = createExploration();
     }
 
-    public ExplorationController(IDatabase dbConnection,
-                                 IExplorationTableInsertQueryBuilder explorationTableInsertQuery,
-                                 Exploration exploration){
-        this.dbConnection = dbConnection;
-        this.explorationTableInsertQuery = explorationTableInsertQuery;
+    public ExplorationController(Exploration exploration){
         this.exploration = exploration;
     }
 

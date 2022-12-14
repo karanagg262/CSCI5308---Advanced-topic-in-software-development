@@ -149,6 +149,7 @@ public class GroupMembersDetails {
         List<GroupMembersDetails> groupMembersDetailsList = getAllMembersForGroup(GroupFactory.factorySingleton().makeGroupMemberDetails());
         GroupMembersDetails groupMembersDetails = GroupFactory.factorySingleton().makeGroupMemberDetails();
 
+        String groupMemberUsername = "";
         Long user_id = Long.valueOf(0);
         String userFirstName = "";
         String userLastName = "";
@@ -156,6 +157,7 @@ public class GroupMembersDetails {
         for (int i = 0 ; i < userTableList.size() ; i++){
             if(userTableList.get(i).getUsername().equalsIgnoreCase(username)){
                 user_id = userTableList.get(i).getId();
+                groupMemberUsername = userTableList.get(i).getUsername();
                 userFirstName = userTableList.get(i).getFirstname();
                 userLastName = userTableList.get(i).getLastname();
             }
@@ -164,7 +166,7 @@ public class GroupMembersDetails {
         for(int i = 0 ; i < groupDetailsList.size() ; i++){
 
             for(int j = 0 ; j < groupMembersDetailsList.size() ; j++){
-                if (groupDetailsList.get(i).getCreator_user_id().equals(user_id) &&
+                if (groupDetailsList.get(i).getUsername().equals(groupMemberUsername) &&
                         groupDetailsList.get(i).getGroupName().equalsIgnoreCase(groupMembersDetailsList.get(j).getGroupName())) {
                     response.put("SUCCESS",false);
                     response.put("MESSAGE","Already " + groupMembersDetailsList.get(j).getGroupMemberFirstName() + " is added");

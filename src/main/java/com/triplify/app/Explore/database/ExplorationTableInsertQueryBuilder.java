@@ -24,11 +24,13 @@ public class ExplorationTableInsertQueryBuilder implements IExplorationTableInse
                 exploration_group_name + ", " +
                 exploration_group_description + ", " +
                 exploration_group_members + ", " +
+                exploration_group_type + ", " +
                 exploration_group_id + ") " +
                 "VALUES (" +
                 "\"" +exploration.getGroupName() + "\", " +
                 "\"" +exploration.getPlaceDescription() + "\", " +
                 "\"" +exploration.getNumberOfMembers() + "\", " +
+                "\"" +exploration.getGroupType() + "\", " +
                 exploration.getGroupId() +
                 ");";
     }

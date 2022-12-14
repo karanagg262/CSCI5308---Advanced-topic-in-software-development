@@ -3,7 +3,11 @@ import Reducer from './Reducer';
 
 const initialState = {
     group: null,
-    username: null
+    username: 'jaimin@123',
+    isRunning: false,
+    longitude: null,
+    latitude: null,
+    members: []
 };
 
 export const context = createContext(initialState);

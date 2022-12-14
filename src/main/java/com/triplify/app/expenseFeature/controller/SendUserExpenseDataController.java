@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/users")
 @CrossOrigin
-
+@RequestMapping(path = "api/v1/users")
 public class SendUserExpenseDataController implements ISendUserExpenseDataController {
     @GetMapping("/userexpenses")
     @Override

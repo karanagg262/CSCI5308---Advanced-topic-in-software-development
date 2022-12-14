@@ -17,8 +17,7 @@ public class GroupDetailsDatabaseConstant {
             "group_description";
     public static final String group_type =
             "trip_type";
-
-    public static final String group_creator_user_id =
-            "creator_user_id";
+    public static final String group_member_username =
+            "creator_username";
 
 }
