@@ -6,4 +6,5 @@ import java.sql.Connection;
 
 public interface IChecklistQueryBuilder {
     public int insertChecklistQuery(final Checklist checklist, Connection connection);
+    public int updateChecklistQuery(final Checklist checklist, Connection connection);
 }
