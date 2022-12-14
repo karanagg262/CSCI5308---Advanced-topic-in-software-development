@@ -126,17 +126,93 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("Some of the field in register testing")
-    void someNullFieldInRegisterTest(){
+    @DisplayName("first name null in register testing")
+    void nullUserNameInRegisterTest(){
+        String userName = null;
+        String firstname = "Viral";
+        String lastname = "Siddhapura";
+        String dob = "12-22-2022";
+        String emailAddress = "viralsid2330@gmail.com";
+        String password = "Vir@l2330";
+
+        IAuthenticationResult iAuthenticationResult = new UserTableMock();
+        IAuthenticationResult.AuthenticationResult result = iAuthenticationResult.register(userName, firstname, lastname, emailAddress, password, dob);
+        Assertions.assertEquals(IAuthenticationResult.AuthenticationResult.FAILURE,result,"last name null in register testing!!");
+    }
+
+    @Test
+    @DisplayName("first name null in register testing")
+    void nullFirstNameInRegisterTest(){
         String userName = "viral123";
         String firstname = null;
         String lastname = "Siddhapura";
+        String dob = "12-22-2022";
+        String emailAddress = "viralsid2330@gmail.com";
+        String password = "Vir@l2330";
+
+        IAuthenticationResult iAuthenticationResult = new UserTableMock();
+        IAuthenticationResult.AuthenticationResult result = iAuthenticationResult.register(userName, firstname, lastname, emailAddress, password, dob);
+        Assertions.assertEquals(IAuthenticationResult.AuthenticationResult.FAILURE,result,"last name null in register testing!!");
+    }
+
+    @Test
+    @DisplayName("last name null in register testing")
+    void nullLastNameInRegisterTest(){
+        String userName = "viral123";
+        String firstname = "Viral";
+        String lastname = null;
+        String dob = "12-22-2022";
+        String emailAddress = "viralsid2330@gmail.com";
+        String password = "Vir@l2330";
+
+        IAuthenticationResult iAuthenticationResult = new UserTableMock();
+        IAuthenticationResult.AuthenticationResult result = iAuthenticationResult.register(userName, firstname, lastname, emailAddress, password, dob);
+        Assertions.assertEquals(IAuthenticationResult.AuthenticationResult.FAILURE,result,"last name null in register testing!!");
+    }
+
+    @Test
+    @DisplayName("Date Of Birth null in register testing")
+    void nullDateofBirthInRegisterTest(){
+        String userName = "viral123";
+        String firstname = "Viral";
+        String lastname = "Siddhapura";
         String dob = null;
+        String emailAddress = "viralsid2330@gmail.com";
+        String password = "Vir@l2330";
+
+        IAuthenticationResult iAuthenticationResult = new UserTableMock();
+        IAuthenticationResult.AuthenticationResult result = iAuthenticationResult.register(userName, firstname, lastname, emailAddress, password, dob);
+        Assertions.assertEquals(IAuthenticationResult.AuthenticationResult.FAILURE,result,"Date Of Birth null in register testing!!");
+    }
+
+    @Test
+    @DisplayName("password null in register testing")
+    void nullPasswordFieldInRegisterTest(){
+        String userName = "viral123";
+        String firstname = "Viral";
+        String lastname = "Siddhapura";
+        String dob = "12-22-2022";
         String emailAddress = "viralsid2330@gmail.com";
         String password = null;
 
         IAuthenticationResult iAuthenticationResult = new UserTableMock();
-        IAuthenticationResult.AuthenticationResult result = iAuthenticationResult.register(userName, firstname, lastname, emailAddress,password, dob);
-        Assertions.assertEquals(IAuthenticationResult.AuthenticationResult.FAILURE,result,"Some of the things were null!!");
+        IAuthenticationResult.AuthenticationResult result = iAuthenticationResult.register(userName, firstname, lastname, emailAddress, password, dob);
+        Assertions.assertEquals(IAuthenticationResult.AuthenticationResult.FAILURE,result,"password null in register testing!!");
     }
+
+    @Test
+    @DisplayName("emailAddress null in register testing")
+    void nullEmailAddressInRegisterTest(){
+        String userName = "viral123";
+        String firstname = "Viral";
+        String lastname = "Siddhapura";
+        String dob = "12-22-2022";
+        String emailAddress = null;
+        String password = "Vir@l2330";
+
+        IAuthenticationResult iAuthenticationResult = new UserTableMock();
+        IAuthenticationResult.AuthenticationResult result = iAuthenticationResult.register(userName, firstname, lastname, emailAddress, password, dob);
+        Assertions.assertEquals(IAuthenticationResult.AuthenticationResult.FAILURE,result,"emailAddress null in register testing!!");
+    }
+
 }
