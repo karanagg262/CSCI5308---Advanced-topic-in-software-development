@@ -164,7 +164,7 @@ public class GroupMembersDetails {
         for(int i = 0 ; i < groupDetailsList.size() ; i++){
 
             for(int j = 0 ; j < groupMembersDetailsList.size() ; j++){
-                if (groupDetailsList.get(i).getUser_id().equals(user_id) &&
+                if (groupDetailsList.get(i).getCreator_user_id().equals(user_id) &&
                         groupDetailsList.get(i).getGroupName().equalsIgnoreCase(groupMembersDetailsList.get(j).getGroupName())) {
                     response.put("SUCCESS",false);
                     response.put("MESSAGE","Already " + groupMembersDetailsList.get(j).getGroupMemberFirstName() + " is added");

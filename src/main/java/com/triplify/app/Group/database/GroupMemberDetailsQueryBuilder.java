@@ -20,4 +20,16 @@ public class GroupMemberDetailsQueryBuilder implements IGroupMemberDetailsQueryB
                 groupMembersDetails.getUser_id() +
                 ");";
     }
+    public String groupMemberRelationshipInsertQuery(){
+        return "INSERT INTO "+ GROUP_HAS_MEMBERS_TABLE + "(" +
+                GROUP_HAS_MEMBERS_GROUP_ID + ", " +
+                GROUP_HAS_MEMBERS_USERNAME +  ") " +
+                "VALUES (?,?)";
+    }
+
+    public String groupMemberRelationshipGetQuery(){
+        return "SELECT * FROM "+ GROUP_HAS_MEMBERS_TABLE +
+                " WHERE " + GROUP_HAS_MEMBERS_GROUP_ID +
+                "=?";
+    }
 }

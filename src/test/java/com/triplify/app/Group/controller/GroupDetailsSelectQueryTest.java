@@ -14,9 +14,6 @@ public class GroupDetailsSelectQueryTest {
 
         final String expectedSelectQuery = groupDetailsSelectQuery.selectQueryForGroup();
         final String actualSelectQuery = "SELECT * from group_details";
-
-        System.out.println(expectedSelectQuery);
-        System.out.println(actualSelectQuery);
         Assertions.assertEquals(expectedSelectQuery,actualSelectQuery,"Incorrect Select Query Has been generated!!");
     }
 

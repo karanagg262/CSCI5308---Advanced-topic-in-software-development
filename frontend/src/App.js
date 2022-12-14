@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { URL } from './Constants';
 import { useNavigate } from 'react-router-dom';
+import GroupLocator from './components/GroupLocator';
 
 function App() {
 
@@ -86,6 +87,7 @@ function App() {
               }}
             >Register</div>
           </div>
+          <GroupLocator />
         </div>
       </div>
     </>

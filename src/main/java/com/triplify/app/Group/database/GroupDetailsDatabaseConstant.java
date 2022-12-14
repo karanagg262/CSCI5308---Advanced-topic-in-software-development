@@ -13,13 +13,12 @@ public class GroupDetailsDatabaseConstant {
             "trip_end_date";
     public static final String group_destination =
             "destination";
-
     public static final String group_description =
             "group_description";
     public static final String group_type =
             "trip_type";
 
-    public static final String group_creater_user_id =
-            "user_id";
+    public static final String group_creator_user_id =
+            "creator_user_id";
 
 }

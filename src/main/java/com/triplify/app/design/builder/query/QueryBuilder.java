@@ -1,4 +1,4 @@
-package com.triplify.app.service.builder.query;
+package com.triplify.app.design.builder.query;
 
 import java.sql.Connection;
 import java.util.List;

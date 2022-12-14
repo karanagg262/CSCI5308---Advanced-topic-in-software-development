@@ -1,4 +1,4 @@
-package com.triplify.app.service;
+package com.triplify.app.design;
 
 import com.triplify.app.model.Post;
 
