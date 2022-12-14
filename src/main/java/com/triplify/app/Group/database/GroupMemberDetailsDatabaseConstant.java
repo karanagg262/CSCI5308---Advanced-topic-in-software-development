@@ -15,4 +15,10 @@ public class GroupMemberDetailsDatabaseConstant {
             "member_lastname";
     public static final String group_member_details_user_id =
             "user_id";
+    public static final String GROUP_HAS_MEMBERS_GROUP_ID =
+            "group_id";
+    public static final String GROUP_HAS_MEMBERS_USERNAME =
+            "username";
+    public static final String GROUP_HAS_MEMBERS_TABLE =
+            "group_has_members";
 }

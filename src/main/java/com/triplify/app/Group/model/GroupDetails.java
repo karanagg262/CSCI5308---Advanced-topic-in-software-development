@@ -162,7 +162,7 @@ public class GroupDetails implements IGroupDetails{
                 String groupDestination = groupDetailsResultSet.getString(""+group_destination);
                 String groupDescription = groupDetailsResultSet.getString(""+group_description);
                 String groupType = groupDetailsResultSet.getString(""+group_type);
-                Long group_user_id = groupDetailsResultSet.getLong(""+group_creater_user_id);
+                Long group_user_id = groupDetailsResultSet.getLong(""+ group_creator_user_id);
 
                 GroupDetails groupDetails = new GroupDetails(id,groupName,groupStartDate,groupEndDate,groupDestination,groupType,groupDescription,group_user_id);
                 groupDetailsList.add(groupDetails);
