@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface IChecklistController {
     public Map<String, Object> postChecklist(long group_id, String checklist_name, boolean checklisted);
-    public Checklist getChecklist(long groupid);
+    public Map<String, Object> getChecklist(long groupid);
 }
