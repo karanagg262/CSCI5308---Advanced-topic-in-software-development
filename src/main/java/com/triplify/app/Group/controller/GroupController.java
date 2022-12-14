@@ -63,11 +63,18 @@ public class GroupController implements IGroupController {
         PreparedStatement pstmt = dbConnection.prepareStatement(queries.groupMemberRelationshipGetQuery());
         pstmt.setLong(1,group_id);
         ResultSet results = pstmt.executeQuery();
-        List<Long> member_ids = new ArrayList<>();
+        List<Map<String, Object>> members = new ArrayList<>();
+        Find seeker = new Find();
         while(results.next()){
-            member_ids.add(results.getLong(GROUP_HAS_MEMBERS_USERNAME));
+            Map<String, Object> userMap= new HashMap<>();
+            String username = results.getString(GROUP_HAS_MEMBERS_USERNAME);
+            userMap.put("username",username);
+            members.add(userMap);
         }
-        response.put("members", member_ids);
+        for(Map<String, Object> member: members){
+            member.put("id", seeker.findUserIdByUsername((String) member.get("username")));
+        }
+        response.put("members", members);
         }
         catch (SQLIntegrityConstraintViolationException e){
             response.put("Error", "User does not exist.");
