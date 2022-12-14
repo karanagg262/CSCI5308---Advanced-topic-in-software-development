@@ -18,7 +18,6 @@ class GroupDetailsTest {
     @Test
     @DisplayName("Testing group details!!")
     void CreateAllGroupDetailsList() {
-        
         List<GroupDetails> groupDetailsList = new ArrayList<>();
         GroupDetails groupDetails = new GroupDetails();
         groupDetails.setGroupName("G1");

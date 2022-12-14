@@ -21,7 +21,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripType("Public");
         groupDetails.setUsername("viral123");
 
-        GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
+        GroupInsertQueryBuilder groupCreationQueryBuilder = new GroupInsertQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
@@ -43,7 +43,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripType("Public");
         groupDetails.setUsername("viral123");
 
-        GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
+        GroupInsertQueryBuilder groupCreationQueryBuilder = new GroupInsertQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
@@ -65,7 +65,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripType("Public");
         groupDetails.setUsername("viral123");
 
-        GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
+        GroupInsertQueryBuilder groupCreationQueryBuilder = new GroupInsertQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
@@ -87,7 +87,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripType("Public");
         groupDetails.setUsername("viral123");
 
-        GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
+        GroupInsertQueryBuilder groupCreationQueryBuilder = new GroupInsertQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
@@ -108,7 +108,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripType("Public");
         groupDetails.setUsername("viral123");
 
-        GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
+        GroupInsertQueryBuilder groupCreationQueryBuilder = new GroupInsertQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
@@ -130,7 +130,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripType(null);
         groupDetails.setUsername("viral123");
 
-        GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
+        GroupInsertQueryBuilder groupCreationQueryBuilder = new GroupInsertQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
@@ -152,7 +152,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripType("Public");
         groupDetails.setUsername(null);
 
-        GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
+        GroupInsertQueryBuilder groupCreationQueryBuilder = new GroupInsertQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =
@@ -174,7 +174,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripType("Public");
         groupDetails.setUsername("viral123");
 
-        GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
+        GroupInsertQueryBuilder groupCreationQueryBuilder = new GroupInsertQueryBuilder();
 
         final String expectedInsertQuery = groupCreationQueryBuilder.insertGroupQuery(groupDetails);
         final String actualInsertQuery =

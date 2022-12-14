@@ -2,6 +2,6 @@ package com.triplify.app.Group.controller;
 
 import com.triplify.app.Group.model.GroupDetails;
 
-public interface IGroupCreationQueryBuilder {
+public interface IGroupInsertQueryBuilder {
     String insertGroupQuery(GroupDetails groupDetails);
 }

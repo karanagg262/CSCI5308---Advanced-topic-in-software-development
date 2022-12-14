@@ -1,4 +1,4 @@
-package com.triplify.app.model;
+package com.triplify.app.User.model;
 
 public interface IAuthenticationResult {
     public enum AuthenticationResult

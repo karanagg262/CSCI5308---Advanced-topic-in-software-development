@@ -1,7 +1,7 @@
 package com.triplify.app.User.controller;
 import com.triplify.app.User.model.UserTableMock;
-import com.triplify.app.model.IAuthenticationResult;
-import com.triplify.app.model.UserTable;
+import com.triplify.app.User.model.IAuthenticationResult;
+import com.triplify.app.User.model.UserTable;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;

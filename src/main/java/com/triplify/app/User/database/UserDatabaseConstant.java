@@ -1,4 +1,4 @@
-package com.triplify.app.database;
+package com.triplify.app.User.database;
 
 public class UserDatabaseConstant {
     public static final String user_table =

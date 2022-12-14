@@ -17,7 +17,7 @@ public class PostalService implements PostsService{
     public Post createPost(Post post){
         Post postEntity = new Post();
         BeanUtils.copyProperties(post, postEntity);
-        postsRepository.save(postEntity);
+        // postsRepository.save(postEntity);
         return post;
     }
 

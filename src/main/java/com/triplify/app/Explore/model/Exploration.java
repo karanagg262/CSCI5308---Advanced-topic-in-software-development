@@ -11,7 +11,6 @@ import com.triplify.app.Group.model.GroupMembersDetails;
 
 import javax.persistence.Entity;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -126,7 +125,7 @@ public class Exploration {
     }
 
     public void insertQueryInExplorationTable(Exploration exploration) throws DatabaseExceptionHandler {
-        try (final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+        try (final Connection connection = makeDBConnection();
              final Statement statement = connection.createStatement()){
 
             ExplorationTableInsertQueryBuilder explorationTableInsertQueryBuilder
@@ -144,15 +143,6 @@ public class Exploration {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public String joinByUsernameAndGroupId(String username, Long groupId) throws DatabaseExceptionHandler, SQLException {
-        String finalResult = "";
-        Connection connection = makeDBConnection();
-
-
-
-        return null;
     }
 
     private Connection makeDBConnection() throws DatabaseExceptionHandler {

@@ -10,17 +10,14 @@ public class GroupExceptionTest {
     @Test
     @DisplayName("Exploration Constructor Tested")
     public void GroupExceptionTest(){
-        GroupException groupException =
-                new GroupException("Testing");
-        Assertions.assertEquals("GroupException{errorMessage='Testing'}",
-                groupException.toString());
+        GroupException groupException = new GroupException("Testing");
+        Assertions.assertEquals("GroupException{errorMessage='Testing'}", groupException.toString());
     }
 
     @Test
     @DisplayName("Exploration exception getErrorMessage() Tested!!")
     public void getErrorMessageTest(){
-        GroupException groupException =
-                new GroupException("Testing");
+        GroupException groupException = new GroupException("Testing");
         Assertions.assertEquals("Testing", groupException.getErrorMessage());
     }
 }

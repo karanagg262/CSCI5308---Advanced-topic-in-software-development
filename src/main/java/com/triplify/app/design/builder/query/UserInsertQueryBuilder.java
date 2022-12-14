@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.triplify.app.database.UserDatabaseConstant.*;
+import static com.triplify.app.User.database.UserDatabaseConstant.*;
 
 public class UserInsertQueryBuilder implements QueryBuilder {
     private final String baseQuery = "INSERT INTO "+ user_table + "(" +

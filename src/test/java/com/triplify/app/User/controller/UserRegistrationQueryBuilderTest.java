@@ -1,6 +1,6 @@
 package com.triplify.app.User.controller;
 
-import com.triplify.app.model.UserTable;
+import com.triplify.app.User.model.UserTable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

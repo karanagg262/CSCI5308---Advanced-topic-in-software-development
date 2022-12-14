@@ -1,19 +1,19 @@
 package com.triplify.app.Group.database;
 
 public class GroupMemberDetailsDatabaseConstant {
-    public static final String group_member_details_table =
+    public static final String GROUP_MEMBER_DETAILS_TABLE =
             "group_members";
-    public static final String group_member_details_id =
+    public static final String GROUP_MEMBER_DETAILS_ID =
             "group_member_id";
-    public static final String group_member_details_group_name =
+    public static final String GROUP_MEMBER_DETAILS_GROUP_NAME =
             "group_name";
-    public static final String group_member_details_destination =
+    public static final String GROUP_MEMBER_DETAILS_DESTINATION =
             "member_destination";
-    public static final String group_member_details_first_name =
+    public static final String GROUP_MEMBER_DETAILS_FIRST_NAME =
             "member_firstname";
-    public static final String group_member_details_last_name =
+    public static final String GROUP_MEMBER_DETAILS_LAST_NAME =
             "member_lastname";
-    public static final String group_member_details_user_id =
+    public static final String GROUP_MEMBER_DETAILS_USER_ID =
             "user_id";
     public static final String GROUP_HAS_MEMBERS_GROUP_ID =
             "group_id";

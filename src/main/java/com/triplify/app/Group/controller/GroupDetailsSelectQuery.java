@@ -1,10 +1,10 @@
 package com.triplify.app.Group.controller;
 
-import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.group_details_table;
+import static com.triplify.app.Group.database.GroupDetailsDatabaseConstant.GROUP_DETAILS_TABLE;
 
 public class GroupDetailsSelectQuery implements IGroupDetailsSelectQuery {
     @Override
     public String selectQueryForGroup() {
-        return "SELECT * from " + group_details_table;
+        return "SELECT * from " + GROUP_DETAILS_TABLE;
     }
 }
