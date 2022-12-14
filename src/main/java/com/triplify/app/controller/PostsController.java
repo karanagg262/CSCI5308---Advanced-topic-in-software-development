@@ -15,6 +15,7 @@ import static com.triplify.app.database.PostDatabaseConstant.*;
 
 @RestController
 @RequestMapping("api/v1/allposts")
+@CrossOrigin
 public class PostsController {
 
     PostQueryBuilder postQueryBuilder = new PostQueryBuilder();
