@@ -20,7 +20,7 @@ import SettleSummary from './pages/SettleSummary';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Store>
       <BrowserRouter>
         <Routes>
@@ -42,7 +42,7 @@ root.render(
         </Routes>
       </BrowserRouter>
     </Store>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

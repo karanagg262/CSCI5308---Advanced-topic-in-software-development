@@ -14,36 +14,16 @@ function Checklist() {
     let [open, setOpen] = useState(false);
     let [name, updateName] = useState("");
     const [openModal, setOpenModal] = useState(false);
-    let [checklist, updateChecklist] = useState([
-        {
-            name: 'Rain Coat',
-            checked: true
-        },
-        {
-            name: 'Trekking shoes',
-            checked: false
-        },
-        {
-            name: 'Backpack',
-            checked: false
-        },
-        {
-            name: 'SunScreen',
-            checked: false
-        },
-        {
-            name: 'Covid Checklist',
-            checked: false
-        }
-    ]);
+    let [checklist, updateChecklist] = useState([]);
 
     useEffect(() => {
-        fetch(BACKEND_URL + "api/v1/groups/showchecklist?groupid=" + state.group.id, {
+        fetch(BACKEND_URL + "api/v1/groups/showchecklist?group_id=" + state.group.id, {
             method: "GET"
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                updateChecklist(data);
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -57,8 +37,8 @@ function Checklist() {
                 console.log(data);
                 let tempChecklist = [...checklist]
                 let newChecklist = {
-                    name: name,
-                    checked: false
+                    checklist_name: name,
+                    checklisted: false
                 };
                 await tempChecklist.push(newChecklist);
                 await updateChecklist(tempChecklist);
@@ -69,15 +49,16 @@ function Checklist() {
             })
     }
 
-    const toggleChecklistItem = (index, name, state) => {
-        fetch(BACKEND_URL + "api/v1/groups/addchecklist?group_id=" + state.group.id + "&checklist_name=" + name + "&checklisted=" + state, {
+    const toggleChecklistItem = (index, name, checked) => {
+        fetch(BACKEND_URL + "api/v1/groups/addchecklist?group_id=" + state.group.id + "&checklist_name=" + name + "&checklisted=" + checked, {
             method: "PATCH"
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
                 let newChecklist = [...checklist];
-                newChecklist[index].checked = state;
+                newChecklist[index].checklisted = checked;
+                console.log(newChecklist);
                 updateChecklist(newChecklist);
             })
             .catch(err => {
@@ -90,17 +71,17 @@ function Checklist() {
             return (
                 <div className="checklist-item" key={index}>
                     <div className="checklist-item-name">
-                        {item.name}
+                        {item.checklist_name}
                     </div>
                     <div className="checklist-item-checkbox">
-                        <input type="checkbox" checked={item.checked} onChange={() => {
-                            toggleChecklistItem(index, item.name, !item.checked);
+                        <input type="checkbox" checked={item.checklisted} onChange={() => {
+                            toggleChecklistItem(index, item.checklist_name, !item.checklisted);
                         }} />
-                        <FontAwesomeIcon icon={solid("trash")} className="trash-icon" onClick={async () => {
+                        {/* <FontAwesomeIcon icon={solid("trash")} className="trash-icon" onClick={async () => {
                             let newChecklist = [...checklist];
                             await newChecklist.splice(index, 1);
                             await updateChecklist(newChecklist);
-                        }} />
+                        }} /> */}
                     </div>
                 </div>
             );

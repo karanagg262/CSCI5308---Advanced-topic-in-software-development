@@ -12,8 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static com.triplify.app.group.database.GroupDetailsDatabaseConstant.*;
-import static com.triplify.app.group.database.GroupMemberDetailsDatabaseConstant.GROUP_HAS_MEMBERS_GROUP_ID;
-import static com.triplify.app.group.database.GroupMemberDetailsDatabaseConstant.GROUP_HAS_MEMBERS_USERNAME;
+import static com.triplify.app.group.database.GroupMemberDetailsDatabaseConstant.*;
 
 @RestController
 @CrossOrigin
@@ -246,9 +245,16 @@ public class GroupController implements IGroupController {
         }
 
         GroupDetails groupDetailsForCreateGroupResponse = createGroupDetails();
-        Long group_id = groupDetailsForCreateGroupResponse.getId();
 
         Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("select * from `group_details`");
+        Long group_id = Long.valueOf(0);
+        while (resultSet.next()){
+            if(resultSet.getString(""+GROUP_MEMBER_USERNAME).equals(""+username)){
+                group_id = resultSet.getLong(""+GROUP_DETAILS_ID);
+            }
+        }
+        connection = DatabaseConnection.getInstance().getDatabaseConnection();
         GroupMemberDetailsQueryBuilder groupMemberDetailsQueryBuilder = new GroupMemberDetailsQueryBuilder();
         PreparedStatement insertStatement = connection.prepareStatement(groupMemberDetailsQueryBuilder.groupMemberRelationshipInsertQuery());
         insertStatement.setLong(1,group_id);

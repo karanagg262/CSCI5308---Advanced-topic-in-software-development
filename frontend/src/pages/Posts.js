@@ -11,7 +11,7 @@ function Posts() {
     let [groups, updateGroups] = useState([]);
 
     useEffect(() => {
-        fetch(BACKEND_URL + 'api/v1/allposts/posts', {
+        fetch(BACKEND_URL + 'posts', {
             method: 'GET'
         })
             .then((response) => response.json())
@@ -30,7 +30,7 @@ function Posts() {
             return (
                 <div key={group.id} className="explore-tile">
                     <img src={"data:image/png;base64," + group.postImage} alt="halifax" className="explore-image" />
-                    <div>
+                    <div style={{ width: '100%' }}>
                         <div className='explore-name'>
                             <div>{group.destination}</div>
                             <div>{group.postedDate}</div>

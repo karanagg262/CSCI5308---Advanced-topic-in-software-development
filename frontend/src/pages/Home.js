@@ -13,8 +13,8 @@ function Home() {
     const [state, dispatch] = useContext(context);
 
     useEffect(() => {
-        fetch(BACKEND_URL + 'groups', {
-            method: 'GET',
+        fetch(BACKEND_URL + 'groups/groupsByUsername?username=' + state.username, {
+            method: 'POST',
             headers: {
                 accept: 'application/json',
             },
@@ -22,7 +22,7 @@ function Home() {
             .then((response) => response.json())
             .then(async (data) => {
                 console.log('Success:', data);
-                await updateGroups(data);
+                await updateGroups(data.groupDetails);
             })
             .catch((error) => {
                 console.error('Error:', error);

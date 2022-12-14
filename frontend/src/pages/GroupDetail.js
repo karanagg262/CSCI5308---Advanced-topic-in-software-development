@@ -147,6 +147,7 @@ function GroupDetail() {
         // eslint-disable-next-line
         const renderedExpenses = expenses.map((expense) => {
             if (expense.toUsername)
+            expense.full_amount = expense.full_amount > 0 ? expense.full_amount : -expense.full_amount;
                 return (
                     <div key={expense.id} className="expense">
                         <div className="expense-date">
@@ -162,7 +163,7 @@ function GroupDetail() {
                         </div>
                         <div className={expense.fromUsername === state.username ? "expense-amount-positive" : "expense-amount-negative"}>
                             {
-                                expense.amount > 0
+                                expense.amount >= 0
                                     ?
                                     <>
                                         {currencySign[expense.currency]}{expense.amount}
@@ -215,7 +216,7 @@ function GroupDetail() {
                     null
                     :
                     <div className="group-total">
-                        you {total > 0 ? 'owe' : 'are owed'} {currencySign["CAD"]}<span style={total > 0 ? { color: "#14C110" } : { color: "#FF0505" }}>{total > 0 ? total : total * -1}</span>
+                        you {total > 0 ? 'are owed' : 'owe'} {currencySign["CAD"]}<span style={total > 0 ? { color: "#14C110" } : { color: "#FF0505" }}>{total > 0 ? total : total * -1}</span>
                     </div>
             }
             <div>

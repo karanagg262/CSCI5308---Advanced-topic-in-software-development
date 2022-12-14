@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { Switch } from "@mui/material";
 import { BACKEND_URL } from "../Constants";
+import { context } from "../Store";
 
 function AddGroup() {
 
@@ -13,6 +14,7 @@ function AddGroup() {
     let [destination, updateDestination] = useState("");
     let [startDate, updateStartDate] = useState("");
     let [endDate, updateEndDate] = useState("");
+    let [state,] = useContext(context);
     let [isPrivate, togglePrivate] = useState(false);
     const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ function AddGroup() {
         formData.append('groupDestination', destination);
         formData.append('groupDescription', description);
         formData.append('groupType', isPrivate ? 'Private' : 'Public');
-        formData.append('creator_user_id', 11);
+        formData.append('username', state.username);
         console.log(formData);
         fetch(BACKEND_URL + 'groups/createGroup', {
             method: 'POST',

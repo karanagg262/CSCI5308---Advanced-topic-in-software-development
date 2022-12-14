@@ -29,7 +29,7 @@ function SettleUp() {
                         description: "Payment to " + settleWith,
                         amount: {
                             currency_code: "USD",
-                            value: amount,
+                            value: amount < 0 ? -amount : amount,
                         },
                     },
                 ],
@@ -59,6 +59,8 @@ function SettleUp() {
     };
 
     useEffect(() => {
+        // eslint-disable-next-line
+        amount = amount < 0 ? amount * -1 : amount;
         if (success) {
             alert("Payment successful!!");
             fetch(BACKEND_URL + 'api/v1/users/settleexpenses?amount=' + amount + '&fromusername=' + state.username + '&tousername=' + settleWith + '&groupid=' + state.group.id, {
@@ -101,7 +103,7 @@ function SettleUp() {
             </div>
             <div className="login-page">
                 <div className='settle-body'>
-                    <div className='login-header'>${amount}</div>
+                    <div className='login-header'>${amount < 0 ? -amount : amount}</div>
                     <div className='login-subheader'>Paying {settleWith}</div>
                     {/* <div className='paypal-btn'>
                         Paypal

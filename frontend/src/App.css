@@ -413,6 +413,7 @@
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .explore-description {
@@ -427,8 +428,7 @@
 }
 
 .explore-image {
-  height: 100%;
-  width: 25%;
+  max-height: 200px;
   margin-right: 30px;
   border-radius: 10px;
 }
