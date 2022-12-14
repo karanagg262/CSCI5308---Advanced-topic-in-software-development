@@ -23,7 +23,7 @@ public class GroupCreationQueryBuilder implements IGroupCreationQueryBuilder {
                 "\"" +groupDetails.getDestination() + "\", " +
                 "\"" +groupDetails.getGroupDescription() + "\", " +
                 "\"" +groupDetails.getTripType() + "\", " +
-                groupDetails.getUser_id() +
+                groupDetails.getCreator_user_id() +
                 ");";
     }
 }
