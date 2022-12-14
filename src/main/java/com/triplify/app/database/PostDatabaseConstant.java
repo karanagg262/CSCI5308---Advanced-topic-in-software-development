@@ -17,6 +17,6 @@ public class PostDatabaseConstant {
 
     public static final String post_table_posted_date =
             "posted_date";
-    public static final String post_table_userid =
-            "user_id";
+    public static final String post_table_username =
+            "username";
 }

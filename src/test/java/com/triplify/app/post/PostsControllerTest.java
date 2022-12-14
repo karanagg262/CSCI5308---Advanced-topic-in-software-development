@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 
 @DisplayName("Posts Controller Test")
@@ -33,8 +32,8 @@ public class PostsControllerTest {
         String temp = "";
         post.setDestination("Australia");
         post.setDetails("details");
-        post.setPostedDate(new Date(2022,12,12));
-        post.setUserid(new Long(10));
+        post.setPostedDate("12-12-2022");
+        post.setUsername(new Long(10));
         post.setPostImageBytes(temp.getBytes());
         postQueryBuilder.insertPostQuery(post, mockConnection);
     }
