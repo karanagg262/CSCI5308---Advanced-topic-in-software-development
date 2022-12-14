@@ -41,7 +41,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setUser_id(Long.valueOf(15));
+        groupDetails.setCreator_user_id(Long.valueOf(15));
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
@@ -63,7 +63,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setUser_id(Long.valueOf(15));
+        groupDetails.setCreator_user_id(Long.valueOf(15));
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
@@ -85,7 +85,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate(null);
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setUser_id(Long.valueOf(15));
+        groupDetails.setCreator_user_id(Long.valueOf(15));
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
@@ -106,7 +106,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate(null);
         groupDetails.setTripType("Public");
-        groupDetails.setUser_id(Long.valueOf(15));
+        groupDetails.setCreator_user_id(Long.valueOf(15));
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
@@ -128,7 +128,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType(null);
-        groupDetails.setUser_id(Long.valueOf(15));
+        groupDetails.setCreator_user_id(Long.valueOf(15));
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
@@ -150,7 +150,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setUser_id(null);
+        groupDetails.setCreator_user_id(null);
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 
@@ -172,7 +172,7 @@ public class GroupCreationQueryBuilderTest {
         groupDetails.setTripStartDate("12-12-2022");
         groupDetails.setTripEndDate("12-14-2022");
         groupDetails.setTripType("Public");
-        groupDetails.setUser_id(Long.valueOf(15));
+        groupDetails.setCreator_user_id(Long.valueOf(15));
 
         GroupCreationQueryBuilder groupCreationQueryBuilder = new GroupCreationQueryBuilder();
 

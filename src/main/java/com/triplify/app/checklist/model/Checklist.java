@@ -1,4 +1,4 @@
-package com.triplify.app.model;
+package com.triplify.app.checklist.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
