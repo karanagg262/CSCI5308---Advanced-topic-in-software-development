@@ -5,6 +5,6 @@ import com.triplify.app.expenseFeature.model.Expenses;
 
 public interface IAddNewExpenses {
     public void splitExpenses(AddExpenses expenses);
-    public void setExpenses(AddExpenses expenses, float splittedAmount, Long useridlist);
+    public void setExpenses(AddExpenses expenses, float splittedAmount, String useridlist);
     public void settleMyExpenses(Expenses expenses);
 }

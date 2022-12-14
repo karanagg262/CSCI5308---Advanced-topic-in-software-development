@@ -29,11 +29,11 @@ public class AddExpenses {
 
     @Column(name = "currency")
     private String currency;
-    @Column(name = "useridlist")
-    private ArrayList<Long> useridlist;
+    @Column(name = "usernamelist")
+    private ArrayList<String> usernamelist;
 
-    @Column(name = "paidbyuserid")
-    private Long paidbyuserid;
+    @Column(name = "paidbyusername")
+    private String paidbyusername;
     @Column(name = "groupid")
     private Long groupid;
 
@@ -84,19 +84,19 @@ public class AddExpenses {
         this.currency = currency;
     }
 
-    public ArrayList<Long> getUseridlist() {
-        return useridlist;
+    public ArrayList<String> getUsernamelist() {
+        return usernamelist;
     }
 
-    public void setUseridlist(ArrayList<Long> useridlist) {
-        this.useridlist = useridlist;
+    public void setUsernamelist(ArrayList<String> usernamelist) {
+        this.usernamelist = usernamelist;
     }
 
-    public Long getPaidbyuserid() {
-        return paidbyuserid;
+    public String getPaidbyusername() {
+        return paidbyusername;
     }
 
-    public void setPaidbyuserid(Long paidbyuserid) {
-        this.paidbyuserid = paidbyuserid;
+    public void setPaidbyusername(String paidbyusername) {
+        this.paidbyusername = paidbyusername;
     }
 }

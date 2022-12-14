@@ -16,7 +16,7 @@ import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.
 public class SendUserExpense implements ISendUserExpense {
 
     @Override
-    public List<Expenses> fetchMyExpenses(Long userid) {
+    public List<Expenses> fetchMyExpenses(String username) {
         List<Expenses> listOfuserExpenses = new ArrayList<>();
 
         try {
@@ -29,9 +29,9 @@ public class SendUserExpense implements ISendUserExpense {
                     connection.createStatement().executeQuery("select * from User_expenses");
 
             while (userDetailsResultSet.next()) {
-                Long from_user_id = userDetailsResultSet.getLong("" + expenses_table_from_user_id);
-                Long to_user_id = userDetailsResultSet.getLong("" + expenses_table_to_user_id);
-                if((from_user_id.equals(userid) || to_user_id.equals(userid)) && !from_user_id.equals(to_user_id)) {
+                String from_user_id = userDetailsResultSet.getString("" + expenses_table_from_username);
+                String to_user_id = userDetailsResultSet.getString("" + expenses_table_to_username);
+                if((from_user_id.equals(username) || to_user_id.equals(username)) && !from_user_id.equals(to_user_id)) {
 
                     Long id = userDetailsResultSet.getLong("" + expenses_table_id);
                     String transaction_id = userDetailsResultSet.getString("" + expenses_table_transaction_id);
@@ -47,8 +47,8 @@ public class SendUserExpense implements ISendUserExpense {
                     expense.setAmount(amount);
                     expense.setCurrency(currency);
                     expense.setGroupid(id_group_details);
-                    expense.setFromuserid(from_user_id);
-                    expense.setTouserid(to_user_id);
+                    expense.setFromUsername(from_user_id);
+                    expense.setToUsername(to_user_id);
                     listOfuserExpenses.add(expense);
                 }
             }
@@ -65,7 +65,7 @@ public class SendUserExpense implements ISendUserExpense {
         return listOfuserExpenses;
     }
     @Override
-    public float calculateTotalExpense(Long userid) {
+    public float calculateTotalExpense(String username) {
         long total = 0;
         try {
             Connection connection =
@@ -73,13 +73,13 @@ public class SendUserExpense implements ISendUserExpense {
             ResultSet userDetailsResultSet =
                     connection.createStatement().executeQuery("select * from User_expenses");
             while (userDetailsResultSet.next()) {
-                Long from_user_id = userDetailsResultSet.getLong("" + expenses_table_from_user_id);
-                Long to_user_id = userDetailsResultSet.getLong("" + expenses_table_to_user_id);
+                String from_user_id = userDetailsResultSet.getString("" + expenses_table_from_username);
+                String to_user_id = userDetailsResultSet.getString("" + expenses_table_to_username);
                 Float amount = userDetailsResultSet.getFloat("" + expenses_table_amount);
-                if(from_user_id.equals(userid) && (to_user_id.equals(userid)) && from_user_id.equals(to_user_id)){
+                if(from_user_id.equals(username) && (to_user_id.equals(username)) && from_user_id.equals(to_user_id)){
                     total = (long) (total + amount);
                 }
-                if(to_user_id.equals(userid) && !from_user_id.equals(to_user_id)) {
+                if(to_user_id.equals(username) && !from_user_id.equals(to_user_id)) {
                     total = (long) (total + amount);
                 }
             }

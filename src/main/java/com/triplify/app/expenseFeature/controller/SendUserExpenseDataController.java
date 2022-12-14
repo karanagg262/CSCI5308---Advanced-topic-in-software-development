@@ -12,15 +12,15 @@ import java.util.List;
 public class SendUserExpenseDataController implements ISendUserExpenseDataController {
     @GetMapping("/userexpenses")
     @Override
-    public List<Expenses> getAllExpenseDetails(@RequestParam Long userid) {
+    public List<Expenses> getAllExpenseDetails(@RequestParam String username) {
         SendUserExpense sendUserExpense = new SendUserExpense();
-        return sendUserExpense.fetchMyExpenses(userid);
+        return sendUserExpense.fetchMyExpenses(username);
     }
 
     @GetMapping("/calculatetotal")
     @Override
-    public float calculateUserTotalExpense(@RequestParam Long userid) {
+    public float calculateUserTotalExpense(@RequestParam String username) {
         SendUserExpense sendUserExpense = new SendUserExpense();
-        return sendUserExpense.calculateTotalExpense(userid);
+        return sendUserExpense.calculateTotalExpense(username);
     }
 }

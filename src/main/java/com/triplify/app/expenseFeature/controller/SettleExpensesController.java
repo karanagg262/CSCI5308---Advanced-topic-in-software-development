@@ -12,8 +12,8 @@ import java.util.HashMap;
 @RequestMapping(path = "api/v1/users")
 public class SettleExpensesController {
     @GetMapping("/settleExpense")
-    public HashMap<Long, Float> getAllExpenseDetails(@RequestParam Long userid, @RequestParam Long groupid) {
+    public HashMap<String, Float> getAllExpenseDetails(@RequestParam String username, @RequestParam Long groupid) {
         SettleExpenses settleExpenses = new SettleExpenses();
-        return settleExpenses.fetchSettleExpenses(userid, groupid);
+        return settleExpenses.fetchSettleExpenses(username, groupid);
     }
 }

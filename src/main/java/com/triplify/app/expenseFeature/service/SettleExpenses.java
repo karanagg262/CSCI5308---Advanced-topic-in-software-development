@@ -12,32 +12,32 @@ import java.util.Map;
 import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.*;
 
 public class SettleExpenses implements ISettleExpenses {
-    public HashMap<Long, Float> fetchSettleExpenses(Long userid, Long groupid){
-        HashMap<Long, Float> map = new HashMap<Long, Float>();
+    public HashMap<String, Float> fetchSettleExpenses(String username, Long groupid){
+        HashMap<String, Float> map = new HashMap<String, Float>();
         try {
             Connection connection =
                     DatabaseConnection.getInstance().getDatabaseConnection();
             ResultSet userDetailsResultSet =
                     connection.createStatement().executeQuery("select * from User_expenses where id_group_details = " + groupid +
-                            " and ( from_user_id = " + userid + " or to_user_id= " + userid + ");");
+                            " and ( from_username = " + username + " or to_username = " + username + ");");
             while (userDetailsResultSet.next()) {
 
                 Float amount = userDetailsResultSet.getFloat("" + expenses_table_amount);
-                Long from_user_id = userDetailsResultSet.getLong("" + expenses_table_from_user_id);
-                Long to_user_id = userDetailsResultSet.getLong("" + expenses_table_to_user_id);
-                if(!from_user_id.equals(to_user_id)){
-                        if(from_user_id.equals(userid)){
-                            if(map.containsKey(to_user_id)) {
-                                map.put(to_user_id, map.get(to_user_id) + (-1 * amount));
+                String from_username = userDetailsResultSet.getString("" + expenses_table_from_username);
+                String to_username = userDetailsResultSet.getString("" + expenses_table_to_username);
+                if(!from_username.equals(to_username)){
+                        if(from_username.equals(username)){
+                            if(map.containsKey(to_username)) {
+                                map.put(to_username, map.get(to_username) + (-1 * amount));
                             } else {
-                                map.put(to_user_id, -1 * amount);
+                                map.put(to_username, -1 * amount);
                             }
                         }
-                        if(to_user_id.equals(userid)){
-                            if(map.containsKey(to_user_id)) {
-                                map.put(from_user_id, map.get(from_user_id) + amount);
+                        if(to_username.equals(username)){
+                            if(map.containsKey(to_username)) {
+                                map.put(from_username, map.get(from_username) + amount);
                             } else {
-                                map.put(from_user_id, amount);
+                                map.put(from_username, amount);
                             }
                         }
                 }
