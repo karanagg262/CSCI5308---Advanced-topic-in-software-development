@@ -1,6 +1,6 @@
 package com.triplify.app.design;
 
-import com.triplify.app.model.Post;
+import com.triplify.app.post.model.Post;
 
 import java.util.List;
 

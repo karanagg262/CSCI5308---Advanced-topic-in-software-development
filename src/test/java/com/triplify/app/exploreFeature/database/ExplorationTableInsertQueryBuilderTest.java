@@ -1,7 +1,7 @@
 package com.triplify.app.exploreFeature.database;
 
-import com.triplify.app.Explore.database.ExplorationTableInsertQueryBuilder;
-import com.triplify.app.Explore.model.Exploration;
+import com.triplify.app.explore.database.ExplorationTableInsertQueryBuilder;
+import com.triplify.app.explore.model.Exploration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

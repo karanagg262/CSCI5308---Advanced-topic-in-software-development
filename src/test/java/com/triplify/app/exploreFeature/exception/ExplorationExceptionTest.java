@@ -1,6 +1,6 @@
 package com.triplify.app.exploreFeature.exception;
 
-import com.triplify.app.Explore.exception.ExplorationException;
+import com.triplify.app.explore.exception.ExplorationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
