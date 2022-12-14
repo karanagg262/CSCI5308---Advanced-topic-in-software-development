@@ -19,7 +19,7 @@ public class SettleExpenses implements ISettleExpenses {
                     DatabaseConnection.getInstance().getDatabaseConnection();
             ResultSet userDetailsResultSet =
                     connection.createStatement().executeQuery("select * from User_expenses where id_group_details = " + groupid +
-                            " and ( from_username = " + username + " or to_username = " + username + ");");
+                            " and ( from_username = '" + username + "' or to_username = '" + username + "');");
             while (userDetailsResultSet.next()) {
 
                 Float amount = userDetailsResultSet.getFloat("" + expenses_table_amount);

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.Date;
 
 @DisplayName("Expenses addition Table Insert Query Builder Testing!!")
 public class AddExpensesQueryBuilderTest {
@@ -22,6 +23,8 @@ public class AddExpensesQueryBuilderTest {
         final String fromusername = "14";
         final String tousername = "14";
         final Long groupId = Long.valueOf(14);
+        final float full_amount = 56;
+        final String date_added = "2022-02-01";
 
         Expenses expenses = new Expenses();
 
@@ -33,6 +36,8 @@ public class AddExpensesQueryBuilderTest {
         expenses.setFromUsername(fromusername);
         expenses.setToUsername(tousername);
         expenses.setGroupid(groupId);
+        expenses.setFull_amount(full_amount);
+        expenses.setDate_added(date_added);
 
         AddExpensesQueryBuilder addExpensesQueryBuilder =
                 AddExpensesQueryBuilder.getInstance();

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ public class SettleExpensesTest {
         final float amount = 56;
         final String currency = "CAD";
         final ArrayList<String> usernamelist = new ArrayList<String>(Arrays.asList("13", "14", "15","16"));;
+        final float full_amount = 56;
+        final String date_added = "2022-02-01";
 
         final String paidbyusername = "14";
         final Long groupId = Long.valueOf(1);
@@ -39,7 +42,7 @@ public class SettleExpensesTest {
         addExpenses.setGroupid(groupId);
         AddExpensesController addExpensesController = new AddExpensesController();
         addExpensesController.postExpense(description, amount, currency,usernamelist,
-        paidbyusername, groupId);
+        paidbyusername, groupId, date_added);
 
         final String userid = "15";
         final long groupid_demo = 1;

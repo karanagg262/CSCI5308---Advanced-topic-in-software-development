@@ -49,6 +49,8 @@ public class AddNewExpenses implements IAddNewExpenses {
             expense.setFromUsername(expenses.getPaidbyusername());
             expense.setToUsername(useridlist);
             expense.setToUsername(useridlist);
+            expense.setFull_amount(expenses.getFull_amount());
+            expense.setDate_added(expenses.getDate_added());
             addUserExpense.add(expense);
             AddExpensesQueryBuilder addExpensesQueryBuilder = new AddExpensesQueryBuilder();
             final int rowInserted =
@@ -73,7 +75,6 @@ public class AddNewExpenses implements IAddNewExpenses {
                 DatabaseConnection.getInstance().getDatabaseConnection();
             expenses.setAmount(expenses.getAmount()*-1);
             AddExpensesQueryBuilder addExpensesQueryBuilder = new AddExpensesQueryBuilder();
-            System.out.println(expenses.getFromUsername()+"Karan");
             final int rowInserted =
                     addExpensesQueryBuilder.insertExpenseQuery(expenses, connection);
 

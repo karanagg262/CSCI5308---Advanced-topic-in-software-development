@@ -30,8 +30,10 @@ public class AddExpensesQueryBuilder implements IAddExpensesQueryBuilder{
                 expenses_table_currency + ", " +
                 expenses_table_from_username + ", " +
                 expenses_table_to_username + ", " +
+                expenses_table_full_amount + ", " +
+                expenses_table_date_added + ", " +
                 expenses_table_id_group_details + ") " +
-                "VALUES (?,?,?,?,?,?,?);";
+                "VALUES (?,?,?,?,?,?,?,?,?);";
         try{
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setString(1, expenses.getTransaction_id());
@@ -40,7 +42,9 @@ public class AddExpensesQueryBuilder implements IAddExpensesQueryBuilder{
             pstmt.setString(4, expenses.getCurrency());
             pstmt.setString(5, expenses.getFromUsername());
             pstmt.setString(6, expenses.getToUsername());
-            pstmt.setLong(7, expenses.getGroupid());
+            pstmt.setFloat(7, expenses.getFull_amount());
+            pstmt.setString(8, expenses.getDate_added());
+            pstmt.setLong(9, expenses.getGroupid());
             return pstmt.executeUpdate();
 
         } catch (SQLException e) {

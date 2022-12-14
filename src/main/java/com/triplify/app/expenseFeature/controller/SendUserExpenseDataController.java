@@ -9,12 +9,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/users")
+@CrossOrigin
+
 public class SendUserExpenseDataController implements ISendUserExpenseDataController {
     @GetMapping("/userexpenses")
     @Override
-    public List<Expenses> getAllExpenseDetails(@RequestParam String username) {
+    public List<Expenses> getAllExpenseDetails(@RequestParam String username, @RequestParam long groupid) {
         SendUserExpense sendUserExpense = new SendUserExpense();
-        return sendUserExpense.fetchMyExpenses(username);
+        return sendUserExpense.fetchMyExpenses(username, groupid);
     }
 
     @GetMapping("/calculatetotal")
