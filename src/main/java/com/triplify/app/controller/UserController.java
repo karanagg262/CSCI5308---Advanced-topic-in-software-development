@@ -17,8 +17,7 @@ import java.util.Map;
 @CrossOrigin
 public class UserController {
 
-    UserRegistrationQueryBuilder userRegistrationQueryBuild
-            = new UserRegistrationQueryBuilder();
+    UserRegistrationQueryBuilder userRegistrationQueryBuild = new UserRegistrationQueryBuilder();
 
     @PostMapping("users/login")
     public Map<String, Object> loginUser(@RequestParam("emailAddress") String username,
@@ -43,8 +42,7 @@ public class UserController {
 
     @GetMapping("/users")
     public List<UserTable> getAllUsers() throws DatabaseExceptionHandler {
-        Connection connection =
-                DatabaseConnection.getInstance().getDatabaseConnection();
+        Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
         List<UserTable> listOfUserTables = new ArrayList<>();
 
         try {
@@ -66,8 +64,6 @@ public class UserController {
                 UserTable userTable = new UserTable(id,username,firstname,lastname,emailAddress,password,isLoggedIn, image);
                 listOfUserTables.add(userTable);
             }
-
-            connection.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -115,9 +111,7 @@ public class UserController {
         try(final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
             final Statement statement = connection.createStatement()){
 
-            final int rowInserted =
-                    userRegistrationQueryBuild.insertQuery(userTable, connection);
-
+            final int rowInserted = userRegistrationQueryBuild.insertQuery(userTable, connection);
             if(rowInserted > 0){
                 System.out.println("User record inserted into DB");
             }

@@ -24,13 +24,10 @@ public class UserTable {
     private boolean isLoggedIn;
     @NotNull
     private String password;
-
     private String username;
-
     @Lob
     @Column(name="prof_pic")
     private Blob profPic;
-
     private byte[] profPicBytes;
     private String dob;
 
@@ -54,7 +51,6 @@ public class UserTable {
     public String getDob() {
         return dob;
     }
-
 
     public UserTable(){
 
@@ -89,8 +85,6 @@ public class UserTable {
                 ", profPic=" + Arrays.toString(new Blob[]{profPic}) +
                 '}';
     }
-
-
 
     public Long getId() {
         return id;

@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import static com.triplify.app.database.UserDatabaseConstant.*;
 
 public class UserRegistrationQueryBuilder {
-
     public int insertQuery(final UserTable userTable, Connection connection){
         String query = "INSERT INTO "+ user_table + "(" +
                 user_table_username + ", " +
