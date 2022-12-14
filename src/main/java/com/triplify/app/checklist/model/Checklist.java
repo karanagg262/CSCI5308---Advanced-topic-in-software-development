@@ -19,8 +19,8 @@ public class Checklist {
     @Column(name = "checklisted")
     private boolean checklisted;
 
-    @Column(name = "user_id")
-    private Long user_id;
+    @Column(name = "checklist_id")
+    private Long checklist_id;
 
     public Long getGroup_id() {
         return group_id;
@@ -46,11 +46,11 @@ public class Checklist {
         this.checklisted = checklisted;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getchecklist_id() {
+        return checklist_id;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setchecklist_id(Long checklist_id) {
+        this.checklist_id = checklist_id;
     }
 }

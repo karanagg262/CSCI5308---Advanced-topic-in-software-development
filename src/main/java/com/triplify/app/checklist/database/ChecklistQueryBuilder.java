@@ -14,14 +14,14 @@ public class ChecklistQueryBuilder {
                 checklist_groupid + ", " +
                 checklist_checklist + ", " +
                 checklist_checklisted + ", " +
-                checklist_userid + ") " +
+                checklisted_id + ") " +
                 "VALUES (?,?,?,?);";
         try{
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setLong(1, checklist.getGroup_id());
             pstmt.setString(2, checklist.getChecklist_name());
             pstmt.setBoolean(3, checklist.isChecklisted());
-            pstmt.setLong(4, checklist.getUser_id());
+            pstmt.setLong(4, checklist.getchecklist_id());
 
             return pstmt.executeUpdate();
 

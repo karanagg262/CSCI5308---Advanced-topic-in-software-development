@@ -13,6 +13,6 @@ public class ChecklistDatabaseConstant {
     public static final String checklist_checklisted =
             "checklisted";
 
-    public static final String checklist_userid =
-            "user_id";
+    public static final String checklisted_id =
+            "checklist_id";
 }

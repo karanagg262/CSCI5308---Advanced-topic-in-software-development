@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import java.sql.Date;
 import java.util.ArrayList;
 
 @Entity
@@ -36,6 +36,11 @@ public class AddExpenses {
     private String paidbyusername;
     @Column(name = "groupid")
     private Long groupid;
+    @Column(name = "full_amount")
+    private float full_amount;
+
+    @Column(name = "date_added")
+    private String date_added;
 
     public Long getGroupid() {
         return groupid;
@@ -98,5 +103,21 @@ public class AddExpenses {
 
     public void setPaidbyusername(String paidbyusername) {
         this.paidbyusername = paidbyusername;
+    }
+
+    public float getFull_amount() {
+        return full_amount;
+    }
+
+    public void setFull_amount(float full_amount) {
+        this.full_amount = full_amount;
+    }
+
+    public String getDate_added() {
+        return date_added;
+    }
+
+    public void setDate_added(String date_added) {
+        this.date_added = date_added;
     }
 }

@@ -7,11 +7,13 @@ import com.triplify.app.expenseFeature.service.AddNewExpenses;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Random;
 
 @RestController
 @RequestMapping(path = "api/v1/users")
+@CrossOrigin
 
 public class AddExpensesController implements  IAddExpensesController{
     @PostMapping("/addexpenses")
@@ -21,7 +23,8 @@ public class AddExpensesController implements  IAddExpensesController{
                             @RequestParam("currency") String currency,
                             @RequestParam("usernamelist") ArrayList<String> usernamelist,
                             @RequestParam("paidbyusername") String paidbyusername,
-                            @RequestParam("groupid") long groupid) {
+                            @RequestParam("groupid") long groupid,
+                            @RequestParam("dateadded") String date_added) {
         AddExpenses expenses = new AddExpenses();
         int upperbound = 25;
         Random rand = new Random();;
@@ -37,6 +40,8 @@ public class AddExpensesController implements  IAddExpensesController{
         expenses.setUsernamelist(usernamelist);
         expenses.setPaidbyusername(paidbyusername);
         expenses.setGroupid(groupid);
+        expenses.setFull_amount(amount);
+        expenses.setDate_added(date_added);
         AddNewExpenses addNewExpenses = new AddNewExpenses();
         addNewExpenses.splitExpenses(expenses);
     }
@@ -62,8 +67,9 @@ public class AddExpensesController implements  IAddExpensesController{
         expenses.setFromUsername(fromusername);
         expenses.setToUsername(tousername);
         expenses.setGroupid(groupid);
+        expenses.setFull_amount(amount);
+        expenses.setDate_added(null);
         AddNewExpenses addNewExpenses = new AddNewExpenses();
-        System.out.println("karan"+expenses.getFromUsername());
         addNewExpenses.settleMyExpenses(expenses);
     }
 }

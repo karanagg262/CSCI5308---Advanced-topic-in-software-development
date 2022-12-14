@@ -5,6 +5,7 @@ import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.expenseFeature.model.Expenses;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import static com.triplify.app.expenseFeature.database.ExpenseDatabaseContstant.
 public class SendUserExpense implements ISendUserExpense {
 
     @Override
-    public List<Expenses> fetchMyExpenses(String username) {
+    public List<Expenses> fetchMyExpenses(String username, long groupid) {
         List<Expenses> listOfuserExpenses = new ArrayList<>();
 
         try {
@@ -26,7 +27,9 @@ public class SendUserExpense implements ISendUserExpense {
             System.out.println(connection.getCatalog());
 
             ResultSet userDetailsResultSet =
-                    connection.createStatement().executeQuery("select * from User_expenses");
+                    connection.createStatement().executeQuery("select * from User_expenses where id_group_details " +
+                            "= " + groupid + " ;");
+
 
             while (userDetailsResultSet.next()) {
                 String from_user_id = userDetailsResultSet.getString("" + expenses_table_from_username);
@@ -39,6 +42,8 @@ public class SendUserExpense implements ISendUserExpense {
                     Float amount = userDetailsResultSet.getFloat("" + expenses_table_amount);
                     String currency = userDetailsResultSet.getString("" + expenses_table_currency);
                     Long id_group_details = userDetailsResultSet.getLong("" + expenses_table_id_group_details);
+                    Float total_amount = userDetailsResultSet.getFloat("" + expenses_table_full_amount);
+                    String date_added = userDetailsResultSet.getString("" + expenses_table_date_added);
 
                     Expenses expense = new Expenses();
                     expense.setId(id);
@@ -49,6 +54,8 @@ public class SendUserExpense implements ISendUserExpense {
                     expense.setGroupid(id_group_details);
                     expense.setFromUsername(from_user_id);
                     expense.setToUsername(to_user_id);
+                    expense.setFull_amount(total_amount);
+                    expense.setDate_added(date_added);
                     listOfuserExpenses.add(expense);
                 }
             }

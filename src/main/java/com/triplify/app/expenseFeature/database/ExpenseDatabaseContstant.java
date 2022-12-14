@@ -24,4 +24,8 @@ public class ExpenseDatabaseContstant {
             "from_username";
     public static final String expenses_table_to_username =
             "to_username";
+    public static final String expenses_table_full_amount =
+            "full_amount";
+    public static final String expenses_table_date_added =
+            "date_added";
 }
