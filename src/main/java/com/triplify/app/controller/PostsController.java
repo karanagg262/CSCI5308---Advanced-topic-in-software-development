@@ -47,7 +47,7 @@ public class PostsController {
         return posts;
     }
 
-    @PostMapping("/savepost")
+    @PostMapping(value="/savepost", consumes = {"multipart/form-data"})
     public void savePost( @RequestParam("destination") String destination,
                           @RequestParam("details") String details,
                           @RequestParam("postedDate") Date postedDate,
