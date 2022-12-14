@@ -12,12 +12,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static com.triplify.app.database.UserDatabaseConstant.*;
 
 @RestController
 @CrossOrigin
 public class UserController {
 
     UserRegistrationQueryBuilder userRegistrationQueryBuild = new UserRegistrationQueryBuilder();
+
+    private UserTable createUserTable() {
+        IUserCreationFactory iGroupCreationFactory = UserFactory.factorySingleton();
+        return iGroupCreationFactory.makeUserTable();
+    }
 
     @PostMapping("users/login")
     public Map<String, Object> loginUser(@RequestParam("emailAddress") String username,
@@ -37,6 +43,46 @@ public class UserController {
                 response.put("MESSAGE", "Incorrect username or password");
             }
         }
+        return response;
+    }
+
+    @PostMapping("/usersDetails")
+    public Map<String, Object> getUserDetails(@RequestParam("username") String username) throws DatabaseExceptionHandler {
+        Map<String, Object> response = new HashMap<>();
+        List<UserTable> userTableList = new ArrayList<>();
+
+        UserTable userTable = createUserTable();
+
+        Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
+        try{
+            UserDetailsQueryBuilder userDetailsQueryBuilder = new UserDetailsQueryBuilder();
+            final String selectUserDetailsQuery = userDetailsQueryBuilder.selectQuery() + "\"" + username + "\"";
+            ResultSet resultSet = connection.createStatement().executeQuery(selectUserDetailsQuery);
+
+            while (resultSet.next()){
+                userTable.setId(resultSet.getLong(""+user_table_id));
+                userTable.setFirstname(resultSet.getString(""+user_table_first_name));
+                userTable.setLastname(resultSet.getString(""+user_table_last_name));
+                userTable.setEmailAddress(resultSet.getString(""+user_table_email_address));
+                if(resultSet.getBytes(""+user_image) != null){
+                    userTable.setProfPic(resultSet.getBytes(""+user_image));
+                }else{
+                    userTable.setProfPic(new byte[]{});
+                }
+
+                userTableList.add(userTable);
+            }
+
+            response.put("SUCCESS", true);
+            response.put("MESSAGE", "Successfully user details sent");
+            response.put("UserDetails",userTableList);
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            response.put("SUCCESS", false);
+            response.put("MESSAGE", "User details not there!!");
+        }
+
         return response;
     }
 
