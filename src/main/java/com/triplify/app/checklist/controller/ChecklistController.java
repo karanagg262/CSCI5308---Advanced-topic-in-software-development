@@ -24,15 +24,11 @@ public class ChecklistController implements IChecklistController {
                                              @RequestParam("checklist_name") String checklist_name,
                                              @RequestParam("checklisted") boolean checklisted)
     {
-        Random rand = new Random();
-        int upperbound = 10000;
-        long checklist_id = rand.nextLong(upperbound);
         Map<String,Object> response = new HashMap<>();
         Checklist checklist = new Checklist();
         checklist.setGroup_id(group_id);
         checklist.setChecklist_name(checklist_name);
         checklist.setChecklisted(checklisted);
-        checklist.setchecklist_id(checklist_id);
         try {
             Connection connection =
                     DatabaseConnection.getInstance().getDatabaseConnection();
@@ -56,9 +52,9 @@ public class ChecklistController implements IChecklistController {
         return response;
     }
 
-    @PostMapping("/showchecklist")
+    @GetMapping("/showchecklist")
     @Override
-    public Map<String, Object> getChecklist(@RequestParam("group_id") long groupid) {
+    public List<Checklist> getChecklist(@RequestParam("group_id") long groupid) {
 
         List<Checklist> checklists = new ArrayList<>();
         Map<String, Object> responseObject = new HashMap<>();
@@ -72,10 +68,10 @@ public class ChecklistController implements IChecklistController {
 
             while (userChecklistResultSet.next()) {
                 Checklist checklist = new Checklist();
+                System.out.println("karan" + userChecklistResultSet.getLong("" + checklist_groupid));
                 checklist.setGroup_id(userChecklistResultSet.getLong("" + checklist_groupid));
                 checklist.setChecklist_name(userChecklistResultSet.getString("" + checklist_checklist));
                 checklist.setChecklisted(userChecklistResultSet.getBoolean("" + checklist_checklisted));
-                checklist.setchecklist_id(userChecklistResultSet.getLong("" + checklisted_id));
 
                 checklists.add(checklist);
             }
@@ -90,13 +86,40 @@ public class ChecklistController implements IChecklistController {
             throw new RuntimeException(e);
         }
 
-        if (checklists.size() > 0){
-            return responseObject;
-        }else{
-            responseObject.put("SUCCESS",false);
-            responseObject.put("MESSAGE","Something went wrong!!");
-            responseObject.put("checkList",new ArrayList<>());
-            return responseObject;
+        return checklists;
+    }
+
+    @PatchMapping("/addchecklist")
+    @Override
+    public Map<String, Object> patchChecklist(@RequestParam("group_id") long group_id,
+                                             @RequestParam("checklist_name") String checklist_name,
+                                             @RequestParam("checklisted") boolean checklisted)
+    {
+        Map<String,Object> response = new HashMap<>();
+        Checklist checklist = new Checklist();
+        checklist.setGroup_id(group_id);
+        checklist.setChecklist_name(checklist_name);
+        checklist.setChecklisted(checklisted);
+        try {
+            Connection connection =
+                    DatabaseConnection.getInstance().getDatabaseConnection();
+            ChecklistQueryBuilder checklistQueryBuilder = new ChecklistQueryBuilder();
+            final int rowUpdated =
+                    checklistQueryBuilder.updateChecklistQuery(checklist, connection);
+            response.put("SUCCESS",true);
+            response.put("MESSAGE","Checklist is added successfully");
+            if (connection != null) {
+                connection.close();
+            }
+        }  catch (SQLException e) {
+            response.put("SUCCESS",false);
+            response.put("MESSAGE","Checklist is not added!!");
+            throw new RuntimeException(e);
+        } catch (DatabaseExceptionHandler e) {
+            response.put("SUCCESS",false);
+            response.put("MESSAGE","Checklist is not added!!");
+            throw new RuntimeException(e);
         }
+        return response;
     }
 }
