@@ -1,8 +1,8 @@
 package com.triplify.app.location.controller;
 
-import com.triplify.app.utils.Seeker;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
+import com.triplify.app.utils.Seeker;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;

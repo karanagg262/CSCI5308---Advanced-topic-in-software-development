@@ -65,7 +65,7 @@ public class PostsController {
         try (final Connection connection = DatabaseConnection.getInstance().getDatabaseConnection();
              final Statement statement = connection.createStatement()) {
             final int rowInserted =
-                    postQueryBuilder.insertPostQuery(post, connection);
+                    PostQueryBuilder.insertPostQuery(post, connection);
 
             if (rowInserted > 0) {
                 response.put("SUCCESS", true);

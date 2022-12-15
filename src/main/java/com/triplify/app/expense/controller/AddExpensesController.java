@@ -1,12 +1,12 @@
 package com.triplify.app.expense.controller;
 
+import com.triplify.app.expense.algorithms.AddNewExpenses;
 import com.triplify.app.expense.model.AddExpenses;
 import com.triplify.app.expense.model.Expenses;
-import com.triplify.app.expense.service.AddNewExpenses;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,12 +29,12 @@ public class AddExpensesController implements  IAddExpensesController{
         Map<String,Object> response = new HashMap<>();
         AddExpenses expenses = new AddExpenses();
         int upperbound = 25;
-        Random rand = new Random();;
+        Random rand = new Random();
         long int_random = rand.nextLong(upperbound);
         expenses.setId(int_random);
         byte[] array = new byte[7];
         new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-8"));
+        String generatedString = new String(array, StandardCharsets.UTF_8);
         expenses.setTransaction_id(generatedString);
         expenses.setDescription(description);
         expenses.setAmount(amount);
@@ -60,12 +60,12 @@ public class AddExpensesController implements  IAddExpensesController{
         Map<String, Object> response = new HashMap<>();
         Expenses expenses = new Expenses();
         int upperbound = 25;
-        Random rand = new Random();;
+        Random rand = new Random();
         long int_random = rand.nextLong(upperbound);
         expenses.setId(int_random);
         byte[] array = new byte[7];
         new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-8"));
+        String generatedString = new String(array, StandardCharsets.UTF_8);
         expenses.setTransaction_id(generatedString);
         expenses.setDescription(" ");
         expenses.setAmount(amount);

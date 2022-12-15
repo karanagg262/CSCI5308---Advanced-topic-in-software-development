@@ -1,7 +1,7 @@
 package com.triplify.app.group.controller;
 
-import com.triplify.app.group.exception.GroupException;
 import com.triplify.app.database.DatabaseExceptionHandler;
+import com.triplify.app.group.exception.GroupException;
 
 import java.sql.SQLException;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.triplify.app.expense.service;
+package com.triplify.app.expense.algorithms;
 
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.triplify.app.expense.database.ExpenseDatabaseContstant.*;
-import static com.triplify.app.expense.database.ExpenseDatabaseContstant.expenses_table_id_group_details;
 
 public class SendUserExpense implements ISendUserExpense {
 

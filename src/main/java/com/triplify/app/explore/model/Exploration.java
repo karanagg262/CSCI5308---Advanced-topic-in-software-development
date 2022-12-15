@@ -1,11 +1,11 @@
 package com.triplify.app.explore.model;
 
+import com.triplify.app.database.DatabaseConnection;
+import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.explore.database.ExplorationTableInsertQueryBuilder;
 import com.triplify.app.explore.exception.ExplorationException;
 import com.triplify.app.group.controller.GroupAddMemberController;
 import com.triplify.app.group.controller.GroupController;
-import com.triplify.app.database.DatabaseConnection;
-import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.group.model.GroupDetails;
 import com.triplify.app.group.model.GroupMembersDetails;
 

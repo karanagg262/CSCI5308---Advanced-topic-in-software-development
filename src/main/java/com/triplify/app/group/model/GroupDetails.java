@@ -1,9 +1,9 @@
 package com.triplify.app.group.model;
 
-import com.triplify.app.group.controller.GroupDetailsSelectQuery;
-import com.triplify.app.group.database.GroupInsertQueryBuilder;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
+import com.triplify.app.group.controller.GroupDetailsSelectQuery;
+import com.triplify.app.group.database.GroupInsertQueryBuilder;
 
 import javax.persistence.*;
 import java.sql.Connection;

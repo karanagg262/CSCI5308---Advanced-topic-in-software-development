@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface IExplorationFactory {
-    public Exploration makeExploration();
+    Exploration makeExploration();
 }

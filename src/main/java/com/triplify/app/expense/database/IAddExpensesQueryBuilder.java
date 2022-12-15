@@ -5,5 +5,5 @@ import com.triplify.app.expense.model.Expenses;
 import java.sql.Connection;
 
 public interface IAddExpensesQueryBuilder {
-    public int insertExpenseQuery(final Expenses expenses, Connection connection);
+    int insertExpenseQuery(final Expenses expenses, Connection connection);
 }

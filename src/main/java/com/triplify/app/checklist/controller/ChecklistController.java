@@ -1,15 +1,18 @@
 package com.triplify.app.checklist.controller;
 
 import com.triplify.app.checklist.database.ChecklistQueryBuilder;
+import com.triplify.app.checklist.model.Checklist;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.checklist.model.Checklist;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.triplify.app.checklist.database.ChecklistDatabaseConstant.*;
 

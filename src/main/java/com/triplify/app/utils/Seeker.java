@@ -1,8 +1,8 @@
 package com.triplify.app.utils;
 
-import com.triplify.app.group.database.GroupMemberDetailsQueryBuilder;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
+import com.triplify.app.group.database.GroupMemberDetailsQueryBuilder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

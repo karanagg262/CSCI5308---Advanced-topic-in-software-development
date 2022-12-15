@@ -1,13 +1,13 @@
 package com.triplify.app.design;
 
-import com.triplify.app.post.model.Post;
 import com.triplify.app.post.database.PostsRepository;
+import com.triplify.app.post.model.Post;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
 
 public class PostalService implements PostsService{
-    private PostsRepository postsRepository;
+    private final PostsRepository postsRepository;
 
     public PostalService(PostsRepository postsRepository){
         this.postsRepository = postsRepository;
