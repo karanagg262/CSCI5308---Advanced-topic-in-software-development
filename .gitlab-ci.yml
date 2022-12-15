@@ -1,16 +1,25 @@
-image: maven:3-jdk-8
+image: devayansarkar/maven-node-openjdk
 
 stages:
-    - build
+  - build
+  - test
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-  
+
+
 cache:
   paths:
     - .m2/repository/
-    - target/app
+    - target/
 
 maven-build-stage:
-    stage: build
-    script: mvn clean install
+  stage: build
+  script:
+    - echo $JAVA_HOME
+    - mvn clean install
+
+maven-test-stage:
+  stage: test
+  script:
+    - mvn test
