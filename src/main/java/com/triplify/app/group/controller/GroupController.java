@@ -1,18 +1,21 @@
 package com.triplify.app.group.controller;
 
+import com.triplify.app.database.DatabaseConnection;
+import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.group.controller.algo.Find;
 import com.triplify.app.group.database.GroupMemberDetailsQueryBuilder;
 import com.triplify.app.group.model.GroupDetails;
-import com.triplify.app.database.DatabaseConnection;
-import com.triplify.app.database.DatabaseExceptionHandler;
 import org.springframework.web.bind.annotation.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import static com.triplify.app.group.database.GroupDetailsDatabaseConstant.*;
-import static com.triplify.app.group.database.GroupMemberDetailsDatabaseConstant.*;
+import static com.triplify.app.group.database.GroupMemberDetailsDatabaseConstant.GROUP_HAS_MEMBERS_GROUP_ID;
+import static com.triplify.app.group.database.GroupMemberDetailsDatabaseConstant.GROUP_HAS_MEMBERS_USERNAME;
 
 @RestController
 @CrossOrigin

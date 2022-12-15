@@ -129,8 +129,7 @@ public class UserTable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserTable)) return false;
-        UserTable user = (UserTable) o;
+        if (!(o instanceof UserTable user)) return false;
         return Objects.equals(emailAddress, user.emailAddress) &&
                 Objects.equals(password, user.password);
     }

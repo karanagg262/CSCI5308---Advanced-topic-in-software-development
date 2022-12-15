@@ -3,9 +3,9 @@ package com.triplify.app.User.controller;
 import com.triplify.app.User.database.UpdateUserTableQueryBuilder;
 import com.triplify.app.User.database.UserDetailsQueryBuilder;
 import com.triplify.app.User.database.UserRegistrationQueryBuilder;
+import com.triplify.app.User.model.UserTable;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.User.model.UserTable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import static com.triplify.app.User.database.UserDatabaseConstant.*;
 
 @RestController

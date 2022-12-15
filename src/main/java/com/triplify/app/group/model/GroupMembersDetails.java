@@ -1,13 +1,13 @@
 package com.triplify.app.group.model;
 
+import com.triplify.app.User.controller.UserController;
+import com.triplify.app.User.model.UserTable;
+import com.triplify.app.database.DatabaseConnection;
+import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.group.controller.GroupController;
 import com.triplify.app.group.controller.GroupFactory;
 import com.triplify.app.group.controller.GroupMembersDetailsSelectQuery;
 import com.triplify.app.group.database.GroupMemberDetailsQueryBuilder;
-import com.triplify.app.User.controller.UserController;
-import com.triplify.app.database.DatabaseConnection;
-import com.triplify.app.database.DatabaseExceptionHandler;
-import com.triplify.app.User.model.UserTable;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

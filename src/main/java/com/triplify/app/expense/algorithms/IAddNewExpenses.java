@@ -6,7 +6,7 @@ import com.triplify.app.expense.model.Expenses;
 import java.util.Map;
 
 public interface IAddNewExpenses {
-    public Map<String, Object> splitExpenses(AddExpenses expenses);
-    public Map<String, Object> setExpenses(AddExpenses expenses, float splittedAmount, String useridlist);
-    public Map<String, Object> settleMyExpenses(Expenses expenses);
+    Map<String, Object> splitExpenses(AddExpenses expenses);
+    Map<String, Object> setExpenses(AddExpenses expenses, float splittedAmount, String useridlist);
+    Map<String, Object> settleMyExpenses(Expenses expenses);
 }

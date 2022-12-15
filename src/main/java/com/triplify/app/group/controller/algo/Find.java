@@ -2,6 +2,7 @@ package com.triplify.app.group.controller.algo;
 
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,8 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.triplify.app.group.database.GroupMemberDetailsDatabaseConstant.*;
 import static com.triplify.app.User.database.UserDatabaseConstant.*;
+import static com.triplify.app.group.database.GroupMemberDetailsDatabaseConstant.*;
 
 public class Find {
     public Long findUserIdByUsername(String username) throws DatabaseExceptionHandler, SQLException {

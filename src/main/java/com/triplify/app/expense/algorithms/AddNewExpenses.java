@@ -3,8 +3,8 @@ package com.triplify.app.expense.algorithms;
 import com.triplify.app.database.DatabaseConnection;
 import com.triplify.app.database.DatabaseExceptionHandler;
 import com.triplify.app.expense.database.AddExpensesQueryBuilder;
-import com.triplify.app.expense.model.Expenses;
 import com.triplify.app.expense.model.AddExpenses;
+import com.triplify.app.expense.model.Expenses;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AddNewExpenses implements IAddNewExpenses {
-    private static List<Expenses> addUserExpense = new ArrayList<>();
+    private static final List<Expenses> addUserExpense = new ArrayList<>();
     @Override
     public Map<String,Object> splitExpenses(AddExpenses expenses) {
         Map<String,Object> response = new HashMap<>();

@@ -5,7 +5,10 @@ import com.triplify.app.explore.exception.ExplorationException;
 import com.triplify.app.explore.model.Exploration;
 import com.triplify.app.group.model.GroupDetails;
 import com.triplify.app.group.model.GroupMembersDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class ExplorationController implements IExplorationController {
-    private Exploration exploration;
+    private final Exploration exploration;
 
     public ExplorationController(){
         exploration = createExploration();
