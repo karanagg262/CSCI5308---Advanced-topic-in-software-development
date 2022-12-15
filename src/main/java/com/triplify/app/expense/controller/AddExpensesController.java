@@ -2,7 +2,7 @@ package com.triplify.app.expense.controller;
 
 import com.triplify.app.expense.model.AddExpenses;
 import com.triplify.app.expense.model.Expenses;
-import com.triplify.app.expense.service.AddNewExpenses;
+import com.triplify.app.expense.algorithms.AddNewExpenses;
 
 import org.springframework.web.bind.annotation.*;
 

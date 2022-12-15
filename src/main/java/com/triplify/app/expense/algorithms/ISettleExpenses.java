@@ -1,4 +1,4 @@
-package com.triplify.app.expense.service;
+package com.triplify.app.expense.algorithms;
 
 import java.util.HashMap;
 

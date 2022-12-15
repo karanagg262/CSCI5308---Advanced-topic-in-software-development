@@ -1,7 +1,7 @@
 package com.triplify.app.expense.controller;
 
 import com.triplify.app.expense.model.Expenses;
-import com.triplify.app.expense.service.SendUserExpense;
+import com.triplify.app.expense.algorithms.SendUserExpense;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
